@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useRef, useLayoutEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
 import type { Domain } from '../../types'
 
 interface Props {
@@ -16,91 +17,99 @@ function getWeightStyle(weight: number) {
   return WEIGHT_COLORS.find((c) => weight >= c.min) ?? WEIGHT_COLORS[3]
 }
 
-// 긴 텍스트를 가독성 있게 포맷팅
-// "용어: 정의" 패턴이 있으면 항목 앞에 단락 구분자 추가
-function formatContent(text: string): string {
+interface AccordionContentProps {
+  isOpen: boolean
+  children: React.ReactNode
+}
+
+function AccordionContent({ isOpen, children }: AccordionContentProps) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    el.style.maxHeight = isOpen ? `${el.scrollHeight}px` : '0'
+  }, [isOpen])
+
+  // Re-measure on content changes (images/fonts loading)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el || !isOpen) return
+    const ro = new ResizeObserver(() => {
+      el.style.maxHeight = `${el.scrollHeight}px`
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [isOpen])
+
   return (
-    text
-      // "영문 용어(한글): " 패턴 앞에 단락 구분
-      .replace(/\.\s+([A-Z][A-Za-z\s()·.-]{1,35}:\s)/g, '.\n\n$1')
-      // "한글 용어: " 패턴 앞에 단락 구분
-      .replace(/\.\s+([가-힣][가-힣\w\s()·]{1,20}:\s)/g, '.\n\n$1')
-      // 나머지 문장 구분 (마침표 뒤 한글/영문 대문자)
-      .replace(/\.\s+([가-힣A-Z])/g, '.\n$1')
+    <div
+      ref={ref}
+      style={{ maxHeight: 0, overflow: 'hidden', transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}
+    >
+      {children}
+    </div>
   )
 }
 
-interface ContentRendererProps {
+interface MarkdownContentProps {
   content: string
   accentColor: string
 }
 
-function ContentRenderer({ content, accentColor }: ContentRendererProps) {
-  const formatted = formatContent(content)
-  // 단락으로 분리 (빈 줄 기준)
-  const paragraphs = formatted.split('\n\n').filter(Boolean)
-
-  if (paragraphs.length <= 1) {
-    // 단락 구분이 없으면 줄바꿈만 적용
-    const lines = formatted.split('\n').filter(Boolean)
-    return (
-      <div className="space-y-1.5">
-        {lines.map((line, i) => (
-          <p key={i} className="text-space-300 text-sm leading-relaxed">
-            {line}
-          </p>
-        ))}
-      </div>
-    )
-  }
-
+function MarkdownContent({ content, accentColor }: MarkdownContentProps) {
   return (
-    <div className="space-y-2">
-      {paragraphs.map((para, i) => {
-        const lines = para.split('\n').filter(Boolean)
-        // 첫 줄이 "용어: " 패턴이면 강조 스타일 적용
-        const firstLine = lines[0] ?? ''
-        const termMatch = firstLine.match(/^([A-Za-z가-힣][\w\s()·.-]{1,40}?):\s+(.*)$/)
-
-        if (termMatch) {
-          const [, term, rest] = termMatch
-          const bodyLines = rest ? [rest, ...lines.slice(1)] : lines.slice(1)
-          return (
-            <div
-              key={i}
-              className="rounded-lg px-3 py-2.5"
-              style={{
-                background: `${accentColor}08`,
-                borderLeft: `2px solid ${accentColor}35`,
-              }}
-            >
-              <span
-                className="mono text-xs font-bold tracking-wide"
-                style={{ color: accentColor }}
-              >
-                {term}
-              </span>
-              {bodyLines.length > 0 && (
-                <div className="mt-1 space-y-1">
-                  {bodyLines.map((line, j) => (
-                    <p key={j} className="text-space-200 text-sm leading-relaxed">{line}</p>
-                  ))}
-                </div>
-              )}
-            </div>
-          )
-        }
-
-        // 일반 단락
-        return (
-          <div key={i} className="space-y-1">
-            {lines.map((line, j) => (
-              <p key={j} className="text-space-300 text-sm leading-relaxed">{line}</p>
-            ))}
-          </div>
-        )
-      })}
-    </div>
+    <ReactMarkdown
+      components={{
+        h1: ({ children }) => (
+          <h1 className="display font-bold text-base text-space-50 mt-4 mb-2">{children}</h1>
+        ),
+        h2: ({ children }) => (
+          <h2 className="display font-semibold text-sm text-space-100 mt-3 mb-1.5">{children}</h2>
+        ),
+        h3: ({ children }) => (
+          <h3 className="display font-semibold text-sm mt-3 mb-1.5" style={{ color: accentColor }}>{children}</h3>
+        ),
+        p: ({ children }) => (
+          <p className="text-space-300 text-sm leading-relaxed mb-2">{children}</p>
+        ),
+        ul: ({ children }) => (
+          <ul className="space-y-1 mb-2 pl-1">{children}</ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="space-y-1 mb-2 pl-1 list-decimal list-inside">{children}</ol>
+        ),
+        li: ({ children }) => (
+          <li className="text-space-300 text-sm leading-relaxed flex gap-2">
+            <span style={{ color: accentColor }} className="flex-shrink-0 mt-1">▸</span>
+            <span>{children}</span>
+          </li>
+        ),
+        strong: ({ children }) => (
+          <strong className="font-semibold" style={{ color: accentColor }}>{children}</strong>
+        ),
+        em: ({ children }) => (
+          <em className="italic text-space-200">{children}</em>
+        ),
+        code: ({ children }) => (
+          <code className="mono bg-space-800 border border-space-600 px-1.5 py-0.5 rounded text-xs text-amber-300">{children}</code>
+        ),
+        pre: ({ children }) => (
+          <pre className="mono bg-space-900 border border-space-700 rounded-lg p-3 text-xs text-space-200 overflow-x-auto mb-3">{children}</pre>
+        ),
+        blockquote: ({ children }) => (
+          <blockquote
+            className="pl-3 py-1 my-2 text-space-300 text-sm"
+            style={{ borderLeft: `2px solid ${accentColor}50` }}
+          >
+            {children}
+          </blockquote>
+        ),
+        hr: () => <hr className="border-space-700 my-3" />,
+      }}
+    >
+      {content}
+    </ReactMarkdown>
   )
 }
 
@@ -158,7 +167,7 @@ export default function StudyMode({ domains }: Props) {
           return (
             <div
               key={domain.id}
-              className="border rounded-xl overflow-hidden transition-all duration-300"
+              className="border rounded-xl overflow-hidden transition-colors duration-300"
               style={{
                 borderColor: isOpen ? ws.border : 'rgb(var(--space-600))',
                 background: isOpen ? ws.bg : 'rgb(var(--space-800))',
@@ -212,8 +221,8 @@ export default function StudyMode({ domains }: Props) {
                 </div>
               </button>
 
-              {/* Accordion content */}
-              <div className={`accordion-content ${isOpen ? 'open' : ''}`}>
+              {/* Accordion content — dynamic height via ResizeObserver */}
+              <AccordionContent isOpen={isOpen}>
                 <div className="px-4 sm:px-5 pb-4 sm:pb-5">
                   {/* Weight progress bar */}
                   <div className="mb-4 sm:mb-5 flex items-center gap-3">
@@ -239,7 +248,7 @@ export default function StudyMode({ domains }: Props) {
                             {section.title}
                           </h3>
                         </div>
-                        <ContentRenderer content={section.content} accentColor={ws.color} />
+                        <MarkdownContent content={section.content} accentColor={ws.color} />
                       </div>
                     ))}
                   </div>
@@ -253,7 +262,7 @@ export default function StudyMode({ domains }: Props) {
                     </span>
                   </div>
                 </div>
-              </div>
+              </AccordionContent>
             </div>
           )
         })}
