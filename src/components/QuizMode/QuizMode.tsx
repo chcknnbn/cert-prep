@@ -75,6 +75,8 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
   const [submitted, setSubmitted] = useState<Record<string, boolean>>({})
   const [pendingAnswer, setPendingAnswer] = useState<UserAnswer | null>(null)
   const [forcedCorrect, setForcedCorrect] = useState<Record<string, boolean>>({})
+  const [shareUrl, setShareUrl] = useState<string | null>(null)
+  const [shareLoading, setShareLoading] = useState(false)
 
   const { user, updateStreak } = useAuth()
 
@@ -146,6 +148,35 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     setSubmitted({})
     setPendingAnswer(null)
     setForcedCorrect({})
+    setShareUrl(null)
+  }
+
+  async function handleShare() {
+    if (!user || !supabase) return
+    setShareLoading(true)
+
+    const domainBreakdown: Record<string, { correct: number; total: number }> = {}
+    for (const { domain, total: dt, correct } of domains.map((d) => {
+      const dqs = questions.filter((q) => q.id.startsWith(`d${d.id}-`))
+      return { domain: d, total: dqs.length, correct: dqs.filter((q) => isAnswerCorrect(q, answers[q.id])).length }
+    }).filter((s) => s.total > 0)) {
+      domainBreakdown[`D${domain.id} ${domain.name}`] = { correct, total: dt }
+    }
+
+    const shareToken = crypto.randomUUID()
+    const { error } = await supabase.from('shared_scores').insert({
+      user_id: user.id,
+      cert_id: certId,
+      score,
+      total: questions.length,
+      domain_breakdown: domainBreakdown,
+      share_token: shareToken,
+    })
+
+    if (!error) {
+      setShareUrl(`${window.location.origin}/share/${shareToken}`)
+    }
+    setShareLoading(false)
   }
 
   // ── SETUP ──
@@ -287,19 +318,43 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
           </div>
 
           {/* Actions */}
-          <div className="px-8 pb-6 flex gap-3">
-            <button
-              onClick={startQuiz}
-              className="flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-space-900 display font-bold text-sm transition-all duration-200"
-            >
-              재도전
-            </button>
-            <button
-              onClick={resetQuiz}
-              className="flex-1 py-3 rounded-xl border border-space-600 text-space-300 hover:text-white hover:border-space-500 display font-semibold text-sm transition-all duration-200"
-            >
-              설정으로
-            </button>
+          <div className="px-8 pb-6 space-y-3">
+            {shareUrl ? (
+              <div
+                className="flex items-center gap-2 px-3 py-2.5 rounded-xl border"
+                style={{ borderColor: 'rgba(16,185,129,0.3)', background: 'rgba(16,185,129,0.05)' }}
+              >
+                <span className="mono text-emerald-400 text-xs flex-1 truncate">{shareUrl}</span>
+                <button
+                  onClick={() => navigator.clipboard.writeText(shareUrl)}
+                  className="mono text-[11px] text-emerald-400 hover:text-emerald-300 transition-colors flex-shrink-0"
+                >
+                  복사
+                </button>
+              </div>
+            ) : user ? (
+              <button
+                onClick={handleShare}
+                disabled={shareLoading}
+                className="w-full py-2.5 rounded-xl border border-space-600 text-space-300 hover:text-white hover:border-space-500 display font-semibold text-sm transition-all duration-200 disabled:opacity-40"
+              >
+                {shareLoading ? '링크 생성 중...' : '결과 공유하기'}
+              </button>
+            ) : null}
+            <div className="flex gap-3">
+              <button
+                onClick={startQuiz}
+                className="flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-space-900 display font-bold text-sm transition-all duration-200"
+              >
+                재도전
+              </button>
+              <button
+                onClick={resetQuiz}
+                className="flex-1 py-3 rounded-xl border border-space-600 text-space-300 hover:text-white hover:border-space-500 display font-semibold text-sm transition-all duration-200"
+              >
+                설정으로
+              </button>
+            </div>
           </div>
         </div>
       </div>
