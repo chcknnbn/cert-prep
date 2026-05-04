@@ -66,15 +66,17 @@ export default function QuizMode({ domains, domainFilter }: Props) {
   const [answers, setAnswers] = useState<Record<string, UserAnswer>>({})
   const [submitted, setSubmitted] = useState<Record<string, boolean>>({})
   const [pendingAnswer, setPendingAnswer] = useState<UserAnswer | null>(null)
+  const [forcedCorrect, setForcedCorrect] = useState<Record<string, boolean>>({})
 
   const score = useMemo(() => {
     return Object.entries(submitted)
       .filter(([, s]) => s)
       .filter(([id]) => {
+        if (forcedCorrect[id]) return true
         const q = questions.find((q) => q.id === id)
         return q ? isAnswerCorrect(q, answers[id]) : false
       }).length
-  }, [submitted, answers, questions])
+  }, [submitted, answers, questions, forcedCorrect])
 
   function startQuiz() {
     const selected = selectQuestions(domains, questionCount, domainFilter)
@@ -83,6 +85,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
     setAnswers({})
     setSubmitted({})
     setPendingAnswer(null)
+    setForcedCorrect({})
     setQuizState('running')
   }
 
@@ -113,6 +116,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
     setAnswers({})
     setSubmitted({})
     setPendingAnswer(null)
+    setForcedCorrect({})
   }
 
   // ── SETUP ──
@@ -276,7 +280,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
   // ── RUNNING ──
   const currentQ = questions[currentIndex]
   const isSubmitted = submitted[currentQ.id] ?? false
-  const correct = isSubmitted && isAnswerCorrect(currentQ, answers[currentQ.id])
+  const correct = isSubmitted && (forcedCorrect[currentQ.id] || isAnswerCorrect(currentQ, answers[currentQ.id]))
   const progress = ((currentIndex + (isSubmitted ? 1 : 0)) / questions.length) * 100
 
   return (
@@ -359,6 +363,8 @@ export default function QuizMode({ domains, domainFilter }: Props) {
               submitted={isSubmitted}
               userAnswer={answers[currentQ.id] !== undefined ? String(answers[currentQ.id]) : null}
               onAnswer={(v) => setPendingAnswer(v)}
+              onForceCorrect={() => setForcedCorrect((prev) => ({ ...prev, [currentQ.id]: true }))}
+              isForced={forcedCorrect[currentQ.id] ?? false}
             />
           )}
         </div>

@@ -6,15 +6,17 @@ interface Props {
   submitted: boolean
   onAnswer: (value: string) => void
   userAnswer: string | null
+  onForceCorrect?: () => void
+  isForced?: boolean
 }
 
-export default function ShortAnswer({ question, submitted, onAnswer, userAnswer }: Props) {
+export default function ShortAnswer({ question, submitted, onAnswer, userAnswer, onForceCorrect, isForced = false }: Props) {
   const [input, setInput] = useState(userAnswer ?? '')
 
   const isCorrect = submitted &&
-    question.acceptedAnswers.some(
+    (isForced || question.acceptedAnswers.some(
       (a) => a.toLowerCase().trim() === (userAnswer ?? '').toLowerCase().trim()
-    )
+    ))
   const isWrong = submitted && !isCorrect
 
   return (
@@ -64,7 +66,7 @@ export default function ShortAnswer({ question, submitted, onAnswer, userAnswer 
           <span className="mono text-sm font-bold" style={{ color: isCorrect ? '#10b981' : '#ef4444' }}>
             {isCorrect ? '✓' : '✗'}
           </span>
-          <div>
+          <div className="flex-1">
             {isWrong && (
               <div className="mb-1">
                 <span className="mono text-[10px] text-space-400 tracking-widest">정답: </span>
@@ -74,6 +76,14 @@ export default function ShortAnswer({ question, submitted, onAnswer, userAnswer 
             <div className="mono text-[10px] text-space-400 tracking-widest">
               {isCorrect ? '정답입니다!' : `허용 답안: ${question.acceptedAnswers.join(', ')}`}
             </div>
+            {isWrong && onForceCorrect && (
+              <button
+                onClick={onForceCorrect}
+                className="mt-2 px-3 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 mono text-[10px] text-emerald-400 hover:bg-emerald-500/20 transition-all duration-200"
+              >
+                ✓ 정답으로 처리
+              </button>
+            )}
           </div>
         </div>
       )}
