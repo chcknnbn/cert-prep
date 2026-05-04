@@ -1,0 +1,3982 @@
+{
+  "id": "github-foundations",
+  "name": "GitHub Foundations",
+  "description": "GitHub의 핵심 개념, 협업 기능, 현대적 개발 도구, 보안을 다루는 입문 자격증",
+  "domains": [
+    {
+      "id": 1,
+      "name": "Introduction to Git and GitHub",
+      "weight": 0.22,
+      "summary": [
+        {
+          "title": "버전 관리와 Git",
+          "content": "버전 관리 시스템(VCS)은 파일 집합의 변경 이력을 추적하는 프로그램입니다. VCS를 사용하면 프로젝트 또는 개별 파일의 이전 버전을 쉽게 불러올 수 있고, 여러 팀원이 동시에 같은 파일을 작업해도 서로의 작업에 영향을 주지 않습니다. VCS는 소프트웨어 구성 관리(SCM)의 일부로 논의되기도 합니다. Git은 2005년 Linus Torvalds(Linux 창시자)가 Linux 커널 개발을 위해 만든 빠르고 확장 가능한 오픈소스 분산형 VCS입니다. 중앙집중식 VCS(CVS, SVN, Perforce)와 달리, Git은 분산형(Distributed)으로 프로젝트의 전체 이력이 로컬 컴퓨터에 저장됩니다. 따라서 네트워크 연결 없이도 파일 편집·커밋이 가능하고, 서버 장애 시에도 로컬 복사본으로 작업을 계속할 수 있습니다. Git은 소프트웨어 외에도 책, 튜토리얼 등 다양한 프로젝트에 활용할 수 있습니다."
+        },
+        {
+          "title": "Git 핵심 용어",
+          "content": "Working Tree(작업 트리): 현재 작업 중인 프로젝트의 디렉토리와 파일 집합입니다. Repository(저장소/repo): Working Tree 최상단의 숨김 디렉토리 .git에 저장된 데이터 저장소로, Git이 프로젝트의 전체 이력과 메타데이터를 보관합니다. Bare Repository는 Working Tree 없이 공유·백업 용도로 사용하며 보통 project.git처럼 .git으로 끝나는 이름을 가집니다. Hash: 파일 내용을 고정 길이 숫자로 변환한 값. Git은 전통적으로 160비트 SHA-1 해시를 사용(최신 버전은 SHA-256도 지원). 파일 내용이 바뀌면 해시값이 달라져 변경 여부를 쉽게 감지합니다. Object: Git 저장소의 4가지 객체 타입 - Blob(일반 파일 내용), Tree(디렉토리, 이름/해시/권한 포함), Commit(특정 버전의 Working Tree), Annotated Tag(메타데이터+서명, 커밋 등을 가리킴). Branch: 연결된 커밋의 이름 붙인 시리즈. 브랜치의 최신 커밋을 head라 하며, 현재 브랜치의 head는 HEAD라고 합니다. 기본 브랜치는 GitHub에서 main. Remote: 다른 Git 저장소를 가리키는 이름. 저장소 클론 시 자동으로 origin이라는 원격이 설정됩니다."
+        },
+        {
+          "title": "GitHub 플랫폼",
+          "content": "GitHub는 Git을 핵심 기술로 사용하는 클라우드 기반 플랫폼입니다. GitHub Enterprise Platform은 개발자 경험을 중심으로 5가지 핵심 기둥을 제공합니다. AI: GitHub Copilot, Copilot Chat, Copilot Agents를 통한 AI 지원 코딩. Collaboration(협업): 저장소, Issues, Pull Requests 등을 통한 팀 협업. Productivity(생산성): CI/CD 내장, 반복 작업 자동화. Security(보안): CodeQL(코드 취약점 분석), Secret Scanning(시크릿 노출 감지), Dependabot(의존성 취약점), Security Overview를 통한 개발 프로세스 전반의 보안. Scale(규모): 전 세계 1억 명 이상의 개발자, 4억 2천만 개 이상의 저장소. GitHub는 Issues, Discussions, Pull Requests, Notifications, Labels, Actions, Forks, Projects, Copilot, Codespaces 등의 핵심 기능을 제공합니다. 저장소 가시성은 Public(모든 사람 접근), Private(초대된 사람만 접근)으로 설정 가능합니다."
+        },
+        {
+          "title": "GitHub Flow와 브랜치 전략",
+          "content": "GitHub Flow는 6단계의 간단한 워크플로우입니다: (1) 브랜치 생성 - 기능/수정 작업을 위한 독립 브랜치 생성, (2) 브랜치에서 변경사항 작성 및 테스트, (3) Pull Request 열기 - 피드백 요청 및 리뷰 시작, (4) 팀 피드백 반영 및 업데이트, (5) 승인 후 main 브랜치에 병합, (6) 브랜치 삭제. Git의 파일 상태: Untracked(Git이 모르는 새 파일), Tracked - Unmodified(변경 없음), Modified(변경됨, 미스테이지), Staged(스테이징 완료, 커밋 준비), Committed(저장소에 저장). Git flow는 GitHub Flow보다 구조화된 브랜치 모델로, master/develop/feature/release/hotfix 브랜치를 사용하며 버전 릴리스 주기가 있는 프로젝트에 적합합니다. Fork: GitHub에서 다른 사용자의 저장소를 자신의 계정으로 복사. 원본에 쓰기 권한 없이도 수정 후 Pull Request로 기여 가능합니다."
+        },
+        {
+          "title": "Gist, Wiki, GitHub Pages와 기능 미리보기",
+          "content": "Gist는 코드 스니펫, 노트, 설정 파일 등 작은 정보를 공유하는 경량 Git 저장소입니다. Public Gist(검색 가능), Secret Gist(URL 아는 사람만 접근, 완전히 비공개는 아님) 두 종류가 있습니다. 버전 관리, 포크, 클론, 임베딩, 마크다운 지원이 가능합니다. 주의: Gist에는 비밀번호, API 키 등 민감한 정보를 저장하면 안 됩니다. Wiki는 모든 GitHub 저장소에서 제공되는 문서 호스팅 섹션입니다. README보다 상세한 장문의 문서(사용법, 설계 원칙 등) 작성에 적합합니다. Private 저장소의 Wiki는 Read 이상의 권한을 가진 사람만 접근 가능합니다. GitHub Pages는 저장소에서 직접 정적 웹사이트를 호스팅하는 서비스입니다. HTML, CSS, JavaScript 파일을 지정된 브랜치와 폴더(예: /docs)에서 게시합니다. Feature Preview는 공식 릴리스 전에 GitHub의 실험적 기능을 미리 사용해볼 수 있는 기능으로, 계정 설정에서 활성화/비활성화할 수 있습니다."
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "d1-fc001",
+          "front": "VCS (Version Control System)",
+          "back": "버전 관리 시스템. 파일 집합의 변경 이력을 추적하는 프로그램. 이전 버전 복원, 팀원 간 동시 작업, 변경 이력 확인, 실험적 브랜치 생성 등이 가능. 소프트웨어 외에도 문서 등 다양한 프로젝트에 활용."
+        },
+        {
+          "id": "d1-fc002",
+          "front": "DVCS (Distributed VCS)",
+          "back": "분산형 버전 관리 시스템. 프로젝트의 전체 이력이 모든 개발자의 로컬 컴퓨터에 저장됨. 중앙 서버 없이도 작업 가능, 서버 장애 시 로컬 복사본으로 계속 작업 가능. Git이 대표적인 DVCS. 반대 개념: CVCS(중앙집중식, CVS, SVN, Perforce)."
+        },
+        {
+          "id": "d1-fc003",
+          "front": "git init",
+          "back": "현재 디렉토리에 새 Git 저장소를 초기화하는 명령. .git 숨김 디렉토리가 생성되어 버전 관리 메타데이터 저장. 기존 프로젝트를 Git으로 관리 시작할 때 사용."
+        },
+        {
+          "id": "d1-fc004",
+          "front": "git clone",
+          "back": "원격 저장소를 로컬에 완전히 복제하는 명령. 전체 이력, 브랜치, 태그 포함. 자동으로 origin이라는 원격 이름 설정. 사용법: git clone <URL>. shallow clone: git clone --depth <n>으로 최근 n개 커밋만 복제."
+        },
+        {
+          "id": "d1-fc005",
+          "front": "Staging Area (Index)",
+          "back": "다음 커밋에 포함될 변경사항을 준비하는 영역. git add로 변경사항을 스테이징 영역에 추가. 스테이징 영역은 '다음 커밋 미리보기' 역할. git status로 스테이징 상태 확인 가능."
+        },
+        {
+          "id": "d1-fc006",
+          "front": "git add",
+          "back": "파일 변경사항을 스테이징 영역(Index)에 추가하는 명령. git add <파일명>: 특정 파일 스테이징. git add .: 현재 디렉토리 모든 변경사항 스테이징. git add -p: 변경사항을 부분적으로 스테이징(patch mode)."
+        },
+        {
+          "id": "d1-fc007",
+          "front": "git commit",
+          "back": "스테이징된 변경사항을 저장소에 영구적으로 저장하는 명령. 각 커밋은 고유한 SHA 해시로 식별. 커밋에는 작성자, 이메일, 날짜, 메시지, 이전 커밋 참조가 포함됨. git commit -m \"메시지\"로 인라인 메시지 작성."
+        },
+        {
+          "id": "d1-fc008",
+          "front": "git push",
+          "back": "로컬 커밋을 원격 저장소에 업로드하는 명령. git push origin main: origin 원격의 main 브랜치에 푸시. 원격에 없는 브랜치를 처음 푸시할 때는 -u 플래그로 upstream 설정: git push -u origin feature-branch."
+        },
+        {
+          "id": "d1-fc009",
+          "front": "git pull",
+          "back": "원격 저장소의 변경사항을 로컬로 가져와 병합하는 명령. git pull = git fetch + git merge. git fetch는 원격 변경사항만 다운로드(병합 안 함), git pull은 다운로드 후 현재 브랜치에 병합까지 수행."
+        },
+        {
+          "id": "d1-fc010",
+          "front": "git fetch",
+          "back": "원격 저장소의 변경사항을 로컬로 다운로드하되 현재 브랜치에 병합하지 않는 명령. 원격 상태를 확인하고 싶을 때 안전하게 사용. git pull과의 차이: fetch는 병합 없음, pull은 fetch + merge."
+        },
+        {
+          "id": "d1-fc011",
+          "front": "Branch (브랜치)",
+          "back": "연결된 커밋의 이름 붙인 시리즈. 메인 코드베이스에 영향 없이 기능 개발·버그 수정 실험 가능. 브랜치의 최신 커밋을 head라 하며, 현재 브랜치의 head는 HEAD. 기본 브랜치: GitHub에서 main(과거에는 master)."
+        },
+        {
+          "id": "d1-fc012",
+          "front": "git branch",
+          "back": "브랜치를 관리하는 명령. git branch: 로컬 브랜치 목록. git branch <이름>: 새 브랜치 생성. git branch -d <이름>: 브랜치 삭제. git branch -r: 원격 브랜치 목록. git branch -a: 로컬+원격 브랜치 모두 표시."
+        },
+        {
+          "id": "d1-fc013",
+          "front": "git merge",
+          "back": "두 브랜치의 변경사항을 하나로 합치는 명령. git merge <브랜치명>: 현재 브랜치에 지정 브랜치를 병합. Fast-forward merge(선형 이력)와 Three-way merge(병합 커밋 생성) 두 가지 방식이 있음."
+        },
+        {
+          "id": "d1-fc014",
+          "front": "Fork",
+          "back": "GitHub에서 다른 사용자의 저장소를 자신의 계정으로 복사하는 기능. 원본 저장소에 쓰기 권한 없이도 변경 가능. 변경사항은 Pull Request를 통해 원본(upstream) 저장소에 제안 가능. Clone과 달리 GitHub 서버 간 복사."
+        },
+        {
+          "id": "d1-fc015",
+          "front": "Pull Request (PR)",
+          "back": "한 브랜치의 커밋을 다른 브랜치에 병합할 준비가 되었음을 알리는 메커니즘. 리뷰어가 코드 검토, 댓글, 승인을 수행. Draft PR: 아직 리뷰 준비 안 된 PR. PR은 코드 품질 유지와 협업의 핵심 도구."
+        },
+        {
+          "id": "d1-fc016",
+          "front": "git status",
+          "back": "Working Tree와 Staging Area의 현재 상태를 표시하는 명령. Untracked(추적 안 됨), Modified(수정됨), Staged(스테이징됨) 파일 표시. 가장 자주 사용하는 Git 명령 중 하나."
+        },
+        {
+          "id": "d1-fc017",
+          "front": "git log",
+          "back": "이전 커밋의 이력을 보여주는 명령. 커밋 해시, 작성자, 날짜, 메시지 표시. git log --oneline: 한 줄 요약. git log --graph: 브랜치 그래프 시각화. git log -n <숫자>: 최근 n개 커밋만 표시."
+        },
+        {
+          "id": "d1-fc018",
+          "front": "Remote (원격)",
+          "back": "다른 Git 저장소를 가리키는 이름. git clone 시 자동으로 origin이라는 원격 설정. origin은 push/pull의 기본 원격. git remote -v로 원격 목록과 URL 확인. git remote add <이름> <URL>로 추가 원격 등록."
+        },
+        {
+          "id": "d1-fc019",
+          "front": "Hash (해시)",
+          "back": "파일 내용을 고정 길이 숫자로 변환한 값. Git은 전통적으로 160비트 SHA-1(40자리 16진수) 사용, 최신 버전은 SHA-256도 지원. 해시가 같으면 내용이 동일하다는 것을 보장. 타임스탬프 변경만으로는 해시 불변."
+        },
+        {
+          "id": "d1-fc020",
+          "front": "git diff",
+          "back": "변경사항의 차이를 보여주는 명령. git diff: Working Tree와 Staging Area 비교. git diff --staged: Staging Area와 마지막 커밋 비교. git diff <브랜치1> <브랜치2>: 두 브랜치 간 비교."
+        },
+        {
+          "id": "d1-fc021",
+          "front": "Gist",
+          "back": "GitHub에서 코드 스니펫, 노트, 설정 파일 등을 공유하는 경량 Git 저장소. Public Gist(검색 가능)와 Secret Gist(URL 아는 사람만 접근) 두 종류. 버전 관리, 포크, 클론, 임베딩 지원. 민감한 정보(API 키, 비밀번호) 저장 금지."
+        },
+        {
+          "id": "d1-fc022",
+          "front": "Wiki (위키)",
+          "back": "모든 GitHub 저장소에서 제공되는 문서 호스팅 기능. README보다 상세한 장문 문서 작성에 적합. 페이지 생성, 편집 가능. 삭제는 Git 클론 후 파일 삭제로 진행. Private 저장소의 Wiki는 Read 이상 권한 필요."
+        },
+        {
+          "id": "d1-fc023",
+          "front": "GitHub Flow (6단계)",
+          "back": "1. 브랜치 생성 2. 브랜치에서 변경 및 테스트 3. Pull Request 열기 4. 팀 피드백 반영 5. 승인 후 main에 병합 6. 브랜치 삭제. 지속적 배포(CD)에 적합한 경량 워크플로우."
+        },
+        {
+          "id": "d1-fc024",
+          "front": "git stash",
+          "back": "현재 작업 중인 변경사항을 임시 저장하는 명령. 커밋하지 않고 다른 브랜치로 이동할 때 유용. git stash: 저장. git stash pop: 저장된 변경사항 복원 후 stash 삭제. git stash list: stash 목록 확인."
+        },
+        {
+          "id": "d1-fc025",
+          "front": "git rebase",
+          "back": "커밋 이력을 재작성하는 명령. 브랜치의 기반 커밋을 변경. git rebase main: 현재 브랜치의 기반을 main의 최신 커밋으로 변경. merge보다 선형적인 이력 유지. 공개된 브랜치에서는 사용 주의."
+        },
+        {
+          "id": "d1-fc026",
+          "front": "커밋 메시지 모범 사례",
+          "back": "1. 제목은 50자 이내, 명령형 사용('Fix bug' not 'Fixed bug'). 2. 제목과 본문은 빈 줄로 구분. 3. 본문은 72자에서 줄바꿈. 4. 본문에 '무엇을'이 아닌 '왜'를 설명. 5. 이슈 번호 참조(Fixes #123)."
+        },
+        {
+          "id": "d1-fc027",
+          "front": "Bare Repository",
+          "back": "Working Tree 없이 공유·백업 용도로 사용하는 Git 저장소. 보통 project.git처럼 .git으로 끝나는 이름. git init --bare로 생성. 직접 파일 편집 불가, push/pull의 중앙 저장소 역할."
+        },
+        {
+          "id": "d1-fc028",
+          "front": "GitHub Enterprise 5 Pillars",
+          "back": "GitHub Enterprise Platform의 5가지 핵심 기둥: AI(Copilot, Copilot Chat, Copilot Agents), Collaboration(Issues, PRs, 저장소), Productivity(CI/CD, 자동화), Security(CodeQL, Secret Scanning, Dependabot), Scale(1억+ 개발자, 4.2억+ 저장소)."
+        },
+        {
+          "id": "d1-fc029",
+          "front": "CodeQL",
+          "back": "GitHub의 네이티브 코드 보안 분석 도구. 코드를 데이터처럼 쿼리하여 취약점 탐지. GitHub Enterprise Security 기능의 일부. 정적 분석(Static Analysis) 방식으로 소스 코드에서 보안 취약점 자동 발견."
+        },
+        {
+          "id": "d1-fc030",
+          "front": "Secret Scanning",
+          "back": "저장소에 실수로 커밋된 API 키, 토큰, 비밀번호 등 민감한 정보를 탐지하는 GitHub 보안 기능. 푸시 시점에 자동으로 스캔. 파트너 패턴과 사용자 정의 패턴 지원. GitHub Enterprise Security 기능."
+        },
+        {
+          "id": "d1-fc031",
+          "front": "Dependabot",
+          "back": "의존성 취약점을 자동으로 감지하고 수정 PR을 생성하는 GitHub 도구. 세 가지 기능: Dependabot alerts(취약점 알림), Dependabot security updates(자동 보안 수정 PR), Dependabot version updates(의존성 버전 업데이트)."
+        },
+        {
+          "id": "d1-fc032",
+          "front": "git checkout vs git switch",
+          "back": "git checkout: 브랜치 전환 + 파일 복원 등 다목적 명령(Git 2.23 이전). git switch: 브랜치 전환 전용(Git 2.23+, 더 명확). git switch <브랜치>: 브랜치 전환. git switch -c <새브랜치>: 새 브랜치 생성 후 전환."
+        },
+        {
+          "id": "d1-fc033",
+          "front": "Feature Preview",
+          "back": "GitHub에서 공식 릴리스 전 실험적 기능을 미리 사용해볼 수 있는 기능. 계정 프로필 사진 클릭 → Feature preview 메뉴에서 활성화/비활성화. 피드백을 통해 최종 제품 방향에 영향."
+        },
+        {
+          "id": "d1-fc034",
+          "front": "git reset",
+          "back": "커밋을 취소하거나 스테이징을 해제하는 명령. git reset HEAD <파일>: 스테이징 취소. git reset --soft HEAD~1: 마지막 커밋 취소(변경사항 스테이징 유지). git reset --hard HEAD~1: 마지막 커밋 취소 및 변경사항 삭제(위험!)."
+        },
+        {
+          "id": "d1-fc035",
+          "front": "git tag",
+          "back": "특정 커밋에 레이블(태그)을 붙이는 명령. Lightweight tag: 단순 포인터(git tag v1.0). Annotated tag: 메타데이터 포함(git tag -a v1.0 -m '메시지'). 릴리스 버전 표시에 주로 사용."
+        },
+        {
+          "id": "d1-fc036",
+          "front": "Upstream vs Origin",
+          "back": "Origin: 내가 clone한 원격 저장소(보통 내 fork). Upstream: Fork의 원본 저장소. fork한 저장소에서 원본을 upstream으로 추가: git remote add upstream <원본URL>. upstream에서 최신 변경사항 가져오기: git fetch upstream."
+        },
+        {
+          "id": "d1-fc037",
+          "front": "git cherry-pick",
+          "back": "특정 커밋 하나를 현재 브랜치에 적용하는 명령. git cherry-pick <커밋해시>. 다른 브랜치의 특정 버그 수정만 가져올 때 유용. 여러 커밋: git cherry-pick <해시1> <해시2>."
+        },
+        {
+          "id": "d1-fc038",
+          "front": "git bisect",
+          "back": "이진 탐색으로 버그가 도입된 커밋을 찾는 명령. git bisect start → git bisect bad(현재 버그 있음) → git bisect good <이전정상커밋> → Git이 중간 커밋으로 이동 → good/bad 표시 반복 → 버그 커밋 발견."
+        },
+        {
+          "id": "d1-fc039",
+          "front": "Monorepo vs Polyrepo",
+          "back": "Monorepo: 여러 프로젝트/패키지를 하나의 저장소에서 관리. 코드 공유·일관성 용이, 저장소 크기 커짐. Polyrepo: 각 프로젝트를 별도 저장소로 관리. 독립성·명확한 소유권, 코드 공유 어려움. GitHub는 두 방식 모두 지원."
+        },
+        {
+          "id": "d1-fc040",
+          "front": "Git Object Types (4가지)",
+          "back": "1. Blob: 파일 내용 저장 (파일명 없음). 2. Tree: 디렉토리 표현 (파일명, 해시, 권한 포함). 3. Commit: 특정 버전의 Working Tree (작성자, 타임스탬프, 부모 커밋, tree 포인터). 4. Tag(Annotated): 메타데이터+서명이 있는 태그 객체."
+        },
+        {
+          "id": "d1-fc041",
+          "front": "Working Tree",
+          "back": "현재 작업 중인 프로젝트의 디렉토리와 파일 집합. Git이 관리하는 실제 파일들이 위치한 공간. .git 디렉토리를 제외한 모든 파일이 Working Tree에 해당. Working Directory라고도 함."
+        },
+        {
+          "id": "d1-fc042",
+          "front": "GitHub 저장소 가시성",
+          "back": "Public: 인터넷의 모든 사람이 접근 가능. Private: 명시적으로 공유된 사람(협업자)만 접근 가능. Internal: GitHub Enterprise 전용, 조직 내부 공개. 저장소 Settings에서 언제든 변경 가능."
+        },
+        {
+          "id": "d1-fc043",
+          "front": "README.md",
+          "back": "저장소의 첫 인상 문서. Markdown 형식. GitHub는 루트, docs/, .github/ 디렉토리의 README.md를 자동으로 저장소 메인 페이지에 표시. 프로젝트 소개, 설치 방법, 사용 예시, 기여 가이드 포함."
+        },
+        {
+          "id": "d1-fc044",
+          "front": "LICENSE 파일",
+          "back": "저장소의 사용 조건을 명시하는 파일. MIT, Apache 2.0, GPL 등 오픈소스 라이선스 선택. GitHub는 저장소 생성 시 라이선스 선택 옵션 제공. 라이선스 없는 공개 저장소는 기본적으로 저작권자가 모든 권리 보유."
+        },
+        {
+          "id": "d1-fc045",
+          "front": ".gitignore",
+          "back": "Git이 추적하지 않을 파일/디렉토리 패턴을 정의하는 파일. node_modules/, .env, *.log, build/ 등. GitHub는 언어/프레임워크별 .gitignore 템플릿 제공. 이미 추적 중인 파일은 git rm --cached로 추적 해제 필요."
+        },
+        {
+          "id": "d1-fc046",
+          "front": "git remote -v",
+          "back": "등록된 원격 저장소 목록과 URL을 표시하는 명령. fetch와 push URL 각각 표시. 예: origin https://github.com/user/repo.git (fetch/push). git remote add <이름> <URL>로 원격 추가, git remote remove <이름>으로 삭제."
+        },
+        {
+          "id": "d1-fc047",
+          "front": "HEAD",
+          "back": "현재 체크아웃된 브랜치의 최신 커밋을 가리키는 특수 포인터. 보통 브랜치를 통해 간접적으로 커밋을 가리킴. Detached HEAD: 브랜치가 아닌 특정 커밋을 직접 가리키는 상태. git checkout <커밋해시> 시 발생."
+        },
+        {
+          "id": "d1-fc048",
+          "front": "git clone --depth",
+          "back": "Shallow clone: git clone --depth <숫자> <URL>. 최근 n개의 커밋만 복제. 전체 이력이 필요 없을 때 디스크 공간과 시간 절약. CI/CD 환경에서 빌드 속도 향상에 활용. git fetch --unshallow로 전체 이력 복원 가능."
+        },
+        {
+          "id": "d1-fc049",
+          "front": "Conflict (충돌)",
+          "back": "두 브랜치에서 같은 파일의 같은 부분을 다르게 수정했을 때 발생. Git이 자동 병합 불가 시 충돌 표시: <<<<<<< HEAD, =======, >>>>>>> 브랜치명. 충돌 해결: 파일 수정 → git add → git commit."
+        },
+        {
+          "id": "d1-fc050",
+          "front": "Linus Torvalds",
+          "back": "Git의 주요 창시자이자 Linux 커널의 창시자. 2005년 Linux 커널 개발을 위해 Git을 개발. 이전에 사용하던 BitKeeper의 무료 사용이 취소되자 직접 새 VCS를 제작. Git의 이름은 영국 속어로 '멍청이'라는 뜻."
+        },
+        {
+          "id": "d1-fc051",
+          "front": "git config",
+          "back": "Git 설정을 관리하는 명령. git config --global user.name '이름': 전역 사용자 이름 설정. git config --global user.email '이메일': 전역 이메일 설정. --global: 사용자 전체, --local: 현재 저장소만, --system: 시스템 전체."
+        },
+        {
+          "id": "d1-fc052",
+          "front": "GitHub Stars / Watching",
+          "back": "Stars: 저장소에 관심·추천 표시. 북마크 역할. Watching: 저장소의 모든 활동 알림 받기. Not Watching: 참여하거나 멘션될 때만 알림. Ignore: 알림 없음. Custom: 특정 이벤트 유형만 알림."
+        },
+        {
+          "id": "d1-fc053",
+          "front": "GitHub Notifications",
+          "back": "GitHub 활동에 대한 알림 시스템. 이슈, PR, 릴리스, 토론, 워크플로우 상태 등에 대해 알림 받기 가능. 구독 관리, 알림 필터링 가능. 이메일, 웹(GitHub 대시보드), 모바일 앱을 통해 수신."
+        },
+        {
+          "id": "d1-fc054",
+          "front": "GitHub Insights",
+          "back": "저장소의 활동 데이터를 시각화하는 GitHub 기능. Pulse(최근 활동 요약), Contributors(기여자 현황), Traffic(방문 통계), Dependency graph(의존성 그래프), Network(포크 네트워크) 등의 뷰 제공."
+        },
+        {
+          "id": "d1-fc055",
+          "front": "Protected Branch",
+          "back": "실수로 삭제되거나 무단으로 force push되지 않도록 보호하는 브랜치 규칙. 저장소 Settings → Branches에서 설정. PR 필수, 리뷰 승인 필수, 상태 체크 통과 필수, 선형 이력 강제 등 규칙 지정 가능."
+        },
+        {
+          "id": "d1-fc056",
+          "front": "GitHub Actions (개요)",
+          "back": "GitHub의 내장 CI/CD 및 자동화 플랫폼. .github/workflows/ 디렉토리의 YAML 파일로 워크플로우 정의. push, PR, 스케줄 등 이벤트에 반응. 빌드, 테스트, 배포 자동화. GitHub Marketplace에서 Action 재사용 가능."
+        },
+        {
+          "id": "d1-fc057",
+          "front": "Issue (이슈)",
+          "back": "아이디어, 피드백, 작업, 버그를 추적하는 GitHub 기능. 레이블, 마일스톤, 담당자(Assignee) 지정 가능. 이슈 템플림과 이슈 폼으로 구조화된 입력 유도. 작업 목록, 프로젝트 노트, 코드 특정 줄 등에서 이슈 생성 가능."
+        },
+        {
+          "id": "d1-fc058",
+          "front": "Milestone (마일스톤)",
+          "back": "관련 이슈와 PR을 그룹화하여 특정 목표나 일정에 대한 진행상황을 추적하는 GitHub 기능. 마감일 설정 가능. 마일스톤 완료율(닫힌 이슈 비율)로 진행상황 시각화."
+        },
+        {
+          "id": "d1-fc059",
+          "front": "Discussions (토론)",
+          "back": "코드와 직접 연관되지 않은 대화(Q&A, 아이디어, 피드백, 공지)를 위한 GitHub 기능. 기본 카테고리: Announcements, General, Ideas, Polls, Q&A, Show and tell. Q&A 방식에서 답변 채택 가능. 토론을 이슈로 전환 가능."
+        },
+        {
+          "id": "d1-fc060",
+          "front": "GitHub CLI (gh)",
+          "back": "터미널에서 GitHub 기능을 사용하는 공식 CLI 도구. gh repo create(저장소 생성), gh pr create(PR 생성), gh issue list(이슈 목록), gh workflow run(워크플로우 실행) 등. GitHub Actions 워크플로우와 연계 가능."
+        }
+      ],
+      "questions": [
+        {
+          "id": "d1-q001",
+          "type": "multiple-choice",
+          "question": "버전 관리 시스템(VCS)의 주요 목적으로 올바른 것은?",
+          "options": [
+            "코드를 자동으로 컴파일하고 실행하는 것",
+            "파일의 변경 이력을 추적하고 이전 버전을 복원하는 것",
+            "소스 코드를 암호화하여 보안을 강화하는 것",
+            "데이터베이스를 자동으로 백업하는 것"
+          ],
+          "answer": 1,
+          "explanation": "버전 관리 시스템(VCS)의 주요 목적은 파일 집합의 변경 이력을 추적하고 이전 버전을 쉽게 복원하는 것입니다. 또한 여러 팀원이 동시에 같은 파일을 작업할 수 있게 해줍니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q002",
+          "type": "multiple-choice",
+          "question": "Git을 처음 만든 사람은 누구인가요?",
+          "options": [
+            "Bill Gates",
+            "James Gosling",
+            "Linus Torvalds",
+            "Guido van Rossum"
+          ],
+          "answer": 2,
+          "explanation": "Git은 2005년 Linus Torvalds가 만들었습니다. 그는 Linux 커널의 창시자이기도 합니다. 이전에 사용하던 BitKeeper의 무료 사용이 취소되자 직접 새로운 분산형 VCS를 개발했습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q003",
+          "type": "multiple-choice",
+          "question": "새로운 Git 저장소를 초기화하는 명령은 무엇인가요?",
+          "options": [
+            "git start",
+            "git create",
+            "git init",
+            "git new"
+          ],
+          "answer": 2,
+          "explanation": "git init 명령은 현재 디렉토리에 새 Git 저장소를 초기화합니다. .git 숨김 디렉토리가 생성되어 버전 관리에 필요한 메타데이터가 저장됩니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q004",
+          "type": "multiple-choice",
+          "question": "Git에서 작업 중인 변경사항을 다음 커밋에 포함시키기 위해 준비하는 명령은?",
+          "options": [
+            "git commit",
+            "git add",
+            "git push",
+            "git stage"
+          ],
+          "answer": 1,
+          "explanation": "git add 명령은 파일의 변경사항을 스테이징 영역(Staging Area)에 추가합니다. 스테이징 영역은 다음 커밋에 포함될 변경사항을 준비하는 공간입니다. 이후 git commit으로 영구 저장합니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q005",
+          "type": "multiple-choice",
+          "question": "원격 저장소를 로컬에 복제하는 Git 명령은?",
+          "options": [
+            "git copy",
+            "git download",
+            "git clone",
+            "git fork"
+          ],
+          "answer": 2,
+          "explanation": "git clone <URL> 명령은 원격 저장소를 로컬에 완전히 복제합니다. 전체 이력, 브랜치, 태그를 포함한 완전한 복사본이 생성되며, origin이라는 원격 이름이 자동으로 설정됩니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q006",
+          "type": "multiple-choice",
+          "question": "git status 명령이 보여주는 정보는 무엇인가요?",
+          "options": [
+            "원격 저장소의 최신 커밋 목록",
+            "Working Tree와 Staging Area의 현재 상태",
+            "모든 브랜치 목록",
+            "기여자 통계"
+          ],
+          "answer": 1,
+          "explanation": "git status 명령은 Working Tree(작업 트리)와 Staging Area(스테이징 영역)의 현재 상태를 표시합니다. Untracked(추적 안 됨), Modified(수정됨, 미스테이지), Staged(스테이징됨) 파일을 보여줍니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q007",
+          "type": "multiple-choice",
+          "question": "GitHub의 Pull Request 기능의 주요 목적은 무엇인가요?",
+          "options": [
+            "원격 저장소에서 변경사항을 다운로드하는 것",
+            "한 브랜치의 커밋을 다른 브랜치에 병합할 준비가 되었음을 알리고 리뷰를 요청하는 것",
+            "저장소를 다른 계정으로 복사하는 것",
+            "코드 충돌을 자동으로 해결하는 것"
+          ],
+          "answer": 1,
+          "explanation": "Pull Request(PR)는 한 브랜치의 커밋을 다른 브랜치(보통 main)에 병합할 준비가 되었음을 알리는 메커니즘입니다. 리뷰어가 코드를 검토하고, 댓글을 달고, 승인하는 협업 프로세스의 핵심입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q008",
+          "type": "multiple-choice",
+          "question": "GitHub 저장소에서 파일에 대한 Write 접근 권한이 필요한 작업은?",
+          "options": [
+            "저장소 이슈 목록 보기",
+            "저장소 클론(clone)",
+            "저장소에 파일 추가",
+            "저장소의 README 읽기"
+          ],
+          "answer": 2,
+          "explanation": "GitHub 저장소에 파일을 추가하거나 수정하려면 최소 Write 접근 권한이 필요합니다. 이슈 보기, 클론, README 읽기는 Public 저장소에서 권한 없이도 가능합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q009",
+          "type": "multiple-choice",
+          "question": "GitHub의 Issues 기능은 무엇을 추적하는데 사용되나요?",
+          "options": [
+            "코드 배포 파이프라인",
+            "아이디어, 피드백, 작업, 버그",
+            "서버 성능 메트릭",
+            "사용자 인증 로그"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Issues는 프로젝트의 아이디어, 피드백, 작업, 버그를 추적하는 데 사용됩니다. 레이블, 마일스톤, 담당자를 지정할 수 있으며 팀 협업의 핵심 도구입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q010",
+          "type": "multiple-choice",
+          "question": "GitHub Flow의 첫 번째 단계는 무엇인가요?",
+          "options": [
+            "Pull Request 열기",
+            "변경사항 커밋",
+            "브랜치 생성",
+            "main 브랜치에 병합"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Flow의 첫 번째 단계는 브랜치 생성입니다. 기능 개발이나 버그 수정을 위해 main 브랜치에서 새 브랜치를 생성하여 안전하게 작업합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q011",
+          "type": "multiple-choice",
+          "question": "중앙집중식 VCS(CVCS)와 분산형 VCS(DVCS)의 차이점으로 올바른 것은?",
+          "options": [
+            "CVCS는 더 빠르고 DVCS는 더 안전하다",
+            "CVCS는 중앙 서버에 이력을 저장하고 DVCS는 각 개발자의 로컬에 전체 이력을 저장한다",
+            "CVCS는 오픈소스이고 DVCS는 상업용이다",
+            "CVCS는 브랜치를 지원하지 않고 DVCS는 지원한다"
+          ],
+          "answer": 1,
+          "explanation": "CVCS(CVS, SVN, Perforce)는 중앙 서버에 프로젝트 이력을 저장하므로 서버 장애 시 단일 장애점이 됩니다. DVCS(Git)는 모든 개발자의 로컬 컴퓨터에 전체 이력이 저장되어 오프라인 작업과 서버 장애에도 계속 작업 가능합니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d1-q012",
+          "type": "multiple-choice",
+          "question": "git pull 명령은 내부적으로 어떤 두 명령을 순서대로 실행하나요?",
+          "options": [
+            "git clone + git push",
+            "git fetch + git merge",
+            "git add + git commit",
+            "git branch + git checkout"
+          ],
+          "answer": 1,
+          "explanation": "git pull은 내부적으로 git fetch(원격 변경사항 다운로드)와 git merge(현재 브랜치에 병합)를 순서대로 실행합니다. git fetch만 사용하면 변경사항을 확인하되 병합하지 않을 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q013",
+          "type": "multiple-choice",
+          "question": "GitHub에서 다른 사용자의 저장소에 쓰기 권한 없이 기여하는 올바른 방법은?",
+          "options": [
+            "저장소를 직접 클론하여 main에 push",
+            "저장소를 Fork하여 변경 후 Pull Request 제출",
+            "저장소에 Collaborator 초대 요청",
+            "Issues에 코드 붙여넣기"
+          ],
+          "answer": 1,
+          "explanation": "쓰기 권한이 없는 저장소에 기여하려면 Fork(포크)를 사용합니다. 저장소를 자신의 계정으로 포크 → 변경사항 작업 → Pull Request를 원본(upstream) 저장소에 제출하는 방식입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q014",
+          "type": "multiple-choice",
+          "question": "Git에서 파일의 상태 중 Staged 상태는 무엇을 의미하나요?",
+          "options": [
+            "Git이 파일의 존재를 모르는 상태",
+            "파일이 수정되었지만 스테이징되지 않은 상태",
+            "파일이 수정되어 스테이징 영역에 추가된 상태로 커밋 준비 완료",
+            "파일이 원격 저장소에 업로드된 상태"
+          ],
+          "answer": 2,
+          "explanation": "Staged 상태는 파일이 수정되고 git add 명령으로 스테이징 영역에 추가된 상태입니다. 이 상태의 파일들은 다음 git commit에 포함될 준비가 완료된 것입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q015",
+          "type": "multiple-choice",
+          "question": "GitHub Enterprise Platform의 보안 기능에 포함되지 않는 것은?",
+          "options": [
+            "CodeQL",
+            "Secret Scanning",
+            "Dependabot",
+            "GitHub Copilot"
+          ],
+          "answer": 3,
+          "explanation": "GitHub Copilot은 AI 기반 코드 자동완성 도구로 AI 기둥에 해당합니다. CodeQL(코드 취약점 분석), Secret Scanning(민감 정보 감지), Dependabot(의존성 취약점)은 Security 기둥에 포함됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q016",
+          "type": "multiple-choice",
+          "question": "GitHub의 Gist에 대한 설명으로 올바른 것은?",
+          "options": [
+            "Gist는 완전히 비공개이며 URL을 알아도 접근할 수 없다",
+            "Secret Gist는 검색에 노출되지 않지만 URL을 알면 누구나 접근할 수 있다",
+            "Gist는 버전 관리를 지원하지 않는다",
+            "Gist는 여러 파일로 구성된 대형 프로젝트에 적합하다"
+          ],
+          "answer": 1,
+          "explanation": "Secret Gist는 GitHub 검색에 노출되지 않지만, URL을 아는 사람은 누구나 접근할 수 있습니다. 완전히 비공개가 아니므로 비밀번호, API 키 등 민감한 정보를 저장해서는 안 됩니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q017",
+          "type": "multiple-choice",
+          "question": "Git flow 워크플로우의 hotfix 브랜치는 어디서 분기하나요?",
+          "options": [
+            "develop 브랜치",
+            "feature 브랜치",
+            "release 브랜치",
+            "master 브랜치"
+          ],
+          "answer": 3,
+          "explanation": "Git flow에서 hotfix 브랜치는 master(production-ready) 브랜치에서 분기합니다. 긴급한 프로덕션 버그를 빠르게 수정하기 위해 사용하며, 수정 후 master와 develop 모두에 병합합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q018",
+          "type": "multiple-choice",
+          "question": "GitHub Pages에 대한 설명으로 올바른 것은?",
+          "options": [
+            "동적 서버사이드 애플리케이션을 호스팅할 수 있다",
+            "저장소에서 직접 정적 웹사이트를 호스팅하는 서비스이다",
+            "GitHub Pages는 Private 저장소에서만 사용할 수 있다",
+            "GitHub Pages는 별도의 서버 구매가 필요하다"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Pages는 저장소의 HTML, CSS, JavaScript 파일에서 정적 웹사이트를 무료로 호스팅하는 서비스입니다. 지정된 브랜치와 폴더(예: /docs)의 파일을 공개적으로 게시합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q019",
+          "type": "multiple-choice",
+          "question": "GitHub Discussions와 Issues의 주요 차이점은?",
+          "options": [
+            "Discussions는 코드 리뷰에 사용되고 Issues는 버그 추적에만 사용된다",
+            "Discussions는 코드와 직접 연관되지 않은 대화(Q&A, 아이디어)를 위한 것이고, Issues는 추적 가능한 작업/버그를 위한 것이다",
+            "Issues는 무료이고 Discussions는 유료 기능이다",
+            "차이가 없으며 같은 기능이다"
+          ],
+          "answer": 1,
+          "explanation": "Discussions는 Q&A, 아이디어 공유, 공지 등 코드와 직접 연관되지 않은 개방적 대화를 위한 포럼 형식입니다. Issues는 추적 가능한 작업, 버그, 기능 요청 등 실행 가능한 항목에 적합합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q020",
+          "type": "multiple-choice",
+          "question": "git commit에 포함되는 정보가 아닌 것은?",
+          "options": [
+            "작성자 이름과 이메일",
+            "타임스탬프",
+            "파일의 미래 변경 예측",
+            "부모 커밋 참조"
+          ],
+          "answer": 2,
+          "explanation": "git commit에는 작성자 이름/이메일, 날짜/타임스탬프, 커밋 메시지, 스냅샷 참조, 부모 커밋 참조가 포함됩니다. 미래 변경 예측은 포함되지 않습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q021",
+          "type": "multiple-choice",
+          "question": "GitHub Wiki 페이지를 삭제하는 방법으로 올바른 것은?",
+          "options": [
+            "Wiki 탭에서 Delete 버튼 클릭",
+            "Issues에서 삭제 요청 제출",
+            "Wiki 저장소를 Git으로 클론하여 파일 삭제 후 push",
+            "GitHub API를 통해서만 삭제 가능"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Wiki 페이지 삭제는 Git 명령으로 수행합니다. Wiki 저장소를 클론하고, 해당 파일을 삭제한 후 변경사항을 push하는 방식입니다. UI에서 직접 삭제 버튼은 제공되지 않습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q022",
+          "type": "multiple-choice",
+          "question": "GitHub 알림(Notifications)에서 'Watching' 설정의 의미는?",
+          "options": [
+            "특정 이슈나 PR에만 알림",
+            "저장소의 모든 활동에 대해 알림 받기",
+            "직접 참여하거나 멘션될 때만 알림",
+            "모든 알림 무시"
+          ],
+          "answer": 1,
+          "explanation": "Watching 설정은 저장소의 모든 활동(이슈, PR, 릴리스, 토론 등)에 대해 알림을 받는 설정입니다. Not Watching은 참여하거나 멘션될 때만, Ignore는 알림 없음입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q023",
+          "type": "multiple-choice",
+          "question": "GitHub Flow와 Git flow의 차이점으로 올바른 것은?",
+          "options": [
+            "GitHub Flow는 develop 브랜치를 사용하고 Git flow는 feature 브랜치를 사용한다",
+            "GitHub Flow는 지속적 배포에 적합한 경량 워크플로우이고, Git flow는 버전 릴리스 주기가 있는 복잡한 프로젝트에 적합하다",
+            "Git flow는 GitHub에서만 사용 가능하다",
+            "GitHub Flow는 main 브랜치 직접 수정을 권장한다"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Flow는 main 브랜치와 기능 브랜치만 사용하는 단순한 워크플로우로 지속적 배포(CD)에 적합합니다. Git flow는 master, develop, feature, release, hotfix 브랜치를 사용하는 구조화된 모델로 버전 릴리스 사이클이 있는 프로젝트에 적합합니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d1-q024",
+          "type": "multiple-choice",
+          "question": "원격 저장소에서 변경사항을 가져오되 현재 브랜치에 자동으로 병합하지 않으려면?",
+          "options": [
+            "git pull --no-merge",
+            "git fetch",
+            "git clone --update",
+            "git sync"
+          ],
+          "answer": 1,
+          "explanation": "git fetch는 원격 저장소의 변경사항을 다운로드하되 현재 브랜치에 병합하지 않습니다. 원격 상태를 확인하고 싶을 때 안전하게 사용합니다. git pull은 fetch + merge를 함께 수행합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q025",
+          "type": "multiple-choice",
+          "question": "GitHub Enterprise Platform의 5가지 핵심 기둥에 해당하지 않는 것은?",
+          "options": [
+            "AI",
+            "Security",
+            "Blockchain",
+            "Collaboration"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Enterprise Platform의 5가지 핵심 기둥은 AI, Collaboration(협업), Productivity(생산성), Security(보안), Scale(규모)입니다. Blockchain은 포함되지 않습니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d1-q026",
+          "type": "multiple-choice",
+          "question": "버그를 보고하는 가장 좋은 방법은?",
+          "options": [
+            "프로젝트 오너에게 이메일 보내기",
+            "프로젝트의 기존 Issues를 검색하고 없으면 새 이슈 생성",
+            "main 브랜치에 직접 버그 수정 코드 push",
+            "소셜 미디어에 버그 공개"
+          ],
+          "answer": 1,
+          "explanation": "버그를 보고하는 가장 좋은 방법은 프로젝트의 기존 Issues를 먼저 검색하여 동일한 버그가 이미 보고되었는지 확인하고, 없으면 새 이슈를 생성하는 것입니다. 이를 통해 중복 이슈를 방지하고 투명한 추적이 가능합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q027",
+          "type": "multiple-choice",
+          "question": "GitHub에서 소프트웨어 구성 관리(SCM)는 일반적으로 무엇을 포함하나요?",
+          "options": [
+            "버전 관리만 포함한다",
+            "버전 관리를 포함한 더 넓은 개념으로, 빌드, 배포, 변경 관리 등을 포함한다",
+            "데이터베이스 관리만을 의미한다",
+            "팀 커뮤니케이션 도구만을 의미한다"
+          ],
+          "answer": 1,
+          "explanation": "소프트웨어 구성 관리(SCM)는 버전 관리를 포함하는 더 넓은 개념입니다. 버전 관리는 SCM의 실천 중 하나입니다. Git의 공식 문서는 git-scm.com에서 호스팅되는데, 이는 Git이 SCM 맥락에서 자주 논의되기 때문입니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d1-q028",
+          "type": "true-false",
+          "question": "Git은 분산형 VCS이므로 대부분의 Git 작업(commit, branch, log)은 네트워크 연결 없이도 수행할 수 있다.",
+          "answer": true,
+          "explanation": "맞습니다. Git은 분산형(Distributed) VCS로, 프로젝트의 전체 이력이 로컬에 저장됩니다. 따라서 commit, branch 생성, log 확인 등 대부분의 작업을 오프라인에서도 수행할 수 있습니다. 네트워크는 push/pull처럼 원격 저장소와 동기화할 때만 필요합니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q029",
+          "type": "true-false",
+          "question": "GitHub의 Secret Gist는 완전히 비공개이므로 URL을 알아도 접근할 수 없다.",
+          "answer": false,
+          "explanation": "틀렸습니다. Secret Gist는 검색에 노출되지 않지만, URL을 아는 사람은 누구나 접근할 수 있습니다. 완전히 비공개가 아니므로 비밀번호, API 키 등 민감한 정보를 저장해서는 안 됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q030",
+          "type": "true-false",
+          "question": "git pull은 내부적으로 git fetch와 git merge를 순서대로 실행한다.",
+          "answer": true,
+          "explanation": "맞습니다. git pull은 git fetch(원격 변경사항 다운로드)와 git merge(현재 브랜치에 병합)를 순서대로 실행합니다. 병합 없이 다운로드만 하려면 git fetch를 단독으로 사용해야 합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q031",
+          "type": "true-false",
+          "question": "GitHub Pages는 서버사이드 언어(Node.js, Python 등)로 작성된 동적 웹 애플리케이션을 호스팅할 수 있다.",
+          "answer": false,
+          "explanation": "틀렸습니다. GitHub Pages는 정적 사이트 호스팅 서비스입니다. HTML, CSS, JavaScript 파일만 지원하며, Node.js, Python, Ruby 등 서버사이드 처리가 필요한 동적 애플리케이션은 호스팅할 수 없습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q032",
+          "type": "true-false",
+          "question": "GitHub Flow에서 변경사항을 main에 병합한 후 사용한 브랜치는 삭제하는 것이 권장된다.",
+          "answer": true,
+          "explanation": "맞습니다. GitHub Flow의 마지막 단계(6번째)는 브랜치 삭제입니다. 병합 후 브랜치를 삭제하면 저장소를 깔끔하게 유지하고 오래된 브랜치 사용을 방지할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q033",
+          "type": "true-false",
+          "question": "Dependabot은 저장소에 실수로 커밋된 API 키나 비밀번호를 감지한다.",
+          "answer": false,
+          "explanation": "틀렸습니다. API 키, 비밀번호 등 민감한 정보 감지는 Secret Scanning의 역할입니다. Dependabot은 프로젝트 의존성의 취약점을 감지하고 자동으로 수정 PR을 생성합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q034",
+          "type": "true-false",
+          "question": "Git의 SHA-1 해시는 160비트 길이이며, 파일 내용이 같으면 타임스탬프가 달라도 해시값이 동일하다.",
+          "answer": true,
+          "explanation": "맞습니다. Git의 전통적인 SHA-1 해시는 160비트(40자리 16진수)입니다. 해시는 파일 내용에 의해 결정되므로 타임스탬프가 변경되더라도 파일 내용이 같으면 해시값은 동일합니다. 이 특성으로 파일 변경 여부를 효율적으로 감지합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q035",
+          "type": "true-false",
+          "question": "GitHub Discussions에서 Q&A 방식의 토론에서는 특정 댓글을 답변으로 채택할 수 있다.",
+          "answer": true,
+          "explanation": "맞습니다. Q&A 방식의 GitHub Discussions에서는 질문에 대한 최선의 답변 댓글을 선택하여 '채택된 답변'으로 표시할 수 있습니다. 이를 통해 다른 사람들이 빠르게 답변을 찾을 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q036",
+          "type": "true-false",
+          "question": "git rebase는 커밋 이력을 재작성하므로 이미 공개된(push된) 브랜치에서 사용할 때 주의가 필요하다.",
+          "answer": true,
+          "explanation": "맞습니다. git rebase는 커밋 해시를 변경하여 이력을 재작성합니다. 이미 다른 사람과 공유된 브랜치에 rebase를 적용하면 이력 불일치가 발생하여 협업에 문제가 생길 수 있습니다. 로컬 브랜치나 아직 공유되지 않은 브랜치에서 사용하는 것이 안전합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q037",
+          "type": "true-false",
+          "question": "Private 저장소의 GitHub Wiki는 해당 저장소에 Read 이상의 접근 권한을 가진 사람만 접근할 수 있다.",
+          "answer": true,
+          "explanation": "맞습니다. Private 저장소의 Wiki는 저장소에 Read 이상의 접근 권한(Read, Triage, Write, Maintain, Admin)을 가진 사람만 접근할 수 있습니다. Public 저장소의 Wiki는 누구나 볼 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q038",
+          "type": "true-false",
+          "question": "Git의 Bare Repository는 Working Tree를 포함하므로 파일을 직접 편집할 수 있다.",
+          "answer": false,
+          "explanation": "틀렸습니다. Bare Repository는 Working Tree가 없는 저장소입니다. .git 디렉토리의 내용만 포함하며 파일을 직접 편집할 수 없습니다. 주로 팀의 공유 원격 저장소나 백업 목적으로 사용됩니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q039",
+          "type": "short-answer",
+          "question": "변경사항을 스테이징 영역(Staging Area)에 추가하는 Git 명령어는?",
+          "answer": "git add",
+          "acceptedAnswers": [
+            "git add",
+            "add"
+          ],
+          "explanation": "git add 명령은 작업 디렉토리의 변경사항을 스테이징 영역에 추가합니다. git add . 는 모든 변경사항을, git add <파일명>은 특정 파일만 스테이징합니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q040",
+          "type": "short-answer",
+          "question": "원격 저장소를 로컬에 복제하는 Git 명령어는?",
+          "answer": "git clone",
+          "acceptedAnswers": [
+            "git clone",
+            "git clone <URL>",
+            "clone"
+          ],
+          "explanation": "git clone <URL> 명령은 원격 저장소를 로컬에 완전히 복제합니다. 전체 이력, 브랜치, 태그를 포함한 완전한 복사본이 생성되며, origin이라는 원격 이름이 자동으로 설정됩니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d1-q041",
+          "type": "short-answer",
+          "question": "Git 저장소에서 4가지 Object 타입을 모두 나열하시오.",
+          "answer": "blob, tree, commit, tag",
+          "acceptedAnswers": [
+            "blob, tree, commit, tag",
+            "Blob, Tree, Commit, Tag",
+            "blob tree commit tag"
+          ],
+          "explanation": "Git 저장소의 4가지 Object 타입: Blob(파일 내용), Tree(디렉토리), Commit(특정 버전의 Working Tree), Annotated Tag(메타데이터 포함 태그). 각 객체는 고유한 해시로 식별됩니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d1-q042",
+          "type": "short-answer",
+          "question": "현재 작업 중인 변경사항을 임시 저장하고 나중에 복원하는 Git 명령어는?",
+          "answer": "git stash",
+          "acceptedAnswers": [
+            "git stash",
+            "stash"
+          ],
+          "explanation": "git stash 명령은 현재 작업 중인 변경사항을 임시 저장합니다. 커밋하지 않고 다른 브랜치로 이동할 때 유용합니다. git stash pop으로 저장된 변경사항을 복원합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q043",
+          "type": "short-answer",
+          "question": "Git에서 이진 탐색으로 버그가 처음 도입된 커밋을 찾는 명령어는?",
+          "answer": "git bisect",
+          "acceptedAnswers": [
+            "git bisect",
+            "bisect"
+          ],
+          "explanation": "git bisect 명령은 이진 탐색 알고리즘을 사용하여 버그가 도입된 커밋을 효율적으로 찾습니다. git bisect start → bad/good 표시 반복 → 버그 커밋 발견 순서로 진행합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d1-q044",
+          "type": "short-answer",
+          "question": "등록된 Git 원격(remote) 저장소의 이름과 URL을 확인하는 명령어는?",
+          "answer": "git remote -v",
+          "acceptedAnswers": [
+            "git remote -v",
+            "git remote --verbose"
+          ],
+          "explanation": "git remote -v 명령은 등록된 원격 저장소의 이름과 URL을 모두 표시합니다. fetch와 push URL을 각각 보여줍니다. git remote만 입력하면 이름만 표시됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d1-q045",
+          "type": "short-answer",
+          "question": "특정 커밋 하나만을 현재 브랜치에 선택적으로 적용하는 Git 명령어는?",
+          "answer": "git cherry-pick",
+          "acceptedAnswers": [
+            "git cherry-pick",
+            "cherry-pick"
+          ],
+          "explanation": "git cherry-pick <커밋해시> 명령은 특정 커밋 하나를 현재 브랜치에 적용합니다. 다른 브랜치의 특정 버그 수정만 가져오거나, 실수로 잘못된 브랜치에 작업한 커밋을 올바른 브랜치로 이동할 때 유용합니다.",
+          "difficulty": "hard"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Working with GitHub Repositories",
+      "weight": 0.17,
+      "summary": [
+        {
+          "title": "GitHub 제품 플랜 (Free, Pro, Team, Enterprise)",
+          "content": "GitHub은 개인과 조직을 위한 다양한 플랜을 제공합니다. GitHub Free는 무제한 공개/비공개 저장소와 월 2,000분의 Actions 분을 포함합니다. GitHub Pro는 개인 개발자를 위해 월 3,000분 Actions, 2GB 패키지 저장소, 이메일 지원, 고급 인사이트 그래프 등을 추가로 제공합니다. GitHub Team은 조직을 위한 플랜으로 Draft PR, 코드 오너, 필수 리뷰어, 보호된 브랜치 등 고급 협업 기능을 지원합니다. GitHub Enterprise는 최대 50,000분 Actions(Cloud), SAML SSO, 감사 로그, GitHub Connect 등 엔터프라이즈 기능을 제공하며, 자체 호스팅(GHES)과 클라우드(GHEC) 두 가지 옵션이 있습니다."
+        },
+        {
+          "title": "GitHub Mobile과 GitHub Desktop",
+          "content": "GitHub Mobile은 iOS와 Android에서 사용 가능한 공식 앱으로, 알림 관리, 이슈와 PR 리뷰·편집, 사용자/저장소 검색, 2단계 인증 지원 등 핵심 작업을 모바일에서 수행할 수 있습니다. 단, 저장소 생성 등 일부 기능은 모바일 앱에서 직접 지원하지 않으며 경량 작업에 최적화되어 있습니다. GitHub Desktop은 Windows와 macOS용 오픈소스 GUI 클라이언트로, Git 워크플로우를 시각적으로 쉽게 관리할 수 있습니다. Desktop에서는 저장소 추가/클론, 변경사항 인터랙티브 스테이징, 공동 작성자 추가, PR 브랜치 체크아웃, CI 상태 확인, 이미지 변경 비교 등이 가능합니다."
+        },
+        {
+          "title": "GitHub 청구 및 라이선스 관리",
+          "content": "GitHub 청구는 구독 비용(플랜, Copilot, Marketplace 앱)과 사용량 기반 비용(Actions 분, 패키지 저장소, Codespaces)으로 구성됩니다. 새 Enterprise 고객은 기본적으로 Pay-As-You-Go(PAYG) 방식으로 실제 사용된 활성 시트 수만큼 월별 청구됩니다. 사용량 기반 라이선스 모델에서는 사용자가 월 중간에 라이선스를 시작하면 일할 계산(pro rata)되고, 해제하면 다음 달 청구에 반영됩니다. 관리자는 지출 한도를 설정해 Actions, 패키지 등의 초과 비용을 방지할 수 있으며, 상세 사용 보고서와 자동화된 리포팅 기능도 제공됩니다."
+        },
+        {
+          "title": "저장소 고급 관리 기능",
+          "content": "GitHub 저장소는 Topics(주제 태그)를 사용해 발견성을 높일 수 있으며, 최대 6개의 저장소를 프로필에 고정(Pin)할 수 있습니다. 저장소 아카이브(Archive) 기능을 사용하면 저장소가 읽기 전용 상태가 되어 새로운 푸시, 이슈, PR이 불가능해집니다. 저장소 이전(Transfer)은 다른 사용자나 조직으로 소유권을 이동하며, 포크, 스타, 이슈는 이전됩니다. GitHub Actions 분은 월별 롤오버 없이 초기화되며, GitHub LFS는 대용량 바이너리 파일을 저장소 외부에 관리하는 도구입니다. 저장소 가시성은 공개(Public), 비공개(Private), 내부(Internal, Enterprise 전용)로 설정할 수 있습니다."
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "d2-fc001",
+          "front": "GitHub Free (Personal)",
+          "back": "개인 계정용 무료 플랜. 무제한 공개/비공개 저장소, 무제한 협업자. 포함 사항: GitHub Community 지원, Dependabot 알림, 2FA 강제, GitHub 패키지 500MB, Codespaces 120 코어시간/월, Actions 2,000분/월, 공개 저장소 배포 보호 규칙."
+        },
+        {
+          "id": "d2-fc002",
+          "front": "GitHub Pro",
+          "back": "개인 개발자를 위한 유료 플랜. Free의 모든 기능 포함 + 이메일 지원, Actions 3,000분/월, 패키지 2GB 저장소, Codespaces 180 코어시간/월, 20GB Codespaces 저장소. 비공개 저장소에서 고급 기능: 필수 PR 리뷰어, 보호된 브랜치, 코드 오너, GitHub Pages, Wiki, 인사이트 그래프."
+        },
+        {
+          "id": "d2-fc003",
+          "front": "GitHub Team",
+          "back": "조직을 위한 협업 플랜. Free for Organizations의 모든 기능 포함 + 이메일 지원, Actions 3,000분/월, 패키지 2GB. 고급 기능: Draft PR, 팀 PR 리뷰어, 필수 리뷰어, 보호된 브랜치, 코드 오너, 예약 알림, GitHub Pages/Wiki. Codespaces 활성화/비활성화 가능."
+        },
+        {
+          "id": "d2-fc004",
+          "front": "GitHub Enterprise",
+          "back": "엔터프라이즈 규모 플랜. Team의 모든 기능 포함 + 전담 Enterprise 지원, 보안/컴플라이언스/배포 제어, 외부 ID 공급자를 통한 중앙 인증 관리, 비공개/내부 저장소 배포 보호 규칙, GitHub Connect, GitHub Advanced Security 구매 옵션. GHES와 GHEC 두 가지 옵션."
+        },
+        {
+          "id": "d2-fc005",
+          "front": "GitHub Enterprise Cloud (GHEC)",
+          "back": "GitHub.com에서 호스팅되는 Enterprise 옵션. Actions 50,000분/월, 패키지 50GB 저장소, 월 99.9% 가동 SLA, 엔터프라이즈 계정으로 여러 조직 중앙 관리, Enterprise Managed Users(EMU) 지원. SAML SSO, 감사 로그, GitHub Connect 포함."
+        },
+        {
+          "id": "d2-fc006",
+          "front": "GitHub Enterprise Server (GHES)",
+          "back": "자체 호스팅(on-premises) Enterprise 옵션. 조직이 인프라를 완전히 제어. LDAP, Active Directory 등 엔터프라이즈 인증 지원. 에어갭(Air-gapped) 환경 가능. 조직의 IT 팀이 직접 설치·유지보수. GitHub Enterprise Cloud와의 차이: 자체 서버 필요."
+        },
+        {
+          "id": "d2-fc007",
+          "front": "GitHub Free for Organizations",
+          "back": "조직 계정용 무료 플랜. 무제한 공개/비공개 저장소, 무제한 협업자, 팀 접근 제어로 그룹 관리. Community 지원, Actions 2,000분/월. 개인 Free와 차이: 팀 접근 제어 추가. 비공개 저장소는 제한된 기능 세트."
+        },
+        {
+          "id": "d2-fc008",
+          "front": "Enterprise Managed Users (EMU)",
+          "back": "GitHub Enterprise Cloud 기능. 조직이 ID 공급자(IdP)를 통해 개발자의 GitHub 사용자 계정을 직접 프로비저닝·관리. 중앙 집중식 접근 제어와 강화된 보안 제공. SCIM으로 자동 사용자 프로비저닝 지원."
+        },
+        {
+          "id": "d2-fc009",
+          "front": "GitHub Connect",
+          "back": "GitHub Enterprise Server와 GitHub Enterprise Cloud 간 데이터 공유를 위한 보안 연결. 통합 기여 통계, 중앙화된 사용자 아이덴티티, 환경 간 가시성 향상. Enterprise 플랜에서만 사용 가능."
+        },
+        {
+          "id": "d2-fc010",
+          "front": "GitHub Mobile",
+          "back": "iOS·Android용 공식 GitHub 앱. 가능한 작업: 알림 관리/필터링/삭제, 이슈·PR 읽기·리뷰·협업, PR 파일 편집, 사용자·저장소·조직 검색, 푸시 알림 수신, 2FA, 미인식 기기 로그인 검증. 경량 작업에 최적화."
+        },
+        {
+          "id": "d2-fc011",
+          "front": "GitHub Desktop",
+          "back": "Windows·macOS용 오픈소스 GUI Git 클라이언트. 가능한 작업: 저장소 추가·클론·관리, 인터랙티브 변경사항 스테이징, 공동 작성자 추가, PR 브랜치 체크아웃, CI 상태 확인, 이미지 변경 비교. Git/GitHub 모범 사례를 시각적으로 지원."
+        },
+        {
+          "id": "d2-fc012",
+          "front": "GitHub Mobile vs Desktop 차이",
+          "back": "Mobile: iOS/Android, 경량 작업 중심, 알림 관리·PR 리뷰·이슈 협업, 2FA 지원, 이동 중 사용. Desktop: Windows/macOS, 로컬 Git 워크플로우 GUI, 인터랙티브 스테이징, CI 상태, 이미지 비교, 풀 요청 체크아웃. Desktop은 본격적 개발 작업, Mobile은 빠른 확인·간단 작업."
+        },
+        {
+          "id": "d2-fc013",
+          "front": "GitHub 청구 구조",
+          "back": "두 가지 요소: 1) 구독 비용 - 계정 플랜(Pro, Team 등), Copilot, Marketplace 앱의 고정 월 비용. 2) 사용량 기반 비용 - Actions(실행 분·아티팩트 저장), Packages(저장·전송), Codespaces(연산+저장). 대부분 플랜에 무료 할당량 포함."
+        },
+        {
+          "id": "d2-fc014",
+          "front": "시트 라이선스 (Seat License)",
+          "back": "GitHub Enterprise에서 각 사용자가 소비하는 라이선스 단위. 비공개 저장소 접근 권한이 있는 각 사용자 = 1시트. 머신 계정도 일반 사용자처럼 라이선스 소비. PAYG 모델: 활성 시트 수에 따라 월별 청구. 미사용 시트 감지 후 회수 가능."
+        },
+        {
+          "id": "d2-fc015",
+          "front": "사용량 기반 라이선스 (PAYG)",
+          "back": "Pay-As-You-Go: 새 Enterprise 고객의 기본 청구 방식. 미리 라이선스 수 지정 불필요. 실제 활성 사용자(Active Seats) 수에 따라 월별 청구. 일할 계산(Pro rata): 월 중간 시작 시 해당 기간만 청구. 월 중간 해제 시 다음 달 청구에 반영."
+        },
+        {
+          "id": "d2-fc016",
+          "front": "GitHub Actions 무료 할당량",
+          "back": "플랜별 비공개 저장소 월 무료 분: Free 2,000분, Pro 3,000분, Team 3,000분, Enterprise 50,000분. 공개 저장소는 모든 플랜에서 무제한 무료. 초과 시 지출 한도 설정으로 관리. 분은 월 초기화, 롤오버 없음."
+        },
+        {
+          "id": "d2-fc017",
+          "front": "Actions 러너 유형별 요금",
+          "back": "GitHub 호스팅 러너 분당 요금(2024 기준): Linux $0.008/분, Windows $0.016/분, macOS $0.08/분. macOS가 가장 비싸고 Linux가 가장 저렴. 자체 호스팅(Self-hosted) 러너는 GitHub이 요금 청구하지 않음(자체 인프라 비용만 발생)."
+        },
+        {
+          "id": "d2-fc018",
+          "front": "GitHub Packages 스토리지",
+          "back": "아티팩트, 컨테이너 이미지, 의존성 저장 서비스. 공개 저장소: 무료. 비공개 저장소 무료 할당: 저장 2GB, 데이터 전송 1GB/월. 초과분은 사용량 기반 청구. 플랜별 추가 무료 할당: Pro·Team 2GB, Enterprise Cloud 50GB."
+        },
+        {
+          "id": "d2-fc019",
+          "front": "GitHub Codespaces 청구",
+          "back": "클라우드 개발 환경. 연산 시간과 저장소 기준 청구. Free: 120 코어시간/월, 15GB 저장소/월. Pro: 180 코어시간/월, 20GB 저장소/월. 초과분은 사용량 기반 청구. Enterprise: 조직이 활성화/비활성화 선택 가능."
+        },
+        {
+          "id": "d2-fc020",
+          "front": "지출 한도 (Spending Limits)",
+          "back": "Actions, Packages, Codespaces 등 사용량 기반 서비스의 예상치 못한 초과 비용 방지 설정. 관리자가 서비스별 월 최대 지출 한도 설정 가능. 한도 초과 시 해당 서비스 일시 중단. 한도 미설정 시 무제한 사용량 허용."
+        },
+        {
+          "id": "d2-fc021",
+          "front": "Git LFS (Large File Storage)",
+          "back": "GitHub에서 대용량 바이너리 파일(이미지, 비디오, 데이터셋 등)을 저장소 외부에 저장하는 확장. 저장소에는 포인터 파일만 보관. 무료: 1GB 저장, 1GB 대역폭/월. 초과분은 데이터 팩 구매. git lfs track \"*.psd\"로 특정 파일 타입 추적."
+        },
+        {
+          "id": "d2-fc022",
+          "front": "저장소 Topics (주제)",
+          "back": "저장소에 키워드 태그를 붙여 발견성을 높이는 기능. 예: javascript, machine-learning, open-source. GitHub Explore와 검색에서 주제별 탐색 가능. 저장소 About 섹션에서 설정. 모범 사례: 관련성 높은 주제 사용, 오타 주의, 소문자+하이픈 형식."
+        },
+        {
+          "id": "d2-fc023",
+          "front": "저장소 고정 (Pinning Repositories)",
+          "back": "GitHub 프로필에 중요 저장소를 고정하는 기능. 최대 6개까지 고정 가능. 본인 저장소 또는 기여한 저장소 고정 가능. 프로필 방문자가 가장 먼저 보게 되는 저장소. 포트폴리오 강조에 효과적."
+        },
+        {
+          "id": "d2-fc024",
+          "front": "저장소 아카이브 (Archive)",
+          "back": "저장소를 읽기 전용 상태로 만드는 기능. 아카이브된 저장소에서는: 새 푸시 불가, 새 이슈 생성 불가, 새 PR 생성 불가, 위키 편집 불가. 코드·이슈·PR·다운로드·댓글은 여전히 접근 가능. 관리자만 아카이브/아카이브 해제 가능."
+        },
+        {
+          "id": "d2-fc025",
+          "front": "저장소 이전 (Transfer)",
+          "back": "저장소 소유권을 다른 사용자나 조직으로 이동. 이전 시 유지되는 것: 이슈, PR, Wiki, 스타, 워처, 포크. 이전 후 기존 URL은 새 위치로 자동 리다이렉트(단, 영구적이지 않음). 포크는 새 소유자의 네임스페이스로 이동. git remote URL 업데이트 필요."
+        },
+        {
+          "id": "d2-fc026",
+          "front": "저장소 가시성 (Visibility)",
+          "back": "Public: 인터넷 모든 사람 접근 가능. Private: 명시적으로 초대된 협업자만 접근. Internal: GitHub Enterprise 전용, 엔터프라이즈 내 모든 멤버 접근 가능(InnerSource용). Settings에서 언제든 변경 가능. 변경 시 주의: Private→Public은 모든 사람에게 공개."
+        },
+        {
+          "id": "d2-fc027",
+          "front": "저장소 포크 설정",
+          "back": "저장소 Settings에서 포크 허용 여부 제어. Public 저장소는 기본적으로 포크 허용. Private 저장소의 포크: 조직 설정에서 제어. Enterprise에서는 전체 포크 정책 설정 가능. 포크된 저장소는 원본의 가시성 설정을 상속받음."
+        },
+        {
+          "id": "d2-fc028",
+          "front": "기본 브랜치 이름",
+          "back": "GitHub의 새 저장소 기본 브랜치: main (2020년 10월 이후 변경, 이전: master). 저장소 Settings에서 기본 브랜치 변경 가능. 기존 저장소는 자동 변경 안 됨. git config --global init.defaultBranch main으로 로컬 Git 설정 변경."
+        },
+        {
+          "id": "d2-fc029",
+          "front": "저장소 인사이트 (Insights)",
+          "back": "저장소 활동 데이터 시각화. 탭 종류: Pulse(최근 활동 요약), Contributors(기여자 현황), Community Standards, Traffic(방문·클론 통계), Commits(커밋 빈도), Code frequency(코드 추가/삭제), Network(포크 그래프), Forks(포크 목록). Pro·Team·Enterprise에서 비공개 저장소 인사이트 지원."
+        },
+        {
+          "id": "d2-fc030",
+          "front": "이슈 템플릿 (Issue Templates)",
+          "back": "이슈 생성 시 일관된 정보를 수집하기 위한 양식. .github/ISSUE_TEMPLATE/ 디렉토리에 마크다운 파일로 정의. 버그 리포트, 기능 요청 등 템플릿 종류 선택 제공. Issue Forms: YAML 기반으로 필드 유형(입력, 드롭다운, 체크박스) 지정 가능."
+        },
+        {
+          "id": "d2-fc031",
+          "front": "GitHub Marketplace",
+          "back": "GitHub와 통합되는 앱과 GitHub Actions를 제공하는 플랫폼. 앱: CI/CD, 코드 품질, 프로젝트 관리, 보안 등 카테고리. Actions: 워크플로우에서 재사용 가능한 자동화 블록. 무료/유료 모두 제공. 저장소에 직접 설치 가능."
+        },
+        {
+          "id": "d2-fc032",
+          "front": "웹훅 (Webhooks)",
+          "back": "저장소·조직의 특정 이벤트 발생 시 설정된 URL로 HTTP POST 요청을 보내는 통합 메커니즘. 사용 사례: CI/CD 트리거, Slack 알림, 외부 서비스 연동. 지원 이벤트: push, pull_request, issues, releases 등. 저장소·조직·앱 레벨에서 설정."
+        },
+        {
+          "id": "d2-fc033",
+          "front": "배포 키 (Deploy Keys)",
+          "back": "특정 저장소에만 접근 권한을 부여하는 SSH 키. 서버나 CI/CD 환경에서 저장소에 접근할 때 사용. 읽기 전용 또는 읽기/쓰기 권한 설정 가능. 개인 SSH 키와 달리 저장소 수준에서 관리. 저장소 Settings → Deploy keys에서 추가."
+        },
+        {
+          "id": "d2-fc034",
+          "front": "GitHub API (REST & GraphQL)",
+          "back": "GitHub 기능을 프로그래밍 방식으로 자동화하는 API. REST API: https://api.github.com 엔드포인트. GraphQL API: https://api.github.com/graphql. 저장소·이슈·PR·사용자 관리 자동화. 개인 액세스 토큰(PAT) 또는 OAuth 앱으로 인증."
+        },
+        {
+          "id": "d2-fc035",
+          "front": "GitHub CLI (gh) 저장소 관리",
+          "back": "터미널에서 GitHub 저장소 관리 명령어: gh repo create(저장소 생성), gh repo clone(클론), gh repo fork(포크), gh repo view(저장소 정보), gh repo list(목록). gh pr create/list/view/merge, gh issue create/list/close. 스크립트와 CI에 통합 가능."
+        },
+        {
+          "id": "d2-fc036",
+          "front": "릴리스 (Releases) vs 태그 (Tags)",
+          "back": "태그: 특정 커밋에 붙이는 레이블(v1.0.0). Git 기능. Lightweight(단순 포인터)와 Annotated(메타데이터 포함) 두 종류. 릴리스: GitHub에서 태그를 기반으로 만드는 소프트웨어 배포 패키지. 릴리스 노트, 바이너리 파일 첨부, 소스 코드 자동 아카이브 포함. 태그 없이는 릴리스 불가."
+        },
+        {
+          "id": "d2-fc037",
+          "front": "GitHub Pages",
+          "back": "저장소에서 정적 웹사이트를 호스팅하는 서비스. 지정 브랜치(main, gh-pages)와 폴더(/root, /docs)에서 HTML·CSS·JS 게시. Jekyll 정적 사이트 생성기 기본 지원. 공개 저장소: 모든 플랜에서 무료. 비공개 저장소: Pro 이상 플랜 필요."
+        },
+        {
+          "id": "d2-fc038",
+          "front": "저장소 크기 제한",
+          "back": "GitHub 저장소 권장 크기: 1GB 미만 유지 권장. 강제 제한: 개별 파일 100MB 초과 시 거부. 저장소 전체 5GB 이상 시 알림. Git LFS를 사용하면 대용량 바이너리 파일을 별도 관리. 대용량 저장소는 클론·푸시·풀 성능 저하."
+        },
+        {
+          "id": "d2-fc039",
+          "front": "SSH vs HTTPS 클론",
+          "back": "HTTPS: URL 형식 https://github.com/user/repo.git. 사용자명+비밀번호 또는 개인 액세스 토큰(PAT) 인증. 방화벽 친화적. SSH: URL 형식 git@github.com:user/repo.git. SSH 키 쌍으로 인증(비밀번호 불필요). 보안성 높고 반복 인증 편리. GitHub이 모두 지원."
+        },
+        {
+          "id": "d2-fc040",
+          "front": "저장소 설정 기능 제어",
+          "back": "저장소 Settings에서 켜고 끌 수 있는 기능: Wikis, Issues, Discussions, Projects, Preserve this repository(아카이브). PR 관련: 스쿼시 병합, 리베이스 병합, PR 병합 후 브랜치 자동 삭제. Packages, GitHub Pages, GitHub Actions 활성화/비활성화. 기능 선택적 비활성화로 저장소 단순화."
+        },
+        {
+          "id": "d2-fc041",
+          "front": "GitHub Advanced Security (GHAS)",
+          "back": "Enterprise 플랜에 추가 구매 가능한 고급 보안 기능 패키지. 포함 기능: Code scanning(CodeQL), Secret scanning(시크릿 노출 탐지), Dependency review. 청구: 활성 커미터(90일 내 커밋한 고유 사용자) 기준. 여러 저장소 기여자는 1번만 카운트."
+        },
+        {
+          "id": "d2-fc042",
+          "front": "머신 계정 (Machine Accounts)",
+          "back": "자동화, 스크립트, 써드파티 도구 연동을 위해 생성되는 GitHub 계정. 인간 사용자와 독립적으로 작동. CI/CD 도구(Actions, Jenkins, CircleCI) 등이 사용. 각 머신 계정은 일반 사용자처럼 라이선스 소비. 정기적 감사로 미사용 머신 계정 정리 필요."
+        },
+        {
+          "id": "d2-fc043",
+          "front": "GitHub Student Developer Pack",
+          "back": "학생 개발자를 위한 GitHub Education 혜택. GitHub Pro 무료 제공, 파트너 도구 무료 접근. 학교 이메일 또는 재학 증명으로 신청. GitHub Copilot도 학생에게 무료 제공. 오픈소스 유지관리자도 Copilot 무료 사용 가능."
+        },
+        {
+          "id": "d2-fc044",
+          "front": "라이선스 사용량 추적 방법",
+          "back": "GHEC: Settings → Billing & plans → License usage에서 조직별 시트 현황 확인. Enterprise: Settings → Billing → License Usage에서 여러 조직 일괄 확인. GraphQL API: organization/enterprise 쿼리로 totalSeats, seatsUsed 조회. REST API: /enterprises/{slug}/license 엔드포인트."
+        },
+        {
+          "id": "d2-fc045",
+          "front": "메터드 사용 보고서 (Metered Usage Reports)",
+          "back": "GitHub의 사용량 기반 제품 소비 추적 보고서. 추적 대상: Actions 분(저장소·러너 유형·잔여 할당량별), Packages 저장소(저장소별 GB), GHE 라이선스(활성 사용자 vs 할당 라이선스), GHAS(고유 활성 커미터), Copilot(활성 사용자). Settings → Billing에서 확인."
+        }
+      ],
+      "questions": [
+        {
+          "id": "d2-q001",
+          "type": "multiple-choice",
+          "question": "GitHub Free(개인 계정)에서 비공개 저장소에 포함된 GitHub Actions 무료 사용 분은 월 얼마인가요?",
+          "options": [
+            "1,000분",
+            "2,000분",
+            "3,000분",
+            "50,000분"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Free(개인 계정)는 비공개 저장소에서 월 2,000분의 GitHub Actions 무료 분을 제공합니다. 공개 저장소는 모든 플랜에서 무제한 무료입니다. GitHub Pro와 Team은 3,000분, Enterprise Cloud는 50,000분을 제공합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q002",
+          "type": "multiple-choice",
+          "question": "GitHub Team 플랜에서 제공하는 고급 협업 기능으로 올바르지 않은 것은?",
+          "options": [
+            "Draft Pull Requests",
+            "코드 오너(Code Owners)",
+            "SAML SSO",
+            "팀 PR 리뷰어"
+          ],
+          "answer": 2,
+          "explanation": "SAML SSO(Single Sign-On)는 GitHub Team 플랜이 아닌 GitHub Enterprise 플랜에서 제공되는 기능입니다. GitHub Team은 Draft PR, 코드 오너, 팀 PR 리뷰어, 필수 리뷰어, 보호된 브랜치 등의 고급 협업 기능을 제공하지만 엔터프라이즈급 보안 기능은 포함되지 않습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d2-q003",
+          "type": "multiple-choice",
+          "question": "GitHub Enterprise Server(GHES)와 GitHub Enterprise Cloud(GHEC)의 가장 큰 차이점은 무엇인가요?",
+          "options": [
+            "GHES는 무료이고 GHEC는 유료이다",
+            "GHES는 조직이 자체 인프라에 호스팅하고 GHEC는 GitHub이 호스팅한다",
+            "GHES는 Actions를 지원하지 않고 GHEC는 지원한다",
+            "GHES는 개인 계정용이고 GHEC는 조직 계정용이다"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Enterprise Server(GHES)는 자체 호스팅(on-premises) 솔루션으로 조직이 자체 인프라에 직접 설치하고 관리합니다. GitHub Enterprise Cloud(GHEC)는 GitHub이 github.com에서 호스팅하는 클라우드 기반 솔루션입니다. GHES는 인프라에 대한 완전한 제어가 가능하고 에어갭 환경도 지원합니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d2-q004",
+          "type": "multiple-choice",
+          "question": "GitHub Mobile에서 할 수 있는 작업으로 올바른 것은?",
+          "options": [
+            "저장소를 생성하고 기본 브랜치를 설정하기",
+            "GitHub Desktop과 동기화하여 코드를 컴파일하기",
+            "github.com 알림을 관리하고 이슈와 PR에 협업하기",
+            "자체 호스팅 러너를 설정하고 관리하기"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Mobile에서는 github.com 알림을 관리·분류·삭제하고, 이슈와 PR을 읽고 리뷰하며 협업할 수 있습니다. 또한 PR의 파일을 편집하고, 푸시 알림 수신, 2단계 인증, 사용자·저장소·조직 검색이 가능합니다. 저장소 생성이나 자체 호스팅 러너 설정 같은 무거운 작업은 모바일 앱에서 지원하지 않습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d2-q005",
+          "type": "multiple-choice",
+          "question": "GitHub Enterprise Cloud의 고유한 기능으로 올바른 것은?",
+          "options": [
+            "자체 서버에서 운영하고 IT 팀이 직접 유지보수한다",
+            "Enterprise Managed Users로 ID 공급자를 통해 사용자 계정을 중앙 관리한다",
+            "에어갭(Air-gapped) 환경에서도 사용할 수 있다",
+            "LDAP와 Active Directory 인증을 직접 지원한다"
+          ],
+          "answer": 1,
+          "explanation": "Enterprise Managed Users(EMU)는 GitHub Enterprise Cloud의 고유한 기능으로, 조직이 ID 공급자(IdP)를 통해 개발자의 GitHub 계정을 직접 프로비저닝하고 중앙 관리할 수 있습니다. 자체 서버 운영, 에어갭 환경, LDAP/Active Directory 직접 지원은 GitHub Enterprise Server(GHES)의 특징입니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d2-q006",
+          "type": "multiple-choice",
+          "question": "GitHub 청구 모델에서 '구독(Subscription)' 비용에 해당하는 것은?",
+          "options": [
+            "GitHub Actions 실행 분",
+            "GitHub Packages 저장소 사용량",
+            "GitHub Team 플랜 월 정액",
+            "Codespaces 연산 시간"
+          ],
+          "answer": 2,
+          "explanation": "GitHub 청구는 구독 비용과 사용량 기반 비용으로 구성됩니다. 구독 비용에는 계정 플랜(Pro, Team 등)의 고정 월 비용, GitHub Copilot 구독, Marketplace 앱 구독이 포함됩니다. GitHub Actions 분, Packages 저장소, Codespaces 연산 시간은 모두 실제 사용량에 따라 청구되는 사용량 기반 비용입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q007",
+          "type": "multiple-choice",
+          "question": "GitHub Desktop으로 할 수 있는 작업이 아닌 것은?",
+          "options": [
+            "변경사항을 인터랙티브하게 스테이징하기",
+            "PR 브랜치를 체크아웃하여 코드 리뷰하기",
+            "GitHub Mobile 앱과 알림 동기화하기",
+            "CI 상태를 확인하고 이미지 변경사항 비교하기"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Desktop은 GitHub Mobile 앱과 알림을 동기화하는 기능이 없습니다. GitHub Desktop은 로컬 Git 워크플로우를 GUI로 지원하는 도구로, 변경사항 인터랙티브 스테이징, PR 브랜치 체크아웃, CI 상태 확인, 이미지 변경 비교, 공동 작성자 추가 등의 기능을 제공합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q008",
+          "type": "multiple-choice",
+          "question": "사용량 기반 라이선스(PAYG) 모델에서 월 중간에 사용자가 GitHub Enterprise 라이선스를 시작했을 때 청구 방식은?",
+          "options": [
+            "해당 월 전체 비용을 청구한다",
+            "다음 달부터 청구가 시작된다",
+            "사용한 기간만큼 일할 계산(pro rata)하여 청구한다",
+            "첫 달은 무료로 제공된다"
+          ],
+          "answer": 2,
+          "explanation": "GitHub의 사용량 기반 라이선스(PAYG) 모델에서는 월 중간에 라이선스를 시작한 사용자에 대해 일할 계산(pro rata)으로 해당 기간만큼만 청구합니다. 반대로 월 중간에 라이선스를 해제하면 다음 달 청구에 그 변화가 반영됩니다. 이 방식은 실제 활성 사용자만큼만 비용을 지불하는 유연성을 제공합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q009",
+          "type": "multiple-choice",
+          "question": "GitHub 저장소를 아카이브(Archive)했을 때의 결과로 올바른 것은?",
+          "options": [
+            "저장소가 삭제되고 더 이상 접근할 수 없다",
+            "저장소가 읽기 전용이 되어 새 푸시, 이슈, PR이 불가능하다",
+            "저장소가 비공개로 변경되고 협업자만 접근할 수 있다",
+            "저장소의 모든 브랜치가 main으로 병합된다"
+          ],
+          "answer": 1,
+          "explanation": "저장소를 아카이브하면 저장소가 읽기 전용 상태가 됩니다. 아카이브된 저장소에는 새로운 푸시, 이슈 생성, PR 생성, Wiki 편집이 불가능합니다. 단, 기존 코드, 이슈, PR, 다운로드, 댓글은 여전히 접근·확인 가능합니다. 관리자만 아카이브하거나 아카이브를 해제할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q010",
+          "type": "multiple-choice",
+          "question": "GitHub 프로필에서 저장소를 고정(Pin)할 수 있는 최대 개수는?",
+          "options": [
+            "3개",
+            "5개",
+            "6개",
+            "10개"
+          ],
+          "answer": 2,
+          "explanation": "GitHub 프로필에서 최대 6개의 저장소를 고정할 수 있습니다. 본인이 소유한 저장소뿐만 아니라 기여한 다른 사람의 저장소도 고정 가능합니다. 고정된 저장소는 프로필 방문자가 가장 먼저 보게 되는 항목으로, 포트폴리오 강조에 활용됩니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d2-q011",
+          "type": "multiple-choice",
+          "question": "GitHub Actions 런너 유형 중 분당 요금이 가장 비싼 것은?",
+          "options": [
+            "Linux 런너",
+            "Windows 런너",
+            "macOS 런너",
+            "Ubuntu 런너"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Actions GitHub 호스팅 런너의 분당 요금(2024 기준): Linux $0.008/분, Windows $0.016/분, macOS $0.08/분. macOS가 가장 비싸고 Linux가 가장 저렴합니다. Ubuntu 런너는 Linux 카테고리에 속합니다. 자체 호스팅 런너는 GitHub이 별도 분당 요금을 청구하지 않습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q012",
+          "type": "multiple-choice",
+          "question": "저장소 이전(Transfer) 시 유지되는 것으로 올바른 것은?",
+          "options": [
+            "저장소 URL이 그대로 유지된다",
+            "이슈, PR, Wiki, 스타, 포크가 유지된다",
+            "모든 협업자 권한이 자동으로 이전된다",
+            "저장소에 연결된 Secrets가 자동으로 이전된다"
+          ],
+          "answer": 1,
+          "explanation": "저장소 이전 시 이슈, Pull Requests, Wiki, 스타(Stars), 워처(Watchers), 포크(Forks)가 새 소유자의 저장소로 유지됩니다. 기존 URL은 새 위치로 자동 리다이렉트되지만 영구적이지 않으므로 git remote URL을 업데이트하는 것이 좋습니다. 협업자 권한과 Actions Secrets는 자동으로 이전되지 않을 수 있습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d2-q013",
+          "type": "multiple-choice",
+          "question": "GitHub Advanced Security(GHAS) 라이선스 청구 기준은 무엇인가요?",
+          "options": [
+            "저장소 수",
+            "조직 내 전체 멤버 수",
+            "90일 내 GHAS 활성화 저장소에 커밋한 고유 커미터 수",
+            "Actions 워크플로우 실행 횟수"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Advanced Security(GHAS) 라이선스는 GHAS가 활성화된 저장소에 최근 90일 내에 하나 이상의 커밋을 작성한 고유 활성 커미터(unique active committers) 수를 기준으로 청구됩니다. 동일한 커미터가 여러 저장소에 기여해도 1번만 카운트됩니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d2-q014",
+          "type": "multiple-choice",
+          "question": "GitHub Pro 플랜에서 비공개 저장소에 추가로 사용 가능한 기능이 아닌 것은?",
+          "options": [
+            "코드 오너(Code Owners)",
+            "GitHub Pages와 Wiki",
+            "SAML Single Sign-On",
+            "저장소 인사이트 그래프"
+          ],
+          "answer": 2,
+          "explanation": "SAML Single Sign-On은 GitHub Pro가 아닌 GitHub Enterprise 플랜에서만 제공되는 기능입니다. GitHub Pro는 비공개 저장소에서 코드 오너, GitHub Pages, Wiki, 저장소 인사이트 그래프(Pulse, Contributors, Traffic, Commits, Code Frequency, Network, Forks), 필수 PR 리뷰어, 보호된 브랜치 등의 고급 기능을 추가로 사용할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q015",
+          "type": "multiple-choice",
+          "question": "GitHub Packages의 비공개 저장소에 대한 기본 무료 저장 할당량은 얼마인가요?",
+          "options": [
+            "500MB 저장, 100MB 전송/월",
+            "1GB 저장, 500MB 전송/월",
+            "2GB 저장, 1GB 전송/월",
+            "5GB 저장, 2GB 전송/월"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Packages의 비공개 저장소에 대한 기본 무료 할당량은 저장 2GB, 데이터 전송 1GB/월입니다. 공개 저장소는 무료 저장소와 대역폭을 제공합니다. Enterprise Cloud는 50GB 패키지 저장소를 제공합니다. 초과분은 사용량 기반으로 청구됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q016",
+          "type": "multiple-choice",
+          "question": "GitHub Enterprise를 선택해야 하는 가장 적절한 이유는?",
+          "options": [
+            "GitHub Actions와 Codespaces를 처음 사용하기 위해서",
+            "여러 조직에 걸쳐 사용자와 저장소를 중앙에서 관리하기 위해서",
+            "팀 PR 리뷰어 기능을 사용하기 위해서",
+            "GitHub Insights 대시보드를 사용하기 위해서"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Enterprise는 여러 조직에 걸쳐 사용자와 저장소를 중앙에서 관리하고, 일관된 보안 정책을 적용하며, SAML SSO, 감사 로그, GitHub Connect 등의 엔터프라이즈 기능이 필요할 때 선택합니다. GitHub Actions, Codespaces, 팀 PR 리뷰어, Insights는 하위 플랜에서도 사용 가능합니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d2-q017",
+          "type": "multiple-choice",
+          "question": "머신 계정(Machine Account)에 대한 설명으로 올바른 것은?",
+          "options": [
+            "머신 계정은 GitHub 라이선스를 소비하지 않는다",
+            "머신 계정은 일반 사용자처럼 각각 GitHub 라이선스를 소비한다",
+            "머신 계정은 조직당 5개까지만 생성할 수 있다",
+            "머신 계정은 GitHub Free 플랜에서는 사용할 수 없다"
+          ],
+          "answer": 1,
+          "explanation": "머신 계정(자동화, CI/CD, 스크립트용 계정)은 일반 사용자 계정과 동일하게 각각 하나의 GitHub 라이선스를 소비합니다. 따라서 머신 계정이 많아지면 라이선스 비용이 증가합니다. 정기적인 감사를 통해 미사용 머신 계정을 정리하고 불필요한 라이선스 낭비를 방지하는 것이 권장됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q018",
+          "type": "multiple-choice",
+          "question": "GitHub Actions 사용 분(Minutes)의 롤오버 정책은?",
+          "options": [
+            "미사용 분은 다음 달로 이월된다",
+            "미사용 분의 50%가 다음 달로 이월된다",
+            "미사용 분은 이월되지 않고 매월 초기화된다",
+            "연간 구독 시 전체 분이 한꺼번에 제공된다"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Actions의 무료 할당 분은 매월 초기화되며, 사용하지 않은 분은 다음 달로 이월(롤오버)되지 않습니다. 예를 들어 GitHub Free의 월 2,000분 중 이번 달에 500분만 사용했어도 남은 1,500분은 다음 달로 넘어가지 않고 소멸됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q019",
+          "type": "multiple-choice",
+          "question": "GitHub 저장소에 Topics(주제)를 추가하는 주요 목적은?",
+          "options": [
+            "저장소의 보안 수준을 높이기 위해",
+            "저장소를 GitHub Explore와 검색에서 쉽게 발견될 수 있도록 하기 위해",
+            "저장소에 접근할 수 있는 사용자를 제한하기 위해",
+            "저장소의 기본 브랜치를 지정하기 위해"
+          ],
+          "answer": 1,
+          "explanation": "저장소 Topics(주제)는 저장소에 키워드 태그를 붙여 발견성을 높이는 기능입니다. GitHub Explore와 검색에서 주제별로 저장소를 탐색할 수 있으며, 관련 주제를 검색하는 사용자들에게 저장소가 노출됩니다. Topics는 저장소의 About 섹션에서 설정할 수 있습니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d2-q020",
+          "type": "multiple-choice",
+          "question": "GitHub에서 조직 계정(Organization Account)의 특징으로 올바른 것은?",
+          "options": [
+            "조직 계정으로 직접 로그인하여 작업할 수 있다",
+            "조직은 각자의 개인 계정으로 로그인하고, 개인의 행동이 개인 계정에 귀속된다",
+            "조직은 최대 100명의 멤버만 가질 수 있다",
+            "조직 계정은 저장소를 소유할 수 없다"
+          ],
+          "answer": 1,
+          "explanation": "조직 계정으로 직접 로그인할 수 없습니다. 각 사람은 자신의 개인 계정으로 로그인하고, 조직 리소스에서 취하는 모든 행동은 해당 개인 계정에 귀속됩니다. 조직은 무제한 멤버를 가질 수 있으며, 저장소, 패키지, 프로젝트 등의 리소스를 소유할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q021",
+          "type": "multiple-choice",
+          "question": "GitHub Enterprise Cloud(GHEC)의 Actions 무료 분 할당량은 월 얼마인가요?",
+          "options": [
+            "3,000분",
+            "10,000분",
+            "30,000분",
+            "50,000분"
+          ],
+          "answer": 3,
+          "explanation": "GitHub Enterprise Cloud는 비공개 저장소에서 월 50,000분의 GitHub Actions 무료 분을 제공합니다. 이는 Free(2,000분), Pro/Team(3,000분)과 비교했을 때 매우 큰 할당량입니다. 초과 시 추가 요금이 부과되며, 지출 한도를 설정하여 관리할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q022",
+          "type": "multiple-choice",
+          "question": "GitHub Personal Access Token(PAT)과 Deploy Key의 가장 큰 차이점은?",
+          "options": [
+            "PAT는 SSH 프로토콜을 사용하고 Deploy Key는 HTTPS를 사용한다",
+            "PAT는 계정 전체 접근에 사용되고, Deploy Key는 특정 저장소에만 접근 권한을 부여한다",
+            "Deploy Key는 모든 저장소에 접근 가능하고 PAT는 하나의 저장소만 접근 가능하다",
+            "PAT는 조직 수준에서만 사용 가능하고 Deploy Key는 개인 저장소에만 사용 가능하다"
+          ],
+          "answer": 1,
+          "explanation": "개인 액세스 토큰(PAT)은 계정 전체 또는 선택된 저장소에 대한 접근 권한을 부여하며 HTTPS 인증에 사용됩니다. 반면 Deploy Key는 SSH 키 쌍으로 특정 저장소 하나에만 접근 권한을 부여하며, 서버나 CI/CD 환경에서 특정 저장소에만 안전하게 접근할 때 사용합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d2-q023",
+          "type": "true-false",
+          "question": "GitHub Mobile 앱에서는 저장소를 새로 생성할 수 있다.",
+          "answer": false,
+          "explanation": "GitHub Mobile은 경량 작업에 최적화되어 있으며, 저장소 생성은 GitHub Mobile에서 지원하지 않는 기능입니다. GitHub Mobile에서는 알림 관리, 이슈·PR 리뷰 및 협업, PR 파일 편집, 사용자·저장소 검색, 2FA 인증 등의 작업을 수행할 수 있습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d2-q024",
+          "type": "true-false",
+          "question": "GitHub Free(개인 계정)에서 비공개 저장소의 협업자 수는 제한이 없다.",
+          "answer": true,
+          "explanation": "GitHub Free 개인 계정에서는 공개 및 비공개 저장소 모두 무제한 협업자를 허용합니다. 단, 비공개 저장소의 경우 일부 고급 기능(코드 오너, GitHub Pages, Wiki, 인사이트 그래프 등)은 GitHub Pro 이상 플랜에서만 제공됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q025",
+          "type": "true-false",
+          "question": "GitHub Desktop은 iOS와 Android 기기에서 사용할 수 있다.",
+          "answer": false,
+          "explanation": "GitHub Desktop은 Windows와 macOS 전용 오픈소스 GUI 클라이언트입니다. iOS와 Android는 GitHub Mobile 앱에서 지원합니다. GitHub Desktop과 GitHub Mobile은 서로 다른 목적과 플랫폼을 위한 별개의 클라이언트입니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d2-q026",
+          "type": "true-false",
+          "question": "공개(Public) 저장소의 GitHub Actions 사용은 모든 플랜에서 무료이다.",
+          "answer": true,
+          "explanation": "GitHub Actions는 공개 저장소의 경우 모든 플랜(Free, Pro, Team, Enterprise)에서 무제한 무료로 사용할 수 있습니다. 분당 요금과 무료 할당량 제한은 비공개 저장소에만 적용됩니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d2-q027",
+          "type": "true-false",
+          "question": "GitHub Actions의 무료 할당 분은 사용하지 않으면 다음 달로 이월된다.",
+          "answer": false,
+          "explanation": "GitHub Actions의 무료 할당 분은 매월 초기화되며 이월(롤오버)되지 않습니다. 이번 달에 사용하지 않은 분은 다음 달로 넘어가지 않고 소멸됩니다. 이는 월별 구독 주기에 맞춘 정책입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q028",
+          "type": "true-false",
+          "question": "저장소를 아카이브하면 기존 이슈와 PR은 더 이상 볼 수 없다.",
+          "answer": false,
+          "explanation": "저장소를 아카이브하면 읽기 전용이 되어 새로운 이슈, PR, 푸시, Wiki 편집이 불가능해집니다. 그러나 기존의 코드, 이슈, PR, 다운로드, 댓글은 여전히 접근하여 볼 수 있습니다. 아카이브는 삭제가 아닌 읽기 전용 보존입니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d2-q029",
+          "type": "true-false",
+          "question": "GitHub Enterprise Server(GHES)는 에어갭(Air-gapped) 환경에서도 사용할 수 있다.",
+          "answer": true,
+          "explanation": "GitHub Enterprise Server는 자체 호스팅 솔루션으로 조직의 인프라에 직접 설치되기 때문에 인터넷 연결이 없는 에어갭(Air-gapped) 환경에서도 사용할 수 있습니다. 이는 높은 보안 요건이 있는 금융, 국방, 의료 등의 산업에서 중요한 기능입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q030",
+          "type": "true-false",
+          "question": "GitHub Copilot은 모든 GitHub 플랜에 기본으로 포함되어 있다.",
+          "answer": false,
+          "explanation": "GitHub Copilot은 어떤 플랜에도 기본으로 포함되지 않습니다. Copilot Business와 Copilot Enterprise는 적격 플랜에 별도로 추가 구매해야 합니다. 단, 학생과 인증된 오픈소스 유지관리자는 GitHub Copilot을 무료로 사용할 수 있습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d2-q031",
+          "type": "true-false",
+          "question": "Draft Pull Request 기능은 GitHub Team 플랜에서 사용 가능하다.",
+          "answer": true,
+          "explanation": "Draft Pull Request는 GitHub Team 플랜의 고급 협업 기능 중 하나입니다. Draft PR은 아직 리뷰 준비가 안 된 PR을 나타내며, 팀원에게 진행 중인 작업을 알리고 피드백을 초기에 구할 수 있습니다. GitHub Free에서는 Draft PR 기능이 지원되지 않습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q032",
+          "type": "short-answer",
+          "question": "GitHub Enterprise의 두 가지 옵션을 쓰세요.",
+          "answer": "GitHub Enterprise Server와 GitHub Enterprise Cloud",
+          "acceptedAnswers": [
+            "GitHub Enterprise Server와 GitHub Enterprise Cloud",
+            "GHES와 GHEC",
+            "Enterprise Server와 Enterprise Cloud",
+            "자체 호스팅과 클라우드"
+          ],
+          "explanation": "GitHub Enterprise는 두 가지 옵션이 있습니다. GitHub Enterprise Server(GHES)는 조직이 자체 인프라에 직접 설치하고 관리하는 자체 호스팅 솔루션입니다. GitHub Enterprise Cloud(GHEC)는 GitHub이 github.com에서 호스팅하는 클라우드 기반 솔루션으로 50,000 Actions 분, 50GB 패키지 저장소, 99.9% SLA 등을 제공합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q033",
+          "type": "short-answer",
+          "question": "GitHub 프로필에 저장소를 고정(Pin)할 수 있는 최대 개수는?",
+          "answer": "6",
+          "acceptedAnswers": [
+            "6",
+            "6개",
+            "여섯 개",
+            "최대 6개"
+          ],
+          "explanation": "GitHub 프로필에서 최대 6개의 저장소를 고정할 수 있습니다. 본인 저장소뿐만 아니라 기여한 다른 사람의 저장소도 고정할 수 있습니다. 고정된 저장소는 프로필 방문자가 가장 먼저 보게 되는 항목입니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d2-q034",
+          "type": "short-answer",
+          "question": "GitHub Actions에서 자체 호스팅 러너(self-hosted runner)를 사용하면 어떤 비용 이점이 있나요?",
+          "answer": "GitHub이 분당 요금을 청구하지 않아 고볼륨 워크플로우 비용 절감 가능",
+          "acceptedAnswers": [
+            "GitHub이 분당 요금을 청구하지 않아 고볼륨 워크플로우 비용 절감 가능",
+            "분당 요금이 없음",
+            "GitHub Actions 요금이 없음",
+            "무제한 무료 실행 가능"
+          ],
+          "explanation": "자체 호스팅 러너를 사용하면 GitHub이 분당 요금을 청구하지 않습니다(자체 인프라 비용만 발생). GitHub 호스팅 러너는 Linux $0.008/분, Windows $0.016/분, macOS $0.08/분이 청구되므로, 대용량 워크플로우를 실행하는 경우 자체 호스팅 러너를 사용하면 비용을 크게 절감할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d2-q035",
+          "type": "short-answer",
+          "question": "GitHub에서 저장소를 다른 사용자나 조직으로 이전(Transfer)할 때 함께 이전되는 항목 3가지를 쓰세요.",
+          "answer": "이슈, Pull Requests, Wiki, 스타, 포크",
+          "acceptedAnswers": [
+            "이슈, PR, Wiki",
+            "이슈, Pull Requests, Wiki, 스타, 포크",
+            "이슈, 포크, 스타",
+            "Issues, PRs, Forks, Stars, Wiki"
+          ],
+          "explanation": "저장소 이전 시 이슈(Issues), Pull Requests, Wiki, 스타(Stars), 워처(Watchers), 포크(Forks)가 함께 이전됩니다. 기존 URL은 새 위치로 자동 리다이렉트되지만 영구적이지 않습니다. 단, Actions Secrets와 협업자 권한은 자동으로 이전되지 않을 수 있어 별도 확인이 필요합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d2-q036",
+          "type": "short-answer",
+          "question": "GitHub Advanced Security(GHAS)의 '활성 커미터(active committer)' 정의를 설명하세요.",
+          "answer": "GHAS가 활성화된 저장소에 최근 90일 내에 하나 이상의 커밋을 작성한 사용자",
+          "acceptedAnswers": [
+            "GHAS가 활성화된 저장소에 최근 90일 내에 하나 이상의 커밋을 작성한 사용자",
+            "90일 내 GHAS 저장소에 커밋한 사용자",
+            "최근 90일 이내 커밋 작성자",
+            "90일 이내 활성 커밋 작성자"
+          ],
+          "explanation": "GitHub Advanced Security(GHAS)에서 '활성 커미터'는 GHAS가 활성화된 저장소에 최근 90일 내에 하나 이상의 커밋을 작성한 사람입니다(커밋 원저작 시점과 무관). GHAS 라이선스는 이 고유 활성 커미터 수를 기준으로 청구되며, 동일 커미터가 여러 저장소에 기여해도 한 번만 카운트됩니다.",
+          "difficulty": "hard"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Collaboration Features",
+      "weight": 0.17,
+      "summary": [
+        {
+          "title": "Pull Request 심화",
+          "content": "Pull Request(PR)는 개발자 브랜치의 변경사항을 기본(main) 브랜치에 병합하기 전에 문서화하고 검토받는 메커니즘입니다.\n\n**PR 상태:**\n- **Draft PR**: 병합 불가, CODEOWNERS 자동 리뷰 요청 없음. 작업 진행 중이거나 피드백이 필요할 때 사용\n- **Open PR**: 활성 상태, 아직 병합 전. 커밋 추가 및 토론 가능\n- **Closed PR**: 병합 없이 닫힘. 제안된 변경사항이 더 이상 필요하지 않을 때\n- **Merged PR**: compare 브랜치의 변경사항이 base 브랜치에 통합됨\n\n**병합 방법 3가지:**\n- **Merge Commit**: 모든 커밋을 그대로 보존하며 병합 커밋 생성. 전체 이력 유지\n- **Squash and Merge**: PR의 모든 커밋을 하나로 합쳐 base 브랜치에 추가. 이력을 깔끔하게 유지\n- **Rebase and Merge**: 병합 커밋 없이 선형 이력 유지. 커밋들을 base 브랜치 위에 재배치\n\n**고급 기능:**\n- 리뷰어 요청: 저장소에 쓰기 권한이 있는 공동 작업자만 선택 가능\n- 브랜치 보호 규칙: 병합 전 조건 설정(승인 리뷰 수, CI 통과 등)\n- Status checks: GitHub Actions 등 CI 시스템과 연동하여 자동 검사\n- Fixes/Closes/Resolves #이슈번호 키워드로 PR 병합 시 이슈 자동 닫기\n- PR Revert: 새 PR을 생성하여 이전 변경사항을 되돌림"
+        },
+        {
+          "title": "Markdown 문법 (GFM)",
+          "content": "GitHub Flavored Markdown(GFM)은 표준 Markdown을 확장하여 GitHub 특화 기능을 포함합니다.\n\n**기본 문법:**\n- 제목: # H1, ## H2 ~ ###### H6\n- 굵게: **텍스트** 또는 __텍스트__\n- 기울임: *텍스트* 또는 _텍스트_\n- 인라인 코드: `코드`\n- 코드 블록: ``` 언어명으로 펜스 코드 블록(구문 강조 지원)\n- 인용문: > 텍스트\n- 링크: [텍스트](URL)\n- 이미지: ![대체 텍스트](URL)\n\n**목록과 테이블:**\n- 순서 없는 목록: - 또는 * 로 시작\n- 순서 있는 목록: 1. 으로 시작\n- 테이블: | 열1 | 열2 | 와 - 구분자 사용\n- 체크박스(태스크 목록): - [ ] 미완료, - [x] 완료\n\n**GFM 확장 기능:**\n- 이슈/PR 크로스 참조: #123 형식으로 자동 링크\n- 멘션: @사용자명 또는 @팀명으로 알림 전송\n- 이모지: :emoji_name: 형식\n- 수식(LaTeX): 인라인 $수식$, 블록 $$수식$$\n- Alerts/Callouts: > [!NOTE], > [!WARNING], > [!TIP], > [!IMPORTANT], > [!CAUTION]\n- 커밋 SHA 참조: 전체 SHA 또는 단축 SHA로 자동 링크\n- 슬래시 명령어: /code, /table, /tasklist 등으로 빠른 콘텐츠 삽입"
+        },
+        {
+          "title": "오픈소스 기여 워크플로우",
+          "content": "오픈소스 프로젝트에 기여하는 표준 워크플로우와 필수 파일들을 이해해야 합니다.\n\n**필수 프로젝트 파일:**\n- **LICENSE**: 오픈소스 라이선스 필수. 라이선스 없으면 오픈소스가 아님\n- **README**: 프로젝트 시작 안내, 커뮤니티 참여 방법\n- **CONTRIBUTING**: 기여 방법 안내, 개발 환경 설정, 커밋 메시지 규칙\n- **CODE_OF_CONDUCT**: 커뮤니티 행동 수칙 (Contributor Covenant 기반)\n\n**기여 워크플로우 (Fork-based):**\n1. Fork: 저장소를 내 계정으로 복사\n2. Clone: 포크된 저장소를 로컬에 복제\n3. Branch: 새 브랜치 생성 (git checkout -b 브랜치명)\n4. Commit: 변경사항 커밋 (git add . && git commit -m '메시지')\n5. Push: 포크에 푸시 (git push --set-upstream origin 브랜치명)\n6. PR 생성: GitHub에서 Compare & pull request 클릭\n\n**이슈 탐색:**\n- good-first-issue, help wanted, beginner-friendly 레이블 활용\n- /contribute URL (예: github.com/주인/저장소/contribute)에서 입문자용 이슈 탐색\n- 작업 전 이슈 댓글로 참여 의사 표명 필수\n\n**PR 작성 팁:**\n- 관련 이슈 번호를 #이슈번호로 링크\n- PR 템플릿 (.github/pull_request_template.md) 준수\n- 이슈 템플릿 (.github/ISSUE_TEMPLATE/ 폴더)\n- 커뮤니케이션은 항상 공개적으로(PR 댓글), 비공개 연락 금지"
+        },
+        {
+          "title": "Code Review 모범 사례",
+          "content": "효과적인 코드 리뷰를 위한 GitHub의 기능과 모범 사례입니다.\n\n**리뷰 유형 3가지:**\n- **Comment(코멘트)**: 일반적인 피드백. 승인이나 변경 요청 없이 의견 제시\n- **Approve(승인)**: 변경사항에 동의하며 병합 가능 상태로 표시\n- **Request Changes(변경 요청)**: 병합 전 반드시 수정해야 할 사항 지적. 작성자는 수정 후 재검토 요청 가능\n\n**CODEOWNERS 파일:**\n- 위치: 저장소 루트, docs/, 또는 .github/ 폴더\n- 특정 파일/디렉토리에 자동 리뷰어 지정\n- 문법: 패턴 @사용자명 또는 @조직/팀명\n- Draft PR에는 CODEOWNERS 자동 요청 미적용\n- 브랜치 보호 규칙과 함께 사용하면 필수 승인 강제\n\n**리뷰 모범 사례:**\n- 사소한 오타는 인라인으로 직접 수정 제안 (Suggested Changes 기능)\n- 교육적 가치나 추가 논의가 필요한 부분에 댓글 작성\n- 여러 사소한 오류가 있으면 변경 요청으로 완료\n- 승인은 작성자를 신뢰할 때만, 변경 구현을 맡기려 할 때는 사용 지양\n\n**GitHub 협업 추가 기능:**\n- GitHub Discussions: 오픈 엔드 대화, 커뮤니티 Q&A\n- GitHub Actions: PR 시 CI 자동 실행\n- Code scanning: PR에서 보안 취약점 자동 스캔\n- Dependabot PR: 의존성 보안 업데이트 자동 PR 생성\n- Blame view: 각 코드 라인 작성자 및 커밋 확인"
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "d3-fc001",
+          "front": "Pull Request(PR)란 무엇인가?",
+          "back": "개발자 브랜치의 변경사항을 기본(base) 브랜치에 병합하기 전에 문서화하고 이해관계자들이 검토·토론할 수 있게 해주는 GitHub 기능. compare 브랜치와 base 브랜치 간의 차이를 표시한다."
+        },
+        {
+          "id": "d3-fc002",
+          "front": "Draft PR이란 무엇이며, 일반 PR과의 차이점은?",
+          "back": "아직 리뷰 준비가 되지 않은 작업 중인 PR. Draft 상태에서는 병합이 불가능하고, CODEOWNERS 파일에 지정된 코드 오너가 자동으로 리뷰 요청을 받지 않는다. 피드백이 필요하거나 작업 진행 상황을 공유할 때 사용한다."
+        },
+        {
+          "id": "d3-fc003",
+          "front": "PR의 4가지 상태는?",
+          "back": "1. Draft: 병합 불가, 작업 진행 중\n2. Open: 활성 상태, 리뷰 진행 중\n3. Closed: 병합 없이 닫힘\n4. Merged: 변경사항이 base 브랜치에 통합됨"
+        },
+        {
+          "id": "d3-fc004",
+          "front": "PR 병합 방법 3가지를 설명하라.",
+          "back": "1. Merge Commit(병합 커밋): 모든 커밋을 보존하며 병합 커밋 생성 — 전체 이력 유지\n2. Squash and Merge: 모든 커밋을 하나로 합쳐 추가 — 이력을 읽기 쉽게 정리\n3. Rebase and Merge: 병합 커밋 없이 선형 이력 유지 — 커밋을 base 브랜치 위에 재배치"
+        },
+        {
+          "id": "d3-fc005",
+          "front": "Squash and Merge를 사용하면 커밋 이력은 어떻게 되나?",
+          "back": "PR의 여러 커밋이 하나의 단일 커밋으로 합쳐져 base 브랜치에 추가된다. 저장소 이력이 더 읽기 쉽고 정리된 상태가 된다."
+        },
+        {
+          "id": "d3-fc006",
+          "front": "Rebase and Merge를 사용하면 이력은 어떻게 되나?",
+          "back": "병합 커밋 없이 선형 이력이 유지된다. 커밋들이 base 브랜치 위에 재배치(rebase)되어 추가된다."
+        },
+        {
+          "id": "d3-fc007",
+          "front": "PR 리뷰 유형 3가지는?",
+          "back": "1. Comment(코멘트): 승인이나 변경 요청 없이 일반적인 피드백 제공\n2. Approve(승인): 변경사항에 동의하며 병합 가능 상태로 표시\n3. Request Changes(변경 요청): 병합 전 반드시 수정해야 할 사항 지적"
+        },
+        {
+          "id": "d3-fc008",
+          "front": "Request Changes 리뷰를 받으면 어떻게 해야 하나?",
+          "back": "요청된 변경사항을 수정한 후 새 커밋을 push하면 PR이 자동으로 업데이트된다. 수정 후 리뷰어에게 재검토를 요청할 수 있다. 병합 버튼은 변경 요청이 해소될 때까지 비활성화될 수 있다."
+        },
+        {
+          "id": "d3-fc009",
+          "front": "CODEOWNERS 파일이란 무엇인가?",
+          "back": "특정 파일이나 디렉토리에 대한 자동 리뷰어를 지정하는 파일. 위치: 저장소 루트, docs/, 또는 .github/ 폴더. 브랜치 보호 규칙과 함께 사용하면 해당 파일 변경 시 지정된 오너의 승인이 필수가 된다."
+        },
+        {
+          "id": "d3-fc010",
+          "front": "CODEOWNERS 파일의 문법은?",
+          "back": "패턴 뒤에 @사용자명 또는 @조직/팀명을 지정.\n예시:\n*.js @frontend-team\n/docs/ @documentation-team\nsrc/auth/ @security @backend-lead"
+        },
+        {
+          "id": "d3-fc011",
+          "front": "PR에서 리뷰어를 요청할 수 있는 조건은?",
+          "back": "저장소에 쓰기(write) 권한이 있는 공동 작업자(collaborator)만 리뷰어로 선택할 수 있다."
+        },
+        {
+          "id": "d3-fc012",
+          "front": "브랜치 보호 규칙(Branch Protection Rules)의 일반적인 요구사항은?",
+          "back": "- 다른 공동 작업자의 승인 리뷰 최소 1건 이상\n- 필수 status checks(CI 워크플로우 등) 통과\n이 요건을 충족하지 못하면 병합 버튼이 비활성화된다."
+        },
+        {
+          "id": "d3-fc013",
+          "front": "GitHub Flavored Markdown(GFM)과 표준 Markdown의 차이는?",
+          "back": "GFM은 표준 Markdown을 확장하여 GitHub 특화 기능 추가:\n- 이슈/PR 크로스 참조 (#123)\n- @멘션\n- 태스크 목록\n- 테이블\n- 구문 강조 코드 블록\n- Alerts/Callouts\n- 이모지(:emoji:)\n- 수식(LaTeX)"
+        },
+        {
+          "id": "d3-fc014",
+          "front": "Markdown에서 제목(heading)을 만드는 방법은?",
+          "back": "# 기호를 사용. # 개수가 제목 수준을 결정:\n# H1 (최상위)\n## H2\n### H3\n#### H4\n##### H5\n###### H6 (최하위)"
+        },
+        {
+          "id": "d3-fc015",
+          "front": "Markdown에서 굵게(bold)와 기울임(italic)을 만드는 방법은?",
+          "back": "굵게: **텍스트** 또는 __텍스트__\n기울임: *텍스트* 또는 _텍스트_\n혼합: _**굵게 기울임**_ 또는 **_굵게 기울임_**"
+        },
+        {
+          "id": "d3-fc016",
+          "front": "Markdown 코드 블록을 만드는 방법은?",
+          "back": "인라인 코드: 백틱 1개로 감싸기 (`코드`)\n펜스 코드 블록: 백틱 3개(```)로 시작과 끝을 표시.\n언어 지정으로 구문 강조:\n```python\nprint('Hello')\n```"
+        },
+        {
+          "id": "d3-fc017",
+          "front": "Markdown 테이블(table)을 만드는 방법은?",
+          "back": "파이프(|)로 열을 구분하고, 대시(-)로 헤더 행을 구분:\n```\n| 열1 | 열2 | 열3 |\n|-----|-----|-----|\n| 값1 | 값2 | 값3 |\n```\n최소 형식: First|Second\\n-|-\\n1|2"
+        },
+        {
+          "id": "d3-fc018",
+          "front": "Markdown 태스크 목록(task list/checkbox)을 만드는 방법은?",
+          "back": "- [ ] 미완료 항목\n- [x] 완료된 항목\n\n이슈나 PR 본문에 사용하면 진행 상황을 추적할 수 있다."
+        },
+        {
+          "id": "d3-fc019",
+          "front": "GFM에서 링크와 이미지를 추가하는 방법은?",
+          "back": "링크: [링크 텍스트](URL)\n이미지: ![대체 텍스트](이미지 URL)\n\n차이점: 이미지는 앞에 ! 를 추가한다."
+        },
+        {
+          "id": "d3-fc020",
+          "front": "GFM의 Alerts(알림/콜아웃)란 무엇이며 종류는?",
+          "back": "중요 정보를 시각적으로 강조하는 블록:\n> [!NOTE] 참고 정보\n> [!TIP] 팁\n> [!IMPORTANT] 중요 정보\n> [!WARNING] 경고\n> [!CAUTION] 주의\n\n> 기호와 [!유형] 키워드를 조합해 사용한다."
+        },
+        {
+          "id": "d3-fc021",
+          "front": "GFM에서 수식(math)을 작성하는 방법은?",
+          "back": "LaTeX 문법 사용:\n- 인라인 수식: $E = mc^2$\n- 블록 수식: $$\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}$$"
+        },
+        {
+          "id": "d3-fc022",
+          "front": "GFM에서 이모지를 사용하는 방법은?",
+          "back": ":이모지_이름: 형식 사용.\n예: :smile:, :thumbsup:, :rocket:, :warning:\n\n콜론 사이에 이모지 이름을 입력하면 해당 이모지로 렌더링된다."
+        },
+        {
+          "id": "d3-fc023",
+          "front": "GFM에서 이슈/PR을 참조(cross-reference)하는 방법은?",
+          "back": "#번호 형식: #3602 → 자동으로 해당 이슈/PR에 링크\nGH-번호: GH-3602\n저장소#번호: owner/repo#3602\n전체 URL 붙여넣기 → GitHub이 자동으로 단축 형식으로 변환"
+        },
+        {
+          "id": "d3-fc024",
+          "front": "GFM에서 @멘션(mention)이란 무엇인가?",
+          "back": "@사용자명 입력 시 해당 사용자에게 알림이 전송됨.\n@팀명으로 팀 전체에 알림 가능.\n예: @githubteacher, @org/frontend-team"
+        },
+        {
+          "id": "d3-fc025",
+          "front": "CONTRIBUTING.md 파일의 목적과 내용은?",
+          "back": "프로젝트에 기여하는 방법을 안내하는 문서:\n- 기여 프로세스 설명\n- 개발 환경 설정 방법\n- 커밋 메시지 규칙/컨벤션\n- 코드 스타일 가이드\n- PR 제출 방법\n\n이 파일이 있으면 프로젝트가 친근하고 기여자를 환영함을 나타낸다."
+        },
+        {
+          "id": "d3-fc026",
+          "front": "CODE_OF_CONDUCT.md란 무엇인가?",
+          "back": "커뮤니티 구성원의 행동 수칙을 정의하는 문서. 일반적으로 Contributor Covenant를 기반으로 작성됨. 커뮤니티를 안전하고 환영받는 환경으로 만들기 위한 규칙과 위반 시 집행(enforcement) 방법을 포함한다."
+        },
+        {
+          "id": "d3-fc027",
+          "front": "GitHub 이슈 템플릿의 위치와 목적은?",
+          "back": "위치: .github/ISSUE_TEMPLATE/ 폴더\n목적: 이슈 작성자가 필요한 정보를 일관성 있게 제공하도록 안내. 버그 리포트, 기능 요청 등 유형별 템플릿을 여러 개 제공할 수 있다."
+        },
+        {
+          "id": "d3-fc028",
+          "front": "PR 템플릿의 위치와 목적은?",
+          "back": "위치: .github/pull_request_template.md\n목적: PR 작성 시 자동으로 설명 필드에 템플릿이 채워짐. 관련 이슈 링크, 변경사항 요약, 테스트 방법 등을 일관성 있게 요청할 수 있다."
+        },
+        {
+          "id": "d3-fc029",
+          "front": "오픈소스 기여의 Fork-based 워크플로우 단계는?",
+          "back": "1. Fork: 원본 저장소를 내 계정으로 복사\n2. Clone: 포크를 로컬에 복제 (git clone URL)\n3. Branch: 새 브랜치 생성 (git checkout -b 브랜치명)\n4. Commit: 변경사항 커밋\n5. Push: 포크에 푸시 (git push --set-upstream origin 브랜치명)\n6. PR 생성: Compare & pull request 버튼 클릭"
+        },
+        {
+          "id": "d3-fc030",
+          "front": "오픈소스에서 입문자용 이슈를 찾는 방법은?",
+          "back": "- good-first-issue, help wanted, beginner-friendly 레이블 필터링\n- /contribute URL 방문 (예: github.com/owner/repo/contribute)\n- 레이블 페이지 탐색 (예: github.com/owner/repo/labels)\n- 이미 익숙한 프로젝트에서 시작"
+        },
+        {
+          "id": "d3-fc031",
+          "front": "Fork와 Clone의 차이는?",
+          "back": "Fork: GitHub 서버에서 타인의 저장소를 내 계정으로 복사. 원본 저장소와 독립적으로 변경 가능\nClone: 저장소를 로컬 머신으로 복제. fork한 저장소를 로컬에서 작업하려면 clone이 필요\n\n오픈소스 기여 시: Fork → Clone 순서로 진행"
+        },
+        {
+          "id": "d3-fc032",
+          "front": "Upstream vs Fork(origin)의 차이는?",
+          "back": "Upstream: 포크의 원본 저장소 (원작자의 저장소)\nOrigin: 내 포크 저장소 (내 GitHub 계정의 복사본)\n\n기여 후 포크를 최신 상태로 유지하려면 upstream에서 변경사항을 가져와야 한다."
+        },
+        {
+          "id": "d3-fc033",
+          "front": "PR로 이슈를 자동으로 닫는 키워드는?",
+          "back": "PR 설명에 다음 키워드 + 이슈 번호를 사용:\n- Fixes #123\n- Closes #123\n- Resolves #123\n\nPR이 기본 브랜치에 병합되면 연결된 이슈가 자동으로 닫힌다."
+        },
+        {
+          "id": "d3-fc034",
+          "front": "PR Revert(되돌리기)란 무엇인가?",
+          "back": "이미 병합된 PR의 변경사항을 되돌리는 기능. 원본 PR의 반대 변경사항을 담은 새 PR이 자동으로 생성된다. 원본 히스토리는 유지되고 되돌리기 커밋이 추가된다."
+        },
+        {
+          "id": "d3-fc035",
+          "front": "PR Status Checks란 무엇인가?",
+          "back": "PR에 변경사항이 있을 때 자동으로 실행되는 검사. GitHub Actions나 외부 CI 시스템과 연동:\n- 유닛 테스트 실행\n- 코드 포매팅 검사\n- 보안 스캔 등\n\n필수(required) status check는 모두 통과해야만 PR 병합 가능."
+        },
+        {
+          "id": "d3-fc036",
+          "front": "PR에서 Suggested Changes(제안된 변경사항) 기능이란?",
+          "back": "리뷰어가 코드 라인에 직접 수정 제안을 남기는 기능. PR 작성자는 클릭 한 번으로 제안된 변경사항을 커밋으로 바로 적용할 수 있다. 사소한 오타나 간단한 수정에 유용하다."
+        },
+        {
+          "id": "d3-fc037",
+          "front": "GitHub Discussions란 무엇인가?",
+          "back": "이슈나 PR과 달리 오픈 엔드(open-ended) 대화를 위한 공간. 커뮤니티 Q&A, 아이디어 공유, 프로젝트 방향 논의 등에 사용. 특정 코드 변경사항보다는 일반적인 커뮤니티 대화에 적합하다."
+        },
+        {
+          "id": "d3-fc038",
+          "front": "GitHub Actions와 PR의 통합은 어떻게 이루어지나?",
+          "back": "PR 이벤트(on: pull_request)를 트리거로 워크플로우가 자동 실행됨. 테스트, 린트, 빌드, 보안 스캔 등을 자동화. 결과가 PR 페이지의 status checks 섹션에 표시되며, 필수 체크를 통과해야 병합 가능."
+        },
+        {
+          "id": "d3-fc039",
+          "front": "Dependabot PR이란 무엇인가?",
+          "back": "GitHub이 자동으로 생성하는 의존성 업데이트 PR. 취약한 의존성이 발견되거나 버전 업데이트가 있을 때 자동으로 PR을 생성한다. 보안 취약점 패치를 신속히 적용하기 위해 사용된다."
+        },
+        {
+          "id": "d3-fc040",
+          "front": "Code Scanning이란 무엇인가?",
+          "back": "PR에서 자동으로 보안 취약점을 검사하는 GitHub 기능. CodeQL 등의 도구를 사용하여 코드에서 잠재적인 보안 취약점을 찾아 PR에 직접 경고를 표시한다."
+        },
+        {
+          "id": "d3-fc041",
+          "front": "Git Blame(블레임 뷰)이란 무엇인가?",
+          "back": "파일의 각 코드 라인이 누가, 어떤 커밋에서, 언제 작성/수정했는지 확인하는 기능. GitHub 파일 뷰에서 Blame 버튼을 클릭하여 확인. 버그의 원인 파악이나 코드 변경 이력 추적에 유용하다."
+        },
+        {
+          "id": "d3-fc042",
+          "front": "PR 레이블(label)과 마일스톤(milestone)의 역할은?",
+          "back": "레이블: PR을 분류하고 필터링. 예) bug, enhancement, documentation, good-first-issue\n마일스톤: 특정 버전이나 릴리스 목표에 PR/이슈를 그룹화. 진행 상황을 추적하고 릴리스 계획을 관리하는 데 사용."
+        },
+        {
+          "id": "d3-fc043",
+          "front": "오픈소스 프로젝트에서 라이선스의 중요성은?",
+          "back": "LICENSE 파일이 없으면 기술적으로 오픈소스가 아니다. 라이선스는 사용, 수정, 배포 조건을 정의한다. 기여자는 프로젝트 라이선스와 본인 코드의 라이선스 호환성을 확인해야 한다."
+        },
+        {
+          "id": "d3-fc044",
+          "front": "오픈소스에서 기여 전 커뮤니케이션이 중요한 이유는?",
+          "back": "- 다른 사람이 이미 같은 작업을 하고 있을 수 있음\n- 기여 방향이 프로젝트 가치와 맞지 않을 수 있음\n- 사전 소통으로 시간 낭비 방지\n- 메인테이너의 가이드와 조언을 받을 수 있음\n항상 이슈 트래커에서 공개적으로 의사를 표명하고, 비공개 연락(이메일, SNS)은 피해야 한다."
+        },
+        {
+          "id": "d3-fc045",
+          "front": "Stale PR이란 무엇이며 어떻게 관리하나?",
+          "back": "오랫동안 업데이트가 없는 방치된 PR. 관리 방법:\n- Stale 봇을 사용해 자동으로 stale 레이블 추가 및 닫기\n- 정기적으로 오래된 PR 검토\n- 작업자가 PR에 업데이트 또는 진행 상황 댓글 작성\n- 더 이상 필요 없으면 명시적으로 PR 닫기"
+        }
+      ],
+      "questions": [
+        {
+          "id": "d3-q001",
+          "type": "multiple-choice",
+          "question": "Pull Request(PR)의 주요 목적은 무엇인가?",
+          "options": [
+            "개발자가 로컬에서 코드를 테스트하기 위해",
+            "브랜치 변경사항을 문서화하고 병합 전 검토받기 위해",
+            "저장소를 공개적으로 공유하기 위해",
+            "코드를 자동으로 배포하기 위해"
+          ],
+          "answer": 1,
+          "explanation": "PR은 개발자 브랜치의 변경사항을 문서화하고 이해관계자들이 검토·토론할 수 있게 해주는 기능이다. 코드 품질을 유지하면서 base 브랜치에 변경사항을 병합하는 과정을 관리한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q002",
+          "type": "multiple-choice",
+          "question": "Draft PR과 일반 Open PR의 가장 큰 차이점은 무엇인가?",
+          "options": [
+            "Draft PR은 공개되지 않아 다른 사람이 볼 수 없다",
+            "Draft PR은 병합할 수 없고 CODEOWNERS 자동 리뷰 요청이 발생하지 않는다",
+            "Draft PR은 커밋을 추가할 수 없다",
+            "Draft PR은 이슈와 연결할 수 없다"
+          ],
+          "answer": 1,
+          "explanation": "Draft PR은 병합이 불가능하고, CODEOWNERS 파일에 지정된 코드 오너에게 자동으로 리뷰 요청이 발생하지 않는다. 작업이 진행 중임을 나타내거나 피드백이 필요할 때 사용한다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d3-q003",
+          "type": "multiple-choice",
+          "question": "PR을 병합하지 않고 닫는(Closed) 상황으로 가장 적절한 것은?",
+          "options": [
+            "모든 status checks가 통과했을 때",
+            "제안된 변경사항이 더 이상 필요하지 않거나 다른 브랜치에서 해결됐을 때",
+            "리뷰어가 변경을 요청했을 때",
+            "PR에 충돌(conflict)이 있을 때"
+          ],
+          "answer": 1,
+          "explanation": "PR을 병합 없이 닫는 것은 제안된 변경사항이 더 이상 필요하지 않거나, 다른 브랜치에서 더 나은 해결책이 제안됐을 때 적합하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q004",
+          "type": "multiple-choice",
+          "question": "Squash and Merge를 선택했을 때 커밋 이력에 어떤 영향이 있는가?",
+          "options": [
+            "모든 커밋이 그대로 base 브랜치에 추가된다",
+            "PR의 모든 커밋이 하나로 합쳐져 base 브랜치에 추가된다",
+            "병합 커밋만 생성되고 개별 커밋은 삭제된다",
+            "커밋들이 base 브랜치 위에 재배치된다"
+          ],
+          "answer": 1,
+          "explanation": "Squash and Merge는 PR의 모든 커밋을 하나의 커밋으로 합쳐 base 브랜치에 추가한다. 저장소 이력을 더 읽기 쉽고 정리된 상태로 만드는 데 유용하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q005",
+          "type": "multiple-choice",
+          "question": "Rebase and Merge가 Merge Commit 방식과 다른 점은?",
+          "options": [
+            "커밋 수가 줄어든다",
+            "병합 커밋 없이 선형 이력이 유지된다",
+            "자동으로 충돌을 해결한다",
+            "원본 커밋의 날짜가 변경된다"
+          ],
+          "answer": 1,
+          "explanation": "Rebase and Merge는 병합 커밋 없이 선형 프로젝트 이력을 유지한다. 커밋들이 base 브랜치 위에 재배치되어 이력이 직선형으로 정리된다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q006",
+          "type": "multiple-choice",
+          "question": "PR 리뷰에서 'Request Changes'를 선택하면 어떻게 되는가?",
+          "options": [
+            "PR이 자동으로 닫힌다",
+            "병합 전 반드시 수정해야 한다는 표시가 되고, 병합이 제한될 수 있다",
+            "PR이 Draft 상태로 변경된다",
+            "PR 작성자에게 이메일이 발송된다"
+          ],
+          "answer": 1,
+          "explanation": "Request Changes는 병합 전 반드시 수정해야 할 사항을 지적하는 리뷰 유형이다. 브랜치 보호 규칙에 따라 변경 요청이 해소될 때까지 병합이 제한될 수 있다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q007",
+          "type": "multiple-choice",
+          "question": "CODEOWNERS 파일을 사용하는 주된 목적은?",
+          "options": [
+            "저장소 접근 권한을 관리하기 위해",
+            "특정 파일/디렉토리에 자동 리뷰어를 지정하기 위해",
+            "코드 스타일 규칙을 정의하기 위해",
+            "CI/CD 파이프라인을 설정하기 위해"
+          ],
+          "answer": 1,
+          "explanation": "CODEOWNERS 파일은 특정 파일이나 디렉토리에 대한 자동 리뷰어를 지정한다. 해당 파일이 변경된 PR이 생성되면 지정된 오너에게 자동으로 리뷰 요청이 발생한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q008",
+          "type": "multiple-choice",
+          "question": "특정 영역의 저장소 PR이 지정된 사용자의 승인 없이는 병합되지 않도록 보장하려면 무엇을 사용해야 하는가?",
+          "options": [
+            "CONTRIBUTING.md에 정책을 설명한다",
+            "CODEOWNERS 파일을 사용하고 필수 리뷰를 활성화한다",
+            "SECURITY.md에 디렉토리-사용자 매핑 테이블을 추가한다",
+            "PR 템플릿에 승인자 목록을 작성한다"
+          ],
+          "answer": 1,
+          "explanation": "CODEOWNERS 파일과 필수 리뷰(required reviews)를 함께 사용하면 특정 영역의 변경사항이 지정된 오너의 승인 없이는 병합되지 않도록 강제할 수 있다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d3-q009",
+          "type": "multiple-choice",
+          "question": "Markdown에서 3단계 제목을 만드는 올바른 문법은?",
+          "options": [
+            "### 제목",
+            "--- 제목",
+            "=== 제목",
+            "[3] 제목"
+          ],
+          "answer": 0,
+          "explanation": "Markdown에서 # 기호의 개수가 제목 수준을 결정한다. 3개의 # (###)는 H3 제목을 생성한다. H1은 #, H2는 ##, H6은 ######이다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d3-q010",
+          "type": "multiple-choice",
+          "question": "GFM에서 완료된 체크박스 항목을 표시하는 올바른 문법은?",
+          "options": [
+            "- (x) 완료된 항목",
+            "- [x] 완료된 항목",
+            "- [X] 완료된 항목",
+            "- [✓] 완료된 항목"
+          ],
+          "answer": 1,
+          "explanation": "GFM 태스크 목록에서 완료된 항목은 - [x] 로 표시한다. 미완료 항목은 - [ ] 를 사용한다. 소문자 x를 사용하는 것이 표준이다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d3-q011",
+          "type": "multiple-choice",
+          "question": "GFM에서 이슈 #42를 참조하는 올바른 방법은?",
+          "options": [
+            "ISSUE-42",
+            "#42",
+            "[issue:42]",
+            "issue(42)"
+          ],
+          "answer": 1,
+          "explanation": "GFM에서는 #번호 형식으로 이슈나 PR을 참조한다. #42를 입력하면 해당 이슈/PR로 자동 링크가 생성된다. GH-42 또는 owner/repo#42 형식도 사용 가능하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q012",
+          "type": "multiple-choice",
+          "question": "GFM의 Alerts에서 경고(Warning)를 표시하는 올바른 문법은?",
+          "options": [
+            "> WARNING: 텍스트",
+            "> [!WARNING]\n> 텍스트",
+            "!!! WARNING\n텍스트",
+            "[[WARNING]] 텍스트"
+          ],
+          "answer": 1,
+          "explanation": "GFM Alerts는 > [!유형] 형식으로 작성한다. > [!WARNING]은 경고 알림 블록을 생성한다. 유형으로는 NOTE, TIP, IMPORTANT, WARNING, CAUTION이 있다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d3-q013",
+          "type": "multiple-choice",
+          "question": "오픈소스 프로젝트에 기여하기 위한 올바른 첫 번째 단계는?",
+          "options": [
+            "즉시 코드를 수정하고 PR을 제출한다",
+            "메인테이너에게 직접 이메일을 보낸다",
+            "이슈 트래커에 기여 의사를 먼저 표명한다",
+            "저장소를 Fork하고 바로 작업을 시작한다"
+          ],
+          "answer": 2,
+          "explanation": "오픈소스 기여 전에는 이슈 트래커에 기여 의사를 먼저 표명해야 한다. 이렇게 하면 다른 사람과 중복 작업을 피하고, 메인테이너의 가이드와 조언을 받을 수 있다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d3-q014",
+          "type": "multiple-choice",
+          "question": "오픈소스 프로젝트 기여 시 Fork가 필요한 이유는?",
+          "options": [
+            "프로젝트의 전체 이력을 볼 수 있어서",
+            "기본적으로 공개 저장소에는 직접 변경 권한이 없어서",
+            "코드를 빠르게 다운로드할 수 있어서",
+            "이슈를 생성하기 위해서"
+          ],
+          "answer": 1,
+          "explanation": "Fork는 타인의 저장소에 직접 쓰기 권한이 없을 때 내 계정으로 복사본을 만들어 작업하기 위해 필요하다. Fork한 저장소에서는 자유롭게 변경이 가능하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q015",
+          "type": "multiple-choice",
+          "question": "PR 설명에서 'Fixes #25'를 작성하면 어떤 효과가 있는가?",
+          "options": [
+            "이슈 #25의 제목이 PR에 복사된다",
+            "PR이 병합될 때 이슈 #25가 자동으로 닫힌다",
+            "이슈 #25의 담당자가 PR 리뷰어로 자동 추가된다",
+            "이슈 #25에 자동 댓글이 작성된다"
+          ],
+          "answer": 1,
+          "explanation": "Fixes #이슈번호, Closes #이슈번호, Resolves #이슈번호 키워드를 PR 설명에 사용하면, PR이 기본 브랜치에 병합될 때 해당 이슈가 자동으로 닫힌다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q016",
+          "type": "multiple-choice",
+          "question": "오픈소스 기여 시 PR에 대한 피드백을 받는 올바른 방법은?",
+          "options": [
+            "메인테이너에게 이메일을 보내 빠른 답변을 요청한다",
+            "소셜 미디어에서 메인테이너에게 연락한다",
+            "PR 댓글을 통해 공개적으로 소통한다",
+            "새 이슈를 생성하여 리뷰를 요청한다"
+          ],
+          "answer": 2,
+          "explanation": "오픈소스에서 커뮤니케이션은 항상 PR 댓글을 통해 공개적으로 이루어져야 한다. 비공개로 메인테이너에게 연락하는 것은 부적절하며 커뮤니티에 해가 될 수 있다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q017",
+          "type": "multiple-choice",
+          "question": "Markdown에서 구문 강조(syntax highlighting)가 있는 Python 코드 블록을 만드는 방법은?",
+          "options": [
+            "```python\n코드\n```",
+            "~~python\n코드\n~~",
+            "[python]\n코드\n[/python]",
+            "<code lang='python'>\n코드\n</code>"
+          ],
+          "answer": 0,
+          "explanation": "펜스 코드 블록(```)의 첫 번째 백틱 뒤에 언어 이름을 지정하면 GFM이 해당 언어의 구문 강조를 적용한다. ```python은 Python 구문 강조를 활성화한다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d3-q018",
+          "type": "multiple-choice",
+          "question": "오픈소스 프로젝트에서 CODE_OF_CONDUCT.md의 주요 목적은?",
+          "options": [
+            "코딩 스타일과 규칙을 정의한다",
+            "커뮤니티 행동 수칙을 설정하여 안전하고 환영받는 환경을 만든다",
+            "기여 방법과 프로세스를 안내한다",
+            "프로젝트의 기술 스택을 나열한다"
+          ],
+          "answer": 1,
+          "explanation": "CODE_OF_CONDUCT.md는 커뮤니티 구성원의 행동 수칙을 정의하여 모든 사람에게 안전하고 환영받는 환경을 만든다. 일반적으로 Contributor Covenant를 기반으로 작성된다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q019",
+          "type": "multiple-choice",
+          "question": "GitHub 이슈 템플릿은 어디에 저장되는가?",
+          "options": [
+            ".github/ISSUE_TEMPLATE/ 폴더",
+            "루트 디렉토리의 ISSUE_TEMPLATE.md",
+            ".github/issue_template.md",
+            "docs/ISSUE_TEMPLATE/ 폴더"
+          ],
+          "answer": 0,
+          "explanation": "이슈 템플릿은 .github/ISSUE_TEMPLATE/ 폴더에 저장된다. 여러 유형의 템플릿(버그 리포트, 기능 요청 등)을 폴더 안에 여러 파일로 제공할 수 있다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q020",
+          "type": "multiple-choice",
+          "question": "PR 리뷰 중 사소한 오타와 코딩 오류를 여러 개 발견했을 때 가장 좋은 처리 방법은?",
+          "options": [
+            "PR을 거부하고 처음부터 다시 작성하도록 요청한다",
+            "각 오류마다 개별 댓글을 남기고 PR을 승인한다",
+            "리뷰를 시작하고, 명확한 오타는 인라인으로 수정 제안하고, 추가 논의가 필요한 부분에 댓글을 달고, 변경 요청으로 완료한다",
+            "오류를 직접 수정하고 작성자 모르게 푸시한다"
+          ],
+          "answer": 2,
+          "explanation": "모범적인 PR 리뷰는: 리뷰를 시작하고 명백한 오타는 인라인 수정 제안, 추가 논의나 교육적 가치가 있는 부분에 댓글, 여러 오류가 있으면 변경 요청으로 완료하는 것이다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d3-q021",
+          "type": "multiple-choice",
+          "question": "Dependabot PR의 역할은 무엇인가?",
+          "options": [
+            "코드 품질 문제를 자동으로 수정한다",
+            "의존성 보안 취약점이나 버전 업데이트를 위한 PR을 자동 생성한다",
+            "PR 리뷰를 자동으로 승인한다",
+            "실패한 CI 테스트를 자동으로 재실행한다"
+          ],
+          "answer": 1,
+          "explanation": "Dependabot은 취약한 의존성이 발견되거나 새 버전이 있을 때 자동으로 PR을 생성한다. 보안 취약점 패치를 신속하게 적용하는 데 도움이 된다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d3-q022",
+          "type": "multiple-choice",
+          "question": "오픈소스 기여에서 PR을 생성하기 위해 필요한 올바른 순서는?",
+          "options": [
+            "Clone → Fork → Branch → Commit → Push → PR 생성",
+            "Fork → Clone → Branch → Commit → Push → PR 생성",
+            "Fork → Branch → Commit → Clone → Push → PR 생성",
+            "Branch → Fork → Clone → Commit → Push → PR 생성"
+          ],
+          "answer": 1,
+          "explanation": "오픈소스 기여의 올바른 순서: Fork(저장소 복사) → Clone(로컬에 복제) → Branch(새 브랜치 생성) → Commit(변경사항 커밋) → Push(포크에 푸시) → PR 생성",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d3-q023",
+          "type": "true-false",
+          "question": "Draft PR 상태에서는 CODEOWNERS 파일에 지정된 오너에게 자동 리뷰 요청이 발생하지 않는다.",
+          "answer": true,
+          "explanation": "사실이다. Draft PR은 아직 리뷰 준비가 되지 않은 상태를 나타내며, CODEOWNERS의 자동 리뷰 요청 기능이 적용되지 않는다. PR을 Ready for Review로 변경하면 자동 요청이 발생한다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d3-q024",
+          "type": "true-false",
+          "question": "Markdown에서 이미지를 삽입하는 문법은 링크 문법 앞에 느낌표(!)를 추가한 형태이다.",
+          "answer": true,
+          "explanation": "사실이다. 링크: [텍스트](URL), 이미지: ![대체 텍스트](이미지 URL). 이미지 문법은 링크 문법과 동일하지만 앞에 !를 추가한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q025",
+          "type": "true-false",
+          "question": "오픈소스 프로젝트에 LICENSE 파일이 없어도 오픈소스로 간주할 수 있다.",
+          "answer": false,
+          "explanation": "거짓이다. LICENSE 파일이 없는 프로젝트는 오픈소스가 아니다. 라이선스는 사용, 수정, 배포 조건을 정의하는 필수 문서이며, 없으면 기술적으로 모든 권리가 원작자에게 있다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d3-q026",
+          "type": "true-false",
+          "question": "PR에서 'Fixes #번호' 키워드를 사용하면 PR이 feature 브랜치에 병합될 때 이슈가 자동으로 닫힌다.",
+          "answer": false,
+          "explanation": "거짓이다. Fixes/Closes/Resolves 키워드는 PR이 기본(default) 브랜치(main/master 등)에 병합될 때만 이슈를 자동으로 닫는다. 다른 브랜치에 병합될 때는 이슈가 닫히지 않는다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d3-q027",
+          "type": "true-false",
+          "question": "Squash and Merge를 사용하면 원래의 여러 커밋이 하나의 커밋으로 합쳐진다.",
+          "answer": true,
+          "explanation": "사실이다. Squash and Merge는 PR의 모든 커밋을 하나의 단일 커밋으로 합쳐 base 브랜치에 추가한다. 이력을 정리하고 읽기 쉽게 만드는 데 유용하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q028",
+          "type": "true-false",
+          "question": "오픈소스 기여 시 메인테이너에게 빠른 답변을 받기 위해 소셜 미디어나 이메일로 직접 연락하는 것이 권장된다.",
+          "answer": false,
+          "explanation": "거짓이다. 메인테이너에게 비공개로 연락하는 것은 해로운 행동으로 간주된다. 모든 커뮤니케이션은 PR 댓글을 통해 공개적으로 이루어져야 하며, 다른 기여자들도 논의 과정을 배울 수 있어야 한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q029",
+          "type": "true-false",
+          "question": "CODEOWNERS 파일은 저장소 루트, docs/, 또는 .github/ 폴더에 위치할 수 있다.",
+          "answer": true,
+          "explanation": "사실이다. CODEOWNERS 파일은 저장소 루트, docs/ 폴더, 또는 .github/ 폴더 중 하나에 위치할 수 있으며, GitHub은 이 순서로 파일을 찾는다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q030",
+          "type": "true-false",
+          "question": "GFM에서 인라인 수식은 달러 기호 하나($)로 감싸서 작성한다.",
+          "answer": true,
+          "explanation": "사실이다. GFM에서 인라인 수식은 $수식$으로, 블록 수식은 $$수식$$으로 작성한다. LaTeX 문법을 사용하여 수식을 표현한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q031",
+          "type": "true-false",
+          "question": "PR Revert는 기존 PR을 수정하는 기능이다.",
+          "answer": false,
+          "explanation": "거짓이다. PR Revert는 이미 병합된 PR의 변경사항을 되돌리기 위해 반대 변경사항을 담은 새 PR을 자동으로 생성하는 기능이다. 원본 PR은 수정되지 않는다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d3-q032",
+          "type": "short-answer",
+          "question": "PR에서 이슈를 자동으로 닫기 위해 사용할 수 있는 키워드 3가지를 쓰시오.",
+          "answer": "Fixes, Closes, Resolves",
+          "acceptedAnswers": [
+            "Fixes, Closes, Resolves",
+            "fixes, closes, resolves",
+            "Closes, Fixes, Resolves",
+            "Fixes #번호, Closes #번호, Resolves #번호"
+          ],
+          "explanation": "PR 설명에 Fixes #번호, Closes #번호, 또는 Resolves #번호 형식으로 작성하면 PR이 기본 브랜치에 병합될 때 해당 이슈가 자동으로 닫힌다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d3-q033",
+          "type": "short-answer",
+          "question": "GitHub 이슈 템플릿을 저장하는 올바른 경로(폴더)를 쓰시오.",
+          "answer": ".github/ISSUE_TEMPLATE/",
+          "acceptedAnswers": [
+            ".github/ISSUE_TEMPLATE/",
+            ".github/ISSUE_TEMPLATE",
+            "github/ISSUE_TEMPLATE"
+          ],
+          "explanation": "이슈 템플릿은 .github/ISSUE_TEMPLATE/ 폴더에 저장된다. 여러 유형의 템플릿을 제공할 수 있으며, GitHub는 이슈 생성 시 사용자에게 템플릿 선택을 안내한다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d3-q034",
+          "type": "short-answer",
+          "question": "GFM에서 경고(warning) Alert를 표시하는 문법을 완성하시오: > [!___]",
+          "answer": "WARNING",
+          "acceptedAnswers": [
+            "WARNING",
+            "warning",
+            "> [!WARNING]"
+          ],
+          "explanation": "GFM Alert의 경고는 > [!WARNING] 형식으로 작성한다. 다른 Alert 유형으로는 NOTE, TIP, IMPORTANT, CAUTION이 있다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d3-q035",
+          "type": "short-answer",
+          "question": "오픈소스 기여 워크플로우에서 Fork 후 로컬에 복제하기 위해 사용하는 git 명령어를 쓰시오.",
+          "answer": "git clone",
+          "acceptedAnswers": [
+            "git clone",
+            "git clone <URL>",
+            "git clone <REPOSITORY_URL>"
+          ],
+          "explanation": "git clone <URL> 명령어는 원격 저장소를 로컬 머신에 복제한다. Fork한 저장소의 URL을 사용하여 로컬 작업 환경을 구성한다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d3-q036",
+          "type": "short-answer",
+          "question": "PR 리뷰의 3가지 유형(Comment, Approve, _____)을 완성하시오.",
+          "answer": "Request Changes",
+          "acceptedAnswers": [
+            "Request Changes",
+            "Request changes",
+            "변경 요청",
+            "Changes Requested"
+          ],
+          "explanation": "PR 리뷰 유형 3가지: Comment(일반 피드백), Approve(병합 동의), Request Changes(병합 전 수정 요청). Request Changes는 변경사항이 반드시 수정되어야 함을 나타낸다.",
+          "difficulty": "easy"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Modern Development",
+      "weight": 0.12,
+      "summary": [
+        {
+          "title": "GitHub Copilot 기능과 플랜",
+          "content": "GitHub Copilot은 OpenAI Codex를 기반으로 한 AI 페어 프로그래머입니다. 지원 IDE는 VS Code, Visual Studio, JetBrains, Neovim이며 GitHub.com에서도 사용 가능합니다. 플랜은 Free(월 제한 사용), Pro(높은 사용 한도), Pro+(프리미엄 모델 우선 접근), Business(조직 정책 관리·감사 로그·IP 면책), Enterprise(코드베이스 인덱싱·PR 요약·조직 맞춤 모델)로 구분됩니다. 핵심 기능으로는 인라인 코드 제안, Copilot Chat(IDE 내 자연어 질의), CLI용 Copilot, PR 자동 요약, 코드 리뷰 지원이 있습니다. Business/Enterprise 플랜은 개인 코드를 AI 학습에 사용하지 않으며 콘텐츠 제외(Content Exclusion) 기능을 제공합니다."
+        },
+        {
+          "title": "Codespace 생명주기와 개인화",
+          "content": "Codespace의 생명주기는 생성(Created) → 실행 중(Running) → 중지(Stopped) → 삭제(Deleted) 순서로 진행됩니다. 비활성 상태가 30분 지속되면 자동 타임아웃되며, 30일 동안 미사용 시 자동 삭제됩니다. 생성 방법은 4가지(템플릿, 브랜치, PR, 커밋)이며, 생성 시 VM 할당→컨테이너 생성→연결→설치 후 작업의 4단계가 수행됩니다. 개인화 방법으로는 devcontainer.json(이미지·확장·설정·postCreateCommand 정의), dotfiles 리포지토리, Settings Sync, 머신 타입 변경(2/4/8/16/32코어)이 있습니다. Prebuild를 활성화하면 Codespace 시작 속도를 높일 수 있습니다. 실행 중인 Codespace만 CPU 요금이 발생하고, 중지된 Codespace는 스토리지 요금만 발생합니다."
+        },
+        {
+          "title": "Codespaces vs github.dev 비교",
+          "content": "github.dev는 저장소에서 `.` 키를 누르거나 URL의 github.com을 github.dev로 바꾸면 즉시 열리는 브라우저 기반 편집기입니다. 컴퓨팅 자원이 없어 코드 실행·터미널·디버깅이 불가하며 무료입니다. 확장은 웹 호환 가능한 일부만 설치할 수 있습니다. 반면 Codespaces는 전용 VM이 할당되어 코드 실행, 터미널, 디버깅, 포트 포워딩이 가능합니다. Codespaces는 GitHub Free 계정 기준 월 120 코어-시간, Pro는 180 코어-시간이 무료 제공됩니다. 간단한 파일 탐색·편집·커밋은 github.dev를, 코드 실행·테스트·복잡한 개발 환경이 필요하다면 Codespaces를 사용합니다. github.dev에서 작업 중 Codespace로 전환하려면 '계속 작업하기(Continue Working on…)'를 선택합니다."
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "d4-fc001",
+          "front": "GitHub Copilot은 어떤 AI 시스템을 기반으로 동작하나요?",
+          "back": "OpenAI Codex를 기반으로 동작합니다. Codex는 GPT-3보다 코드 생성 능력이 뛰어나며, 대규모 공개 소스 코드 데이터셋으로 학습되었습니다."
+        },
+        {
+          "id": "d4-fc002",
+          "front": "GitHub Copilot이 지원하는 IDE는 무엇인가요?",
+          "back": "VS Code, Visual Studio, JetBrains IDE 제품군, Neovim(Vim/Neovim), 그리고 GitHub.com(확장 없이 사용 가능)입니다."
+        },
+        {
+          "id": "d4-fc003",
+          "front": "GitHub Copilot Free 플랜의 특징은 무엇인가요?",
+          "back": "개인 개발자가 무료로 사용 가능하며, 월 제한된 코드 완성 및 채팅 요청을 제공합니다. 지원 AI 모델에 대한 접근권이 포함됩니다."
+        },
+        {
+          "id": "d4-fc004",
+          "front": "GitHub Copilot Business 플랜의 주요 추가 기능은?",
+          "back": "조직 단위 정책 관리, 감사 로그(Audit Logs), 보안 취약점 필터링, 공개 코드 필터링, IP 면책(IP Indemnity), 콘텐츠 제외(Content Exclusion) 기능이 포함됩니다."
+        },
+        {
+          "id": "d4-fc005",
+          "front": "GitHub Copilot Enterprise가 Business와 다른 핵심 차별점은?",
+          "back": "조직의 내부 코드베이스를 인덱싱하여 더 맞춤화된 코드 제안을 제공합니다. GitHub.com 내 Copilot Chat, AI 기반 PR 요약·태그, 조직 전체 모델 파인튜닝, 문서 검색 기능이 추가됩니다."
+        },
+        {
+          "id": "d4-fc006",
+          "front": "GitHub Copilot Pro+가 Pro와 다른 점은?",
+          "back": "Pro의 모든 기능에 더해 추가 프리미엄 요청 용량과 고수요 인프라에 대한 우선 접근권을 제공합니다."
+        },
+        {
+          "id": "d4-fc007",
+          "front": "Copilot 인라인 제안을 수락하는 키는 무엇인가요?",
+          "back": "Tab 키 또는 오른쪽 화살표(>) 키로 수락합니다. 거부하려면 계속 타이핑하거나 Esc 키를 누릅니다."
+        },
+        {
+          "id": "d4-fc008",
+          "front": "Copilot에서 여러 대안 제안을 순환하는 단축키는?",
+          "back": "Alt+] (Windows/Linux) 또는 Option+] (Mac)으로 대안을 순환할 수 있습니다. 또는 Ctrl+Enter로 여러 제안을 한꺼번에 볼 수 있습니다."
+        },
+        {
+          "id": "d4-fc009",
+          "front": "Copilot Chat이란 무엇인가요?",
+          "back": "IDE 내에서 자연어로 Copilot과 대화하는 인터랙티브 채팅 기능입니다. 코드 설명 요청, 오류 분석, 테스트 생성, 새 기능 구현 탐색 등에 사용됩니다."
+        },
+        {
+          "id": "d4-fc010",
+          "front": "Copilot 인라인 채팅을 여는 단축키는?",
+          "back": "Ctrl+I (Windows/Linux) 또는 Cmd+I (Mac)입니다. 코드 특정 위치에서 컨텍스트 기반 질문이나 수정 요청을 할 수 있습니다."
+        },
+        {
+          "id": "d4-fc011",
+          "front": "Copilot 슬래시 커맨드 4가지를 말하세요.",
+          "back": "/explain(선택 코드 설명), /suggest(코드 제안), /tests(단위 테스트 생성), /comment(주석으로 코드 변환)입니다."
+        },
+        {
+          "id": "d4-fc012",
+          "front": "Copilot for the CLI의 주요 기능은?",
+          "back": "터미널에서 명령어 제안 요청, 쉘 스크립트 생성, 명령어 출력/오류 이해, 프로젝트 생성·개선 지원을 제공합니다."
+        },
+        {
+          "id": "d4-fc013",
+          "front": "Business/Enterprise 플랜에서 개인 코드의 AI 학습 사용 여부는?",
+          "back": "Business와 Enterprise 플랜은 개인 코드를 AI 모델 학습에 사용하지 않습니다. 이것이 책임 있는 AI(Responsible AI) 원칙의 핵심입니다."
+        },
+        {
+          "id": "d4-fc014",
+          "front": "콘텐츠 제외(Content Exclusion) 기능은 어떤 플랜에서 사용 가능한가요?",
+          "back": "GitHub Copilot Business와 Enterprise 플랜에서 사용 가능합니다. 특정 파일이나 코드를 Copilot 제안에서 제외할 수 있습니다."
+        },
+        {
+          "id": "d4-fc015",
+          "front": "Codespace의 생명주기 단계를 순서대로 나열하세요.",
+          "back": "생성(Created) → 실행 중(Running/Active) → 중지(Stopped) → 삭제(Deleted). 중지와 삭제 사이에는 저장된 상태가 유지됩니다."
+        },
+        {
+          "id": "d4-fc016",
+          "front": "Codespace의 기본 자동 타임아웃 시간은?",
+          "back": "비활성 상태 30분 후 자동으로 타임아웃됩니다. 개인 설정에서 변경 가능하나 조직 정책이 우선 적용됩니다."
+        },
+        {
+          "id": "d4-fc017",
+          "front": "비활성 Codespace가 자동 삭제되는 기간은?",
+          "back": "중지된 상태로 30일 동안 비활성 상태이면 자동으로 삭제됩니다. 최대 30일까지 보존 기간을 설정할 수 있습니다."
+        },
+        {
+          "id": "d4-fc018",
+          "front": "Codespace 생성 시 발생하는 4단계 프로세스는?",
+          "back": "1) 가상 머신과 스토리지 할당, 2) 컨테이너 생성, 3) Codespace에 연결, 4) 설치 후 작업(post-creation setup) 실행."
+        },
+        {
+          "id": "d4-fc019",
+          "front": "Codespace를 생성할 수 있는 4가지 방법은?",
+          "back": "1) GitHub 템플릿 또는 템플릿 리포지토리, 2) 리포지토리의 브랜치, 3) 열린 풀 리퀘스트, 4) 리포지토리 히스토리의 특정 커밋."
+        },
+        {
+          "id": "d4-fc020",
+          "front": "Codespace 과금 구조는 어떻게 되나요?",
+          "back": "실행 중인 Codespace는 분당 CPU 컴퓨팅 요금이 발생합니다. 중지된 Codespace는 스토리지(GB당) 요금만 발생합니다."
+        },
+        {
+          "id": "d4-fc021",
+          "front": "GitHub Free 및 Pro 계정의 무료 Codespace 사용량은?",
+          "back": "GitHub Free는 월 120 코어-시간, GitHub Pro는 월 180 코어-시간이 무료로 제공됩니다."
+        },
+        {
+          "id": "d4-fc022",
+          "front": "devcontainer.json 파일의 역할은?",
+          "back": "Dev Container 사양을 정의하는 설정 파일입니다. 사용할 컨테이너 이미지, VS Code 확장, 설정, postCreateCommand(컨테이너 생성 후 실행할 명령) 등을 지정합니다."
+        },
+        {
+          "id": "d4-fc023",
+          "front": "Codespace 개인화를 위한 dotfiles 리포지토리란?",
+          "back": "쉘 스크립트, 쉘 환경 설정, 기타 구성 파일을 저장하는 리포지토리입니다. Codespace 생성 시 자동으로 적용되어 모든 Codespace에 일관된 개발 환경을 유지합니다."
+        },
+        {
+          "id": "d4-fc024",
+          "front": "Codespace Prebuild란 무엇인가요?",
+          "back": "미리 구성된 Codespace 이미지를 빌드해 두는 기능입니다. 리포지토리 관리자가 활성화하며, Codespace 생성 및 시작 속도를 크게 향상시킵니다."
+        },
+        {
+          "id": "d4-fc025",
+          "front": "github.dev를 여는 두 가지 방법은?",
+          "back": "1) 저장소에서 `.`(점) 키를 누릅니다. 2) URL의 github.com을 github.dev로 변경합니다."
+        },
+        {
+          "id": "d4-fc026",
+          "front": "github.dev의 주요 제한 사항 3가지는?",
+          "back": "1) 터미널 없음, 2) 코드 실행 및 빌드 불가, 3) 컴퓨팅 자원 없음. 웹 호환 확장만 설치 가능하며 무거운 디버깅 작업은 불가합니다."
+        },
+        {
+          "id": "d4-fc027",
+          "front": "github.dev와 Codespaces의 비용 차이는?",
+          "back": "github.dev는 완전 무료입니다. Codespaces는 개인 계정에 월별 무료 사용량(120/180 코어-시간)이 있으며, 초과 시 요금이 발생합니다."
+        },
+        {
+          "id": "d4-fc028",
+          "front": "Codespace에서 포트 포워딩(Port Forwarding)이란?",
+          "back": "Codespace 내 실행 중인 애플리케이션의 포트를 로컬 환경에 노출하는 기능입니다. 브라우저에서 Codespace 내 웹 서버에 접근하거나 팀원과 포트를 공유할 수 있습니다."
+        },
+        {
+          "id": "d4-fc029",
+          "front": "Codespace 시크릿(Secrets)이란 무엇인가요?",
+          "back": "API 키, 토큰 등 민감한 정보를 Codespace 환경 변수로 안전하게 저장하는 기능입니다. 사용자 레벨(모든 Codespace 적용)과 리포지토리 레벨로 설정할 수 있습니다."
+        },
+        {
+          "id": "d4-fc030",
+          "front": "Codespace에서 커밋하지 않은 변경사항을 삭제 전에 어떻게 보존하나요?",
+          "back": "미커밋 변경사항을 원격 브랜치에 푸시하거나, Codespace 삭제 시 '새 브랜치로 내보내기(Export to new branch)' 옵션을 선택하여 코드를 보존할 수 있습니다."
+        }
+      ],
+      "questions": [
+        {
+          "id": "d4-q001",
+          "type": "multiple-choice",
+          "question": "GitHub Copilot은 어떤 AI 시스템을 기반으로 개발되었나요?",
+          "options": [
+            "OpenAI GPT-4",
+            "OpenAI Codex",
+            "Google PaLM",
+            "Meta LLaMA"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Copilot은 Microsoft와 OpenAI가 협력하여 개발했으며, OpenAI Codex 시스템을 기반으로 합니다. Codex는 GPT-3보다 코드 생성 능력이 뛰어나고, 대규모 공개 소스 코드 데이터셋으로 학습되었습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d4-q002",
+          "type": "multiple-choice",
+          "question": "GitHub Copilot이 지원하는 IDE 확장으로 올바른 것은?",
+          "options": [
+            "VS Code와 Visual Studio만",
+            "VS Code, Visual Studio, Neovim, JetBrains만",
+            "GitHub.com, VS Code, Visual Studio, Neovim, JetBrains",
+            "Eclipse, VS Code, Atom, Neovim"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Copilot은 GitHub.com(확장 불필요), VS Code, Visual Studio, Neovim(Vim/Neovim), JetBrains IDE 제품군에서 사용할 수 있습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d4-q003",
+          "type": "multiple-choice",
+          "question": "GitHub Copilot Business와 Enterprise의 가장 핵심적인 차이는 무엇인가요?",
+          "options": [
+            "Enterprise는 코드 완성 기능이 있고, Business는 없다",
+            "Enterprise는 IDE 채팅 기능이 있고, Business는 없다",
+            "Enterprise는 조직 코드베이스 인덱싱 기반 개인화와 추가 레이어를 제공한다",
+            "Enterprise는 IP 면책 기능이 있고, Business는 없다"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Copilot Enterprise는 Business의 모든 기능에 더해, 조직의 내부 코드베이스 인덱싱을 통한 개인화된 제안, GitHub.com 내 Chat, AI 기반 PR 요약, 조직 맞춤 모델 파인튜닝 등의 추가 레이어를 제공합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q004",
+          "type": "multiple-choice",
+          "question": "Copilot 인라인 제안을 수락하는 키는 무엇인가요?",
+          "options": [
+            "Enter 키",
+            "Space 키",
+            "Tab 키",
+            "Ctrl+A 키"
+          ],
+          "answer": 2,
+          "explanation": "Copilot 인라인 제안(회색 텍스트로 표시)을 수락하려면 Tab 키 또는 오른쪽 화살표(>) 키를 누릅니다. 거부하려면 계속 타이핑하거나 Esc 키를 누릅니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d4-q005",
+          "type": "multiple-choice",
+          "question": "Codespace의 기본 비활성 타임아웃은 얼마인가요?",
+          "options": [
+            "10분",
+            "20분",
+            "30분",
+            "60분"
+          ],
+          "answer": 2,
+          "explanation": "Codespace의 기본 비활성 타임아웃은 30분입니다. 이 시간 동안 아무런 상호작용이 없으면 Codespace가 자동으로 중지됩니다. 개인 설정에서 변경 가능하지만 조직 정책이 우선 적용됩니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d4-q006",
+          "type": "multiple-choice",
+          "question": "github.dev에 대한 설명으로 올바른 것은?",
+          "options": [
+            "코드 실행과 터미널 기능을 모두 지원한다",
+            "유료 서비스로 GitHub Pro 이상에서만 사용 가능하다",
+            "컴퓨팅 자원 없이 파일 탐색과 편집·커밋만 가능하며 무료다",
+            "모든 VS Code 마켓플레이스 확장을 설치할 수 있다"
+          ],
+          "answer": 2,
+          "explanation": "github.dev는 컴퓨팅 자원이 없는 브라우저 기반 편집기입니다. 코드 실행·빌드·터미널이 불가하고, 웹 호환 확장만 설치 가능합니다. 모든 GitHub 사용자에게 무료로 제공됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q007",
+          "type": "multiple-choice",
+          "question": "Codespace 생성 시 발생하는 4단계 프로세스의 올바른 순서는?",
+          "options": [
+            "컨테이너 생성 → VM 할당 → 연결 → 설치 후 작업",
+            "VM·스토리지 할당 → 컨테이너 생성 → 연결 → 설치 후 작업",
+            "연결 → VM 할당 → 컨테이너 생성 → 설치 후 작업",
+            "VM 할당 → 연결 → 설치 후 작업 → 컨테이너 생성"
+          ],
+          "answer": 1,
+          "explanation": "Codespace 생성 시 1) 가상 머신과 스토리지 할당, 2) 컨테이너 생성, 3) Codespace에 연결, 4) 설치 후 작업(post-creation setup) 순서로 진행됩니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d4-q008",
+          "type": "multiple-choice",
+          "question": "비활성 상태의 Codespace는 몇 일 후 자동으로 삭제되나요?",
+          "options": [
+            "7일",
+            "14일",
+            "30일",
+            "60일"
+          ],
+          "answer": 2,
+          "explanation": "중지된 Codespace가 30일 동안 비활성 상태이면 자동으로 삭제됩니다. 이 보존 기간은 사용자 설정에서 최대 30일까지 조정할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q009",
+          "type": "multiple-choice",
+          "question": "devcontainer.json 파일의 역할로 가장 적절한 것은?",
+          "options": [
+            "GitHub Actions 워크플로우를 정의한다",
+            "Codespace의 컨테이너 이미지·확장·설정·postCreateCommand 등 개발 환경을 정의한다",
+            "Codespace 과금 설정을 구성한다",
+            "GitHub Copilot의 언어별 동작을 제어한다"
+          ],
+          "answer": 1,
+          "explanation": "devcontainer.json은 Dev Container 사양 파일로, Codespace에서 사용할 컨테이너 이미지, VS Code 확장, 에디터 설정, 컨테이너 생성 후 실행할 명령(postCreateCommand) 등을 정의합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q010",
+          "type": "multiple-choice",
+          "question": "Copilot CLI의 주요 사용 목적으로 가장 적절한 것은?",
+          "options": [
+            "웹 브라우저에서 코드를 작성하기 위해",
+            "GitHub Issues를 자동으로 생성하기 위해",
+            "터미널에서 명령어 제안·쉘 스크립트 생성·명령어 출력 이해를 위해",
+            "CI/CD 파이프라인을 자동으로 구성하기 위해"
+          ],
+          "answer": 2,
+          "explanation": "Copilot for the CLI는 터미널에서 명령어 제안, 쉘 스크립트 생성, 명령어 출력이나 오류 이해, 프로젝트 생성 등을 지원합니다. 개발자가 복잡한 명령어 문법을 기억하지 않아도 되도록 도와줍니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q011",
+          "type": "multiple-choice",
+          "question": "Codespace에서 중지된 Codespace에만 발생하는 요금은?",
+          "options": [
+            "CPU 컴퓨팅 요금",
+            "네트워크 전송 요금",
+            "스토리지(GB당) 요금",
+            "라이선스 요금"
+          ],
+          "answer": 2,
+          "explanation": "실행 중인 Codespace는 분당 CPU 컴퓨팅 요금이 발생합니다. 반면 중지된 Codespace는 CPU 요금 없이 스토리지(GB당) 요금만 발생합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d4-q012",
+          "type": "multiple-choice",
+          "question": "Codespace Prebuild 기능의 주요 목적은?",
+          "options": [
+            "코드 품질을 자동으로 검사하기 위해",
+            "Codespace 생성 및 시작 속도를 높이기 위해",
+            "여러 Codespace 간 데이터를 동기화하기 위해",
+            "GitHub Actions 워크플로우를 미리 실행하기 위해"
+          ],
+          "answer": 1,
+          "explanation": "Prebuild는 미리 구성된 Codespace 이미지를 빌드해두는 기능으로, 리포지토리 관리자가 활성화합니다. 개발자가 Codespace를 생성할 때 설정 과정 없이 빠르게 시작할 수 있습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d4-q013",
+          "type": "multiple-choice",
+          "question": "GitHub Copilot에서 코드의 설명을 요청하는 슬래시 커맨드는?",
+          "options": [
+            "/comment",
+            "/tests",
+            "/explain",
+            "/suggest"
+          ],
+          "answer": 2,
+          "explanation": "/explain은 선택한 코드에 대한 설명을 제공하는 슬래시 커맨드입니다. /tests는 단위 테스트 생성, /suggest는 코드 제안, /comment는 주석을 코드로 변환하는 데 사용됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q014",
+          "type": "multiple-choice",
+          "question": "Copilot Enterprise의 고유 기능이 아닌 것은?",
+          "options": [
+            "조직 코드베이스 인덱싱을 통한 맞춤형 제안",
+            "GitHub.com 내 Copilot Chat 통합",
+            "감사 로그(Audit Logs) 기능",
+            "AI 기반 PR 요약 및 태그"
+          ],
+          "answer": 2,
+          "explanation": "감사 로그(Audit Logs)는 GitHub Copilot Business 플랜의 기능입니다. Enterprise는 Business의 모든 기능을 포함하며, 추가로 코드베이스 인덱싱, GitHub.com Chat, AI 기반 PR 요약 등을 제공합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d4-q015",
+          "type": "true-false",
+          "question": "GitHub Copilot Business와 Enterprise 플랜은 개인 코드를 AI 모델 학습에 사용하지 않습니다.",
+          "answer": true,
+          "explanation": "맞습니다. Business와 Enterprise 플랜은 책임 있는 AI 원칙에 따라 개인 코드를 AI 학습에 사용하지 않으며, 엔터프라이즈급 보안·안전·프라이버시를 보장합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q016",
+          "type": "true-false",
+          "question": "github.dev 편집기는 터미널 접근과 코드 실행 기능을 지원합니다.",
+          "answer": false,
+          "explanation": "틀립니다. github.dev는 컴퓨팅 자원이 없는 브라우저 기반 편집기로, 터미널 접근과 코드 실행이 불가합니다. 이러한 기능이 필요하다면 GitHub Codespaces를 사용해야 합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q017",
+          "type": "true-false",
+          "question": "Codespace가 인터넷 연결을 잃으면 미커밋 변경사항도 모두 손실됩니다.",
+          "answer": false,
+          "explanation": "틀립니다. 인터넷 연결이 끊기면 Codespace에 접근할 수 없지만, 마지막으로 저장된 상태의 미커밋 변경사항은 유지됩니다. 연결이 복구되면 동일한 상태로 Codespace에 다시 접속할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q018",
+          "type": "true-false",
+          "question": "Codespace의 클론은 /workspaces 디렉토리에 위치합니다.",
+          "answer": true,
+          "explanation": "맞습니다. Codespace를 생성하면 리포지토리의 클론이 /workspaces 디렉토리에 위치합니다. Codespace를 리빌드할 때도 이 디렉토리의 변경사항은 보존됩니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q019",
+          "type": "true-false",
+          "question": "GitHub Free 계정 사용자는 Codespaces를 사용할 수 없습니다.",
+          "answer": false,
+          "explanation": "틀립니다. GitHub Codespaces는 GitHub.com의 모든 사용자에게 제공됩니다. GitHub Free 계정은 월 120 코어-시간의 무료 사용량을 제공합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q020",
+          "type": "true-false",
+          "question": "Codespace 리빌드 시 /workspaces 디렉토리 외부의 변경사항은 초기화됩니다.",
+          "answer": true,
+          "explanation": "맞습니다. Codespace를 리빌드하면 /workspaces 디렉토리 외부에서 만든 변경사항은 초기화됩니다. /workspaces 디렉토리 내의 변경사항은 리빌드 후에도 유지됩니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d4-q021",
+          "type": "short-answer",
+          "question": "github.dev를 여는 두 가지 방법을 설명하세요.",
+          "answer": "저장소에서 '.' 키를 누르거나 URL에서 github.com을 github.dev로 변경한다",
+          "acceptedAnswers": [
+            ".(점) 키를 누르거나 github.com을 github.dev로 변경",
+            "점 키 또는 URL 변경",
+            "키보드 단축키 '.' 또는 주소창에서 github.dev로 접근"
+          ],
+          "explanation": "github.dev는 두 가지 방법으로 열 수 있습니다. 첫째, GitHub 저장소 페이지에서 '.'(점) 키를 누릅니다. 둘째, 브라우저 주소창에서 github.com을 github.dev로 변경합니다. 두 방법 모두 즉시 브라우저 기반 편집기가 열립니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d4-q022",
+          "type": "short-answer",
+          "question": "Codespace 개인화를 위해 사용하는 두 가지 주요 방법을 설명하세요.",
+          "answer": "devcontainer.json(개발 컨테이너 설정)과 dotfiles 리포지토리",
+          "acceptedAnswers": [
+            "dotfiles 리포지토리와 devcontainer.json",
+            "dotfiles와 개발 컨테이너 설정",
+            "Settings Sync와 dotfiles"
+          ],
+          "explanation": "Codespace 개인화의 주요 방법은 devcontainer.json(리포지토리별 개발 환경 정의: 이미지·확장·설정·명령)과 dotfiles 리포지토리(모든 Codespace에 적용되는 쉘 설정·환경 구성)입니다. Settings Sync를 통해 VS Code 설정을 동기화할 수도 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d4-q023",
+          "type": "short-answer",
+          "question": "GitHub Copilot Pro+가 Pro보다 추가로 제공하는 기능은 무엇인가요?",
+          "answer": "추가 프리미엄 요청 용량과 고수요 인프라에 대한 우선 접근권",
+          "acceptedAnswers": [
+            "프리미엄 모델 우선 접근 및 추가 요청 용량",
+            "추가 premium request capacity와 priority infrastructure access",
+            "더 높은 사용 한도와 우선 인프라 접근"
+          ],
+          "explanation": "GitHub Copilot Pro+는 Pro의 모든 기능에 더해 추가 프리미엄 요청 용량(additional premium request capacity)과 고수요 자원에 대한 우선 인프라 접근(priority infrastructure access)을 제공합니다. 더 높은 사용량이 필요한 개인 개발자에게 적합합니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d4-q024",
+          "type": "short-answer",
+          "question": "Codespace에서 실행 중인 Codespace와 중지된 Codespace의 과금 방식 차이를 설명하세요.",
+          "answer": "실행 중인 Codespace는 분당 CPU 컴퓨팅 요금이 발생하고, 중지된 Codespace는 스토리지 요금만 발생한다",
+          "acceptedAnswers": [
+            "실행 중: CPU 과금, 중지됨: 스토리지만 과금",
+            "running: 컴퓨팅+스토리지, stopped: 스토리지만",
+            "활성 상태는 CPU와 스토리지, 비활성 상태는 스토리지만 과금"
+          ],
+          "explanation": "Codespace 과금은 상태에 따라 다릅니다. 실행 중(Running)인 Codespace는 분당 CPU 컴퓨팅 요금과 스토리지 요금이 모두 발생합니다. 중지된(Stopped) Codespace는 CPU 요금 없이 스토리지(GB당) 요금만 발생합니다. 따라서 사용하지 않을 때는 Codespace를 중지하면 비용을 절감할 수 있습니다.",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Project Management",
+      "weight": 0.12,
+      "summary": [
+        {
+          "title": "GitHub Projects (New) vs Projects Classic 차이",
+          "content": "GitHub Projects(신규)는 Projects Classic에 비해 대폭 강화된 프로젝트 관리 도구입니다. Classic은 보드 뷰만 지원했지만, 신규 Projects는 Table(테이블), Board(보드), Roadmap(타임라인) 세 가지 레이아웃을 제공합니다. 데이터 측면에서는 텍스트·숫자·날짜·반복(Iteration)·단일선택(Single select) 등 다양한 커스텀 필드를 지원하여 아이템을 정렬·순위 지정·그룹핑할 수 있습니다. Insight 기능은 현재 차트(Current charts)와 과거 차트(Historical charts)를 모두 제공하며, Classic의 단순 진행 바를 대체합니다. 자동화 측면에서는 GraphQL ProjectsV2 API, GitHub Actions, 내장 워크플로우를 지원하며, Classic은 컬럼 프리셋만 설정할 수 있었습니다. 마이그레이션 시 Custom field, 뷰(View) 설정, 인사이트 데이터, 드래프트 이슈는 신규 Projects에서만 활용 가능합니다."
+        },
+        {
+          "title": "Projects 뷰 종류와 자동화",
+          "content": "GitHub Projects는 세 가지 주요 뷰를 제공합니다. Table 뷰는 스프레드시트처럼 아이템을 행으로 표시하며, 커스텀 필드 추가·정렬·그룹핑이 가능합니다. Board 뷰는 칸반 스타일로 상태별 컬럼에 카드를 표시하며, 드래그 앤 드롭으로 상태를 변경할 수 있습니다. Roadmap 뷰는 타임라인(간트 차트 스타일)으로 반복(Iteration) 필드를 기반으로 일정을 시각화합니다. 내장 자동화(Built-in workflows)로는 'Item added to project'(아이템 추가 시 자동 상태 설정), 'Item reopened'(재오픈 시), 'Item closed'(완료 시) 트리거가 있습니다. GitHub Actions를 통한 고급 자동화도 가능하며, 이슈 생성 시 라벨 추가·댓글 남기기·프로젝트 보드 이동 등을 자동화할 수 있습니다. GraphQL API도 지원합니다. Insight에서는 바·컬럼·라인·누적 영역 차트를 생성할 수 있으며, 합계·평균·최솟값·최댓값 집계 함수를 사용할 수 있습니다. 과거 차트(Historical charts)는 GitHub Team 및 Enterprise Cloud에서만 사용 가능합니다."
+        },
+        {
+          "title": "저장소 이력 탐색",
+          "content": "GitHub는 저장소 이력을 탐색하는 다양한 방법을 제공합니다. git blame 명령어(GitHub의 Blame 뷰)는 파일의 각 줄을 누가 언제 변경했는지 커밋 이력과 함께 표시합니다. 검색은 전역 검색(Global search)과 컨텍스트 검색(Context search, 탭별 스코프) 두 가지 방식을 지원합니다. 주요 검색 문법: is:issue/is:pr(유형 필터), is:open/is:closed(상태 필터), label:bug(라벨 필터), assignee:@me(담당자 필터), author:username(작성자 필터), milestone:\"v1.0\"(마일스톤 필터) 등이 있습니다. 크로스 링크(Cross-reference)는 #번호 문법으로 이슈·PR·커밋을 서로 연결하며, GitHub가 자동으로 링크를 생성합니다. 클로징 키워드(Fixes, Closes, Resolves + #번호)를 PR에 사용하면 병합 시 연결된 이슈가 자동으로 닫힙니다. @mention으로 특정 사용자를 대화에 참여시킬 수 있습니다. 마일스톤은 이슈와 PR을 릴리스·스프린트 등 공유 목표로 묶어 진행 상황을 추적합니다."
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "d5-fc001",
+          "front": "GitHub Projects(신규)와 Projects Classic의 가장 큰 차이점은?",
+          "back": "신규 Projects는 Table·Board·Roadmap 3가지 레이아웃 지원, 커스텀 필드(텍스트·숫자·날짜·반복·단일선택), 인사이트 차트, GraphQL API/Actions 자동화를 제공합니다. Classic은 보드 뷰만 지원하고 컬럼 프리셋 자동화만 가능합니다."
+        },
+        {
+          "id": "d5-fc002",
+          "front": "GitHub Projects의 Board 뷰란?",
+          "back": "칸반(Kanban) 스타일 뷰로, 상태(Status)별 컬럼에 이슈와 PR을 카드로 표시합니다. 드래그 앤 드롭으로 카드를 다른 컬럼으로 이동하여 상태를 변경할 수 있습니다."
+        },
+        {
+          "id": "d5-fc003",
+          "front": "GitHub Projects의 Table 뷰란?",
+          "back": "스프레드시트 형태의 뷰로, 이슈와 PR을 행으로 표시합니다. 커스텀 필드를 열로 추가하고, 정렬·그룹핑·필터링이 가능합니다. 오른쪽 끝 '+' 버튼으로 필드를 추가할 수 있습니다."
+        },
+        {
+          "id": "d5-fc004",
+          "front": "GitHub Projects의 Roadmap 뷰란?",
+          "back": "타임라인(간트 차트 스타일) 뷰로, Iteration 필드나 날짜 필드를 기반으로 작업 일정을 시각화합니다. 팀의 작업 흐름과 일정을 한눈에 파악할 수 있습니다."
+        },
+        {
+          "id": "d5-fc005",
+          "front": "GitHub Projects의 커스텀 필드 종류 5가지는?",
+          "back": "Text(텍스트), Number(숫자), Date(날짜), Single select(단일선택), Iteration(반복/스프린트) 5가지입니다."
+        },
+        {
+          "id": "d5-fc006",
+          "front": "Iteration 필드란 무엇인가?",
+          "back": "스프린트나 주기 같은 시간 단위 단계(time box)를 설정하는 필드입니다. 유연한 날짜 범위와 휴식 기간을 설정할 수 있으며, 스프린트·사이클·분기별 로드맵을 표현하는 데 사용합니다."
+        },
+        {
+          "id": "d5-fc007",
+          "front": "Projects의 내장 자동화 트리거 3가지는?",
+          "back": "'Item added to project'(아이템이 프로젝트에 추가될 때), 'Item reopened'(아이템이 다시 열릴 때), 'Item closed'(아이템이 닫힐 때) 입니다."
+        },
+        {
+          "id": "d5-fc008",
+          "front": "GitHub Actions를 Projects와 함께 사용하면 무엇을 할 수 있나?",
+          "back": "이슈 생성 시 자동 라벨 추가, 댓글 남기기, 프로젝트 보드 이동 등 복잡한 자동화가 가능합니다. Actions 워크플로우로 아이템을 프로젝트에 추가하고 필드 값을 설정하는 작업을 자동화할 수 있습니다."
+        },
+        {
+          "id": "d5-fc009",
+          "front": "Projects Insights의 현재 차트(Current charts)와 과거 차트(Historical charts)의 차이는?",
+          "back": "현재 차트는 현재 시점의 프로젝트 아이템 상태를 시각화합니다. 과거 차트는 시간에 따른 트렌드와 진행 상황을 보여주며, GitHub Team 및 Enterprise Cloud 조직에서만 사용 가능합니다."
+        },
+        {
+          "id": "d5-fc010",
+          "front": "GitHub Projects의 가시성(Visibility) 설정 옵션은?",
+          "back": "Public(공개)과 Private(비공개) 두 가지입니다. Public이면 인터넷의 누구나 볼 수 있고, Private이면 최소 Read 권한을 부여받은 사용자만 볼 수 있습니다. Danger zone 섹션에서 변경합니다."
+        },
+        {
+          "id": "d5-fc011",
+          "front": "Projects에 아이템을 추가하는 3가지 방법은?",
+          "back": "1) URL 붙여넣기: 이슈/PR URL을 하단 행에 붙여넣기. 2) # 검색: #을 입력해 저장소를 검색한 후 이슈/PR 선택. 3) 대량 추가(Bulk add): 'Add item from repository'로 저장소에서 여러 아이템을 한 번에 추가."
+        },
+        {
+          "id": "d5-fc012",
+          "front": "Draft 아이템을 실제 이슈로 전환하는 방법은?",
+          "back": "Projects에서 드래프트 아이템은 프로젝트에만 존재하는 임시 항목입니다. 드래프트 아이템의 옵션 메뉴에서 'Convert to issue'를 선택하면 지정한 저장소에 실제 이슈가 생성됩니다."
+        },
+        {
+          "id": "d5-fc013",
+          "front": "Table 뷰에서 그룹핑(Group by) 기능이란?",
+          "back": "특정 필드를 기준으로 아이템을 그룹으로 묶는 기능입니다. 예를 들어 Priority(우선순위) 필드로 그룹핑하면 Urgent·High·Medium·Low 그룹별로 이슈와 PR을 볼 수 있습니다. 그룹 간 드래그 앤 드롭으로 필드 값을 변경할 수 있습니다."
+        },
+        {
+          "id": "d5-fc014",
+          "front": "GitHub Projects에서 필터링(Filtering)이란?",
+          "back": "토큰화된 필터 구문을 사용해 Projects 내 특정 조건에 맞는 아이템만 표시하는 기능입니다. 필드 값, 상태, 담당자 등을 기준으로 필터를 적용하고 저장하면 나중에 같은 뷰를 재사용할 수 있습니다."
+        },
+        {
+          "id": "d5-fc015",
+          "front": "Projects에서 뷰를 저장하는 방법은?",
+          "back": "뷰를 수정한 후 상단의 'Save changes' 버튼을 클릭합니다. 뷰 이름은 탭을 더블클릭해 변경할 수 있으며, 탭 외부를 클릭하면 자동 저장됩니다."
+        },
+        {
+          "id": "d5-fc016",
+          "front": "GitHub Projects에서 템플릿(Templates)이란?",
+          "back": "프로젝트를 처음 생성할 때 미리 구성된 템플릿을 선택할 수 있습니다. 템플릿에는 기본 필드, 뷰, 워크플로우 설정이 포함되어 있어 빠르게 프로젝트를 시작할 수 있습니다. 'Start from scratch'로 빈 프로젝트를 만들 수도 있습니다."
+        },
+        {
+          "id": "d5-fc017",
+          "front": "Projects에서 아이템 보관(Archiving)이란?",
+          "back": "완료되었거나 더 이상 활성 상태가 아닌 아이템을 프로젝트 뷰에서 숨기는 기능입니다. 보관된 아이템은 삭제되지 않으며 나중에 복원할 수 있습니다. 완료된 이슈를 정리할 때 유용합니다."
+        },
+        {
+          "id": "d5-fc018",
+          "front": "git blame 명령어란?",
+          "back": "파일의 각 줄을 마지막으로 수정한 커밋 정보(커밋 해시, 작성자, 날짜)를 표시하는 명령어입니다. 특정 코드를 누가 언제 변경했는지 추적할 때 사용합니다. 일부 Git 시스템에서는 git praise로 별칭 설정됩니다."
+        },
+        {
+          "id": "d5-fc019",
+          "front": "GitHub Blame 뷰(브라우저)의 특징은?",
+          "back": "GitHub 웹 인터페이스에서 파일의 Blame 버튼을 클릭하면 접근할 수 있습니다. git blame의 기본 기능을 풍부한 UI로 확장하여 커밋 정보, 작성자, 날짜를 시각적으로 표시합니다. 코드의 변경 책임자를 쉽게 찾을 수 있습니다."
+        },
+        {
+          "id": "d5-fc020",
+          "front": "git log 명령어로 파일 이력을 보는 방법은?",
+          "back": "`git log -- <파일경로>` 명령으로 특정 파일에 대한 커밋 이력을 볼 수 있습니다. 파일 내용 변경 사항을 함께 보려면 `-p` 옵션을 추가합니다."
+        },
+        {
+          "id": "d5-fc021",
+          "front": "git log --follow 옵션이란?",
+          "back": "파일 이름이 변경된 경우에도 이름 변경 이전의 커밋 이력을 추적하는 옵션입니다. 예: `git log --follow -- <파일경로>`. 파일 리네이밍 전후의 전체 변경 이력을 확인할 때 사용합니다."
+        },
+        {
+          "id": "d5-fc022",
+          "front": "GitHub에서 크로스 레퍼런스(Cross-reference)란?",
+          "back": "#번호 문법을 사용해 이슈, PR, 커밋을 서로 연결하는 기능입니다. 예: 댓글에 '#8'을 입력하면 GitHub가 자동으로 해당 이슈/PR 링크를 생성합니다. 커밋 ID 앞 7자 이상을 붙여넣으면 커밋 링크도 자동 생성됩니다."
+        },
+        {
+          "id": "d5-fc023",
+          "front": "GitHub 클로징 키워드(Closing keywords)란?",
+          "back": "PR 설명이나 커밋 메시지에 사용하면 PR 병합 시 연결된 이슈를 자동으로 닫는 키워드입니다. 예: 'Fixes #42', 'Closes #42', 'Resolves #42'. 해당 PR이 병합되면 #42 이슈가 자동으로 닫힙니다."
+        },
+        {
+          "id": "d5-fc024",
+          "front": "GitHub 검색 문법: is:issue와 is:pr의 차이는?",
+          "back": "is:issue는 이슈만 검색 결과에 포함하고, is:pr은 풀 리퀘스트만 포함합니다. 두 한정자를 함께 사용하면 해당 타입의 아이템만 필터링됩니다. 코드 검색 제공자는 이 필터를 지원하지 않습니다."
+        },
+        {
+          "id": "d5-fc025",
+          "front": "GitHub 검색 문법: label: 키워드 사용 예시는?",
+          "back": "`label:bug`는 'bug' 라벨이 붙은 아이템을 반환합니다. 여러 라벨 조합: `label:bug label:\"help wanted\"`. 전체 예시: `is:open is:issue label:bug`는 열린 버그 이슈를 모두 반환합니다."
+        },
+        {
+          "id": "d5-fc026",
+          "front": "GitHub 검색 문법: assignee: 키워드 사용 예시는?",
+          "back": "`assignee:@me`는 현재 로그인한 사용자에게 할당된 아이템을 반환합니다. `assignee:username`은 특정 사용자에게 할당된 아이템을 검색합니다. 예: `is:open is:issue assignee:@me`"
+        },
+        {
+          "id": "d5-fc027",
+          "front": "GitHub 검색 문법: author: 키워드 사용 예시는?",
+          "back": "`author:username`은 특정 사용자가 작성한 이슈나 PR을 검색합니다. 예: `is:closed is:pr author:contoso`는 contoso가 작성한 닫힌 PR을 반환합니다."
+        },
+        {
+          "id": "d5-fc028",
+          "front": "GitHub 검색 문법: milestone: 키워드 사용 예시는?",
+          "back": "`milestone:\"v1.0\"`은 특정 마일스톤에 속한 아이템을 검색합니다. 예: `is:open is:issue milestone:\"Sprint 1\"`은 Sprint 1 마일스톤의 열린 이슈를 반환합니다. 기본적으로 열린 마일스톤만 매칭됩니다."
+        },
+        {
+          "id": "d5-fc029",
+          "front": "GitHub 검색에서 날짜 필터 사용 방법은?",
+          "back": "`created:>2024-01-01`은 2024년 1월 1일 이후 생성된 아이템을 검색합니다. `updated:<2024-06-01`은 2024년 6월 1일 이전에 업데이트된 아이템을 검색합니다. ISO 8601 날짜 형식(YYYY-MM-DD)을 사용합니다."
+        },
+        {
+          "id": "d5-fc030",
+          "front": "GitHub 전역 검색(Global search)과 컨텍스트 검색(Context search)의 차이는?",
+          "back": "전역 검색은 GitHub 전체(코드·이슈·마켓플레이스·사용자 등)를 대상으로 검색합니다. 컨텍스트 검색은 현재 저장소의 특정 탭(Issues, Pull requests 등)에 스코프되어 해당 타입의 결과만 반환하며, 작성자·라벨·프로젝트 등 타입별 필터 드롭다운을 제공합니다."
+        }
+      ],
+      "questions": [
+        {
+          "id": "d5-q001",
+          "type": "multiple-choice",
+          "question": "GitHub Projects(신규)가 Projects Classic과 비교하여 추가된 레이아웃 뷰는 무엇인가? (모두 선택)",
+          "options": [
+            "Table(테이블) 뷰와 Roadmap(로드맵) 뷰",
+            "Gantt(간트) 뷰와 Calendar(캘린더) 뷰",
+            "Kanban(칸반) 뷰와 Sprint(스프린트) 뷰",
+            "Timeline(타임라인) 뷰와 List(리스트) 뷰만"
+          ],
+          "answer": 0,
+          "explanation": "Projects Classic은 Board 뷰만 지원했습니다. 신규 GitHub Projects는 Board에 더해 Table 뷰(스프레드시트 형태)와 Roadmap 뷰(타임라인/간트 스타일)를 새롭게 추가했습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d5-q002",
+          "type": "multiple-choice",
+          "question": "GitHub Projects에서 Iteration 필드의 주요 용도는?",
+          "options": [
+            "파일의 각 버전 이력을 추적한다",
+            "이슈나 PR의 변경 사항을 되돌린다",
+            "스프린트나 주기 같은 시간 단위 단계를 설정하여 이슈와 PR을 그룹핑한다",
+            "프로젝트 아이템의 반복 알림을 설정한다"
+          ],
+          "answer": 2,
+          "explanation": "Iteration 필드는 스프린트, 사이클, 분기별 로드맵처럼 순차적인 시간 단계를 설정하는 필드입니다. 유연한 날짜 범위와 휴식 기간을 설정할 수 있으며, 이슈와 PR을 해당 단계에 배정하여 그룹핑할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q003",
+          "type": "multiple-choice",
+          "question": "GitHub Projects에서 우선순위를 'Urgent', 'High', 'Medium', 'Low'로 분류하려면 어떤 필드 타입을 사용해야 하는가?",
+          "options": [
+            "Text(텍스트) 필드",
+            "Date(날짜) 필드",
+            "Single select(단일선택) 필드",
+            "Iteration(반복) 필드"
+          ],
+          "answer": 2,
+          "explanation": "Single select 필드는 미리 정의한 옵션 목록 중 하나를 선택하는 필드입니다. 우선순위처럼 고정된 분류 기준을 만들 때 적합합니다. Urgent, High, Medium, Low 같은 옵션을 설정하고 각 아이템에 배정할 수 있습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d5-q004",
+          "type": "multiple-choice",
+          "question": "GitHub Projects의 내장 자동화(Built-in workflows)에서 기본으로 제공하는 트리거가 아닌 것은?",
+          "options": [
+            "Item added to project",
+            "Item reopened",
+            "Item closed",
+            "Item assigned to user"
+          ],
+          "answer": 3,
+          "explanation": "GitHub Projects의 내장 자동화 기본 트리거는 'Item added to project', 'Item reopened', 'Item closed' 세 가지입니다. 'Item assigned to user'는 기본 내장 트리거가 아닙니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q005",
+          "type": "multiple-choice",
+          "question": "GitHub Projects 자동화에서 가장 간단하게 구성할 수 있는 방법은?",
+          "options": [
+            "GraphQL API 사용",
+            "GitHub Actions 워크플로우 작성",
+            "내장 자동화(Built-in workflows) 사용",
+            "Webhook 이벤트 설정"
+          ],
+          "answer": 2,
+          "explanation": "가장 쉬운 자동화 방법은 내장 워크플로우(Built-in workflows)입니다. GraphQL API나 GitHub Actions는 더 세밀한 제어가 가능하지만 더 복잡합니다. 내장 워크플로우는 Projects 메뉴에서 몇 번의 클릭만으로 설정할 수 있습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d5-q006",
+          "type": "multiple-choice",
+          "question": "GitHub Projects의 인사이트(Insights)에서 과거 차트(Historical charts)를 사용할 수 있는 플랜은?",
+          "options": [
+            "모든 GitHub 플랜에서 사용 가능",
+            "GitHub Free 및 Pro",
+            "GitHub Team 및 Enterprise Cloud",
+            "GitHub Enterprise Server만"
+          ],
+          "answer": 2,
+          "explanation": "과거 차트(Historical charts)는 시간 흐름에 따른 프로젝트 트렌드를 보여주는 기능으로, GitHub Team 및 Enterprise Cloud 조직에서만 사용 가능합니다. 현재 차트(Current charts)는 모든 플랜에서 사용할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q007",
+          "type": "multiple-choice",
+          "question": "GitHub Projects의 가시성과 접근 설정을 변경하는 위치는?",
+          "options": [
+            "프로젝트 README 편집기",
+            "저장소 Settings > Collaborators",
+            "프로젝트 우상단 세 점(...) 메뉴 > Settings > Danger zone",
+            "Organization 설정 > Billing"
+          ],
+          "answer": 2,
+          "explanation": "프로젝트의 가시성(Public/Private) 변경, 프로젝트 닫기, 프로젝트 삭제는 모두 프로젝트 우상단 세 점 메뉴에서 Settings에 접근한 후 'Danger zone' 섹션에서 할 수 있습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d5-q008",
+          "type": "multiple-choice",
+          "question": "GitHub Projects에서 체크리스트 아이템을 Sub-issue로 변환했을 때의 장점은?",
+          "options": [
+            "이슈 안에 체크리스트를 내장할 수 있다",
+            "체크리스트 아이템이 독립적인 이슈로 생성되어 자체 상태와 메타데이터를 갖는다",
+            "상위 이슈가 자동으로 닫힌다",
+            "서브이슈는 Projects에 표시되지 않는다"
+          ],
+          "answer": 1,
+          "explanation": "체크리스트 아이템을 Sub-issue로 변환하면 원래 이슈와 연결된 독립적인 이슈가 생성됩니다. 이 서브이슈는 자체 상태, 메타데이터, 담당자를 가지며 Projects 뷰에서도 추적 가능합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q009",
+          "type": "multiple-choice",
+          "question": "git blame 명령어가 파일에 대해 보여주는 정보는?",
+          "options": [
+            "파일의 현재 코드 품질 점수",
+            "파일을 수정한 사람에게 자동으로 버그 이슈를 생성",
+            "파일의 각 줄을 마지막으로 수정한 커밋 해시, 작성자, 날짜",
+            "git praise 명령의 효과를 되돌림"
+          ],
+          "answer": 2,
+          "explanation": "git blame은 파일의 각 줄 옆에 해당 줄을 마지막으로 변경한 커밋 해시, 작성자 이름, 변경 날짜를 표시합니다. 특정 코드를 누가 언제 수정했는지 파악하여 해당 담당자를 찾는 데 유용합니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d5-q010",
+          "type": "multiple-choice",
+          "question": "GitHub 전역 검색(Global search)과 컨텍스트 검색(Context search)의 주요 차이는?",
+          "options": [
+            "전역 검색과 컨텍스트 검색은 위치만 다를 뿐 기능이 동일하다",
+            "전역 검색은 GitHub 전체를 대상으로 하고, 컨텍스트 검색은 현재 저장소의 특정 타입에 스코프된다",
+            "컨텍스트 검색은 다른 필터 문법을 사용한다",
+            "전역 검색은 코드만 검색하고, 컨텍스트 검색은 이슈만 검색한다"
+          ],
+          "answer": 1,
+          "explanation": "전역 검색은 GitHub 전체(코드, 이슈, 마켓플레이스, 사용자 등)를 대상으로 검색합니다. 컨텍스트 검색은 Issues나 Pull requests 탭에서 현재 저장소의 해당 타입으로 스코프되며, 타입별 필터 드롭다운을 제공합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q011",
+          "type": "multiple-choice",
+          "question": "다음 GitHub 검색 쿼리 `is:open is:issue assignee:@me`가 반환하는 결과는?",
+          "options": [
+            "현재 사용자가 작성한 열린 이슈",
+            "현재 사용자에게 할당된 열린 이슈",
+            "현재 사용자가 댓글을 남긴 열린 이슈",
+            "현재 사용자가 라벨을 추가한 열린 PR"
+          ],
+          "answer": 1,
+          "explanation": "assignee:@me는 현재 로그인한 사용자(@me)에게 할당된 아이템을 필터링합니다. is:open은 열린 상태, is:issue는 이슈 타입을 지정합니다. 따라서 이 쿼리는 현재 사용자에게 할당된 열린 이슈만 반환합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q012",
+          "type": "multiple-choice",
+          "question": "PR 설명에 'Fixes #42'를 입력했을 때 발생하는 동작은?",
+          "options": [
+            "즉시 이슈 #42가 닫힌다",
+            "PR이 병합될 때 이슈 #42가 자동으로 닫힌다",
+            "이슈 #42에 자동 댓글이 생성된다",
+            "이슈 #42의 담당자가 PR 작성자로 변경된다"
+          ],
+          "answer": 1,
+          "explanation": "'Fixes', 'Closes', 'Resolves' 같은 클로징 키워드 뒤에 #번호를 사용하면, 해당 PR이 기본 브랜치에 병합될 때 연결된 이슈가 자동으로 닫힙니다. PR이 병합되기 전에는 이슈가 닫히지 않습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q013",
+          "type": "multiple-choice",
+          "question": "GitHub Projects에서 조직 소유 프로젝트에서 팀에게 부여되는 기본 권한은?",
+          "options": [
+            "Admin(관리자) 권한",
+            "Write(쓰기) 권한",
+            "Read(읽기) 권한",
+            "No access(접근 없음)"
+          ],
+          "answer": 2,
+          "explanation": "팀을 프로젝트에 추가할 때, 팀은 Read(읽기) 권한을 받습니다. 이 권한으로 팀 멤버는 프로젝트를 볼 수 있지만 수정은 할 수 없습니다. 더 높은 권한은 개별적으로 부여해야 합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d5-q014",
+          "type": "multiple-choice",
+          "question": "GitHub Projects에서 프로젝트를 닫기(Close)와 삭제하기(Delete)의 차이는?",
+          "options": [
+            "닫기는 이슈를 닫고, 삭제는 프로젝트를 제거한다",
+            "닫기는 프로젝트를 목록에서 제거하지만 데이터를 보존하며 재오픈 가능하고, 삭제는 모든 데이터를 영구 제거한다",
+            "닫기와 삭제 모두 데이터를 영구 삭제한다",
+            "닫기는 뷰를 비공개로 만들고, 삭제는 목록에서 제거한다"
+          ],
+          "answer": 1,
+          "explanation": "프로젝트 닫기(Close)는 목록에서 제거하지만 내용과 데이터를 보존하며, 나중에 다시 열 수 있습니다. 데이터 보존을 위해 권장하는 방법입니다. 삭제(Delete)는 저장된 뷰, 커스텀 필드, 인사이트 데이터, 드래프트 이슈 등 모든 것을 영구적으로 제거합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q015",
+          "type": "true-false",
+          "question": "GitHub Projects의 Historical charts(과거 차트)는 모든 GitHub 플랜에서 무료로 사용할 수 있다.",
+          "answer": false,
+          "explanation": "과거 차트(Historical charts)는 GitHub Team과 GitHub Enterprise Cloud 조직에서만 사용 가능합니다. 무료 플랜(GitHub Free)이나 Pro에서는 현재 차트(Current charts)만 사용할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q016",
+          "type": "true-false",
+          "question": "GitHub Projects에서 프로젝트를 Private으로 설정하면 Read 권한이 없는 사용자는 프로젝트를 볼 수 없다.",
+          "answer": true,
+          "explanation": "프로젝트가 Private이면 최소 Read 권한을 부여받은 사용자만 볼 수 있습니다. Public으로 설정하면 인터넷의 누구나 볼 수 있습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d5-q017",
+          "type": "true-false",
+          "question": "git blame 명령어는 코드의 버그를 자동으로 찾아 해당 커밋 작성자에게 이슈를 생성한다.",
+          "answer": false,
+          "explanation": "git blame은 파일의 각 줄을 마지막으로 수정한 커밋 정보(해시, 작성자, 날짜)를 표시하는 명령어입니다. 버그를 자동으로 찾거나 이슈를 생성하지는 않습니다. 이름의 어감과 달리 단순히 변경 이력을 추적하는 도구입니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d5-q018",
+          "type": "true-false",
+          "question": "GitHub Projects에서 저장소에서 직접 프로젝트를 생성하면 해당 저장소가 자동으로 프로젝트에 연결되지만, 프로젝트 자체는 조직 레벨에서 생성된다.",
+          "answer": true,
+          "explanation": "저장소에서 직접 프로젝트를 생성하면 해당 저장소가 프로젝트에 자동으로 연결됩니다. 그러나 프로젝트 자체는 조직 레벨에서 생성되며, 나중에 다른 저장소나 프로젝트에도 연결할 수 있습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d5-q019",
+          "type": "true-false",
+          "question": "GitHub 검색에서 `is:pr` 필터는 코드 검색(code search) 결과에서도 풀 리퀘스트를 필터링한다.",
+          "answer": false,
+          "explanation": "`is:pr` 필터는 일부 검색 제공자(이슈/PR 스토어)에서만 지원됩니다. 코드 검색 제공자는 이 필터를 지원하지 않아 무시하고, 동일한 코드 결과를 반환합니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d5-q020",
+          "type": "true-false",
+          "question": "마일스톤(Milestone)을 이슈나 PR에 배정하면 해당 마일스톤의 진행률이 GitHub에서 자동으로 추적된다.",
+          "answer": true,
+          "explanation": "마일스톤에 이슈와 PR을 배정하면 GitHub는 완료된 수와 남은 수를 자동으로 추적하여 진행률을 표시합니다. 이를 통해 릴리스나 스프린트 목표에 대한 팀의 진행 상황을 쉽게 파악할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q021",
+          "type": "short-answer",
+          "question": "GitHub Projects에서 내장 자동화(built-in workflow)를 활성화하려면 프로젝트의 어느 메뉴에 접근해야 하는가?",
+          "answer": "Workflows",
+          "acceptedAnswers": [
+            "Workflows",
+            "워크플로우",
+            "세 점 메뉴 > Workflows",
+            "three-dot menu > Workflows",
+            "⋯ 메뉴 > Workflows"
+          ],
+          "explanation": "내장 자동화를 활성화하려면 프로젝트 우상단의 세 점(...) 메뉴를 선택한 후 'Workflows'를 클릭합니다. 여기서 트리거를 선택하고, 상태 값을 설정한 뒤 'Save and turn on workflow'를 클릭합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q022",
+          "type": "short-answer",
+          "question": "GitHub 검색에서 'contoso' 사용자가 작성한 닫힌 풀 리퀘스트를 찾는 검색 쿼리를 작성하시오.",
+          "answer": "is:closed is:pr author:contoso",
+          "acceptedAnswers": [
+            "is:closed is:pr author:contoso",
+            "is:pr is:closed author:contoso",
+            "author:contoso is:closed is:pr"
+          ],
+          "explanation": "is:closed는 닫힌 상태, is:pr은 풀 리퀘스트 타입, author:contoso는 contoso 사용자가 작성한 아이템을 필터링합니다. 이 세 필터를 조합하면 contoso가 작성한 닫힌 PR만 반환됩니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d5-q023",
+          "type": "short-answer",
+          "question": "GitHub Projects에서 Table 뷰의 커스텀 필드를 추가하려면 어떤 UI 요소를 클릭해야 하는가?",
+          "answer": "가장 오른쪽 필드 헤더의 + 버튼",
+          "acceptedAnswers": [
+            "+ 버튼",
+            "가장 오른쪽 필드 헤더의 +",
+            "rightmost field header의 +",
+            "New field",
+            "+ 클릭 후 New field 선택"
+          ],
+          "explanation": "Table 뷰에서 새 커스텀 필드를 추가하려면 가장 오른쪽에 있는 필드 헤더의 '+' 버튼을 클릭하고 'New field'를 선택합니다. 그런 다음 필드 이름, 타입(텍스트/숫자/날짜/반복/단일선택)을 설정하고 저장합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d5-q024",
+          "type": "short-answer",
+          "question": "파일 이름이 변경된 경우에도 해당 파일의 전체 커밋 이력을 추적하려면 어떤 git log 옵션을 사용해야 하는가?",
+          "answer": "--follow",
+          "acceptedAnswers": [
+            "--follow",
+            "git log --follow",
+            "log --follow"
+          ],
+          "explanation": "`git log --follow -- <파일경로>` 명령을 사용하면 파일 이름이 변경된 경우에도 이름 변경 이전의 커밋 이력까지 추적합니다. --follow 옵션 없이는 현재 파일 이름으로만 이력을 검색하여 리네이밍 이전 이력을 놓칠 수 있습니다.",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Privacy, Security, and Administration",
+      "weight": 0.1,
+      "summary": [
+        {
+          "title": "GitHub 보안 기능",
+          "content": "GitHub는 코드, 비밀, 의존성 취약점을 탐지하는 다양한 보안 도구를 제공합니다.\n\n**Code Scanning과 CodeQL**\n- **Code Scanning**: 코드에서 보안 취약점과 오류를 탐지하는 정적 분석 기능. 공개 저장소는 무료, 비공개 저장소는 GHAS(GitHub Advanced Security) 필요\n- **CodeQL**: GitHub가 개발한 코드 분석 엔진. 코드를 데이터처럼 취급하여 쿼리 가능한 CodeQL 데이터베이스로 변환 후 분석. C/C++, C#, Go, Java/Kotlin, JavaScript/TypeScript, Python, Ruby, Swift 지원\n- **설정 방식**: Default Setup(빠른 설정, GitHub Actions로 실행), Advanced Setup(커스터마이징 가능한 워크플로우 파일 생성), CodeQL CLI 직접 실행(외부 CI 시스템)\n- **트리거**: `on:push`, `on:pull_request`, `schedule` 이벤트로 스캔 트리거 가능\n\n**SARIF(Static Analysis Results Interchange Format)**\n- 서드파티 코드 스캔 도구 결과를 GitHub에 업로드하는 표준 형식 (버전 2.1.0)\n- 업로드 방법: GitHub Actions(`upload-sarif` 액션), Code Scanning API, CodeQL CLI\n- 업로드 제한: 최대 5,000개 결과, 최대 10MB(gzip 압축 기준)\n- Checkmarx, SonarQube, Snyk 등 서드파티 도구가 SARIF 형식으로 결과 제공\n\n**GitHub Advanced Security(GHAS)**\n- Code Scanning + Secret Scanning + Dependency Review 통합 패키지\n- 비공개 저장소에서 고급 보안 기능 사용 시 필요한 라이선스\n\n**Secret Scanning**\n- API 키, 비밀번호, 토큰 등 저장소에 실수로 커밋된 자격증명 탐지\n- 공개 저장소에서는 기본 활성화, 비공개 저장소는 관리자가 활성화 필요\n- 비밀 탐지 시 해당 서비스 제공자에게 알림 발송 → 제공자가 비밀 무효화 결정\n- **Push Protection**: 비밀이 포함된 푸시를 차단. 공개 저장소에서 기본 활성화\n- **Partner Program**: 토큰 발급자(파트너)에게 비밀 노출을 알리는 프로그램\n\n**Dependabot**\n- **Dependabot Alerts**: 저장소가 취약한 의존성을 사용할 때 알림 발송 (GitHub Security Advisories 기반)\n- **Dependabot Security Updates**: 보안 패치를 위한 PR 자동 생성\n- **Dependabot Version Updates**: 의존성 최신 버전 유지를 위한 PR 자동 생성\n- 의존성 그래프(package.json, requirements.txt 등)를 분석하여 취약점 탐지\n\n**Security Overview**\n- 조직 전체의 보안 상태를 한눈에 볼 수 있는 대시보드\n- 조직 소유자와 보안 관리자가 모든 저장소의 보안 경고를 모니터링"
+        },
+        {
+          "title": "인증과 권한",
+          "content": "GitHub는 다양한 인증 방법과 세분화된 권한 체계를 제공합니다.\n\n**인증 방법**\n- **사용자명/비밀번호**: 기본 방식이지만 Git 작업 및 API에는 더 이상 지원 안 함\n- **Personal Access Token (PAT)**:\n  - **Classic PAT**: 넓은 범위의 권한 설정, 만료 옵션 선택적, 조직 전체 또는 사용자 계정 수준 접근\n  - **Fine-grained PAT**: 특정 저장소에만 접근 제한, 만료 기한 필수, 조직 승인 옵션 있음, 더 세밀한 추적 가능\n- **SSH 키**: 공개/개인 키 쌍 방식. ssh-agent에 등록 후 GitHub 계정에 추가. 매번 자격증명 입력 불필요\n- **Deploy Keys**: 단일 저장소에만 접근하는 SSH 키. 기본 읽기 전용\n\n**2단계 인증(2FA/MFA)**\n- 사용자명/비밀번호에 추가 인증 수단 요구\n- **TOTP 앱**: 시간 기반 일회용 비밀번호 생성 (Microsoft Authenticator, Google Authenticator, Authy). 권장 방식\n- **보안 키**: YubiKey 등 물리적 장치, FIDO2/WebAuthn 지원. 가장 안전한 방식\n- **패스키(Passkeys)**: 비밀번호 없는 피싱 방지 인증, 물리적 장치에 연결\n- **SMS**: 가장 덜 안전한 방식, 권장하지 않음\n- 조직 소유자는 모든 구성원에게 2FA 필수화 가능\n\n**SAML SSO(Single Sign-On)**\n- IdP(Identity Provider)와 GitHub 연동으로 중앙화된 접근 제어\n- 지원 IdP: AD FS, Microsoft Entra ID, Okta, OneLogin, PingOne, Shibboleth\n- SAML 2.0 표준을 구현한 모든 IdP 지원\n- 조직 레벨 또는 엔터프라이즈 레벨에서 설정 가능\n- 엔터프라이즈 레벨 설정 시 모든 조직에 통합 정책 적용\n\n**SCIM(System for Cross-domain Identity Management)**\n- 사용자 프로비저닝/디프로비저닝 자동화\n- SAML SSO만으로는 자동 디프로비저닝 불가능 → SCIM 필요\n- 지원 IdP: Okta, Microsoft Entra ID, OneLogin, Ping Identity, Google Workspace\n\n**GitHub Apps vs OAuth Apps**\n- **GitHub Apps**: 설치(installation) 기반 인증, 세분화된 권한, CI/CD 및 자동화에 적합\n- **OAuth Apps**: 사용자 기반 인증, OAuth 2.0 흐름 사용, 외부 애플리케이션에 권한 부여\n\n**LDAP (GitHub Enterprise Server 전용)**\n- 기존 회사 디렉터리로 사용자 인증. Active Directory, OpenLDAP 등 지원"
+        },
+        {
+          "title": "조직 권한 모델",
+          "content": "GitHub는 팀, 조직, 엔터프라이즈 레벨로 계층적 권한 관리를 제공합니다.\n\n**저장소 권한 레벨 (5단계)**\n1. **Read**: 코드 기여자가 아닌 뷰어용. 콘텐츠 조회, 이슈/PR 댓글 가능\n2. **Triage**: 이슈/PR 관리(레이블, 할당, 댓글). 코드 푸시 불가. 프로젝트 매니저에 적합\n3. **Write**: 코드 푸시 가능 (보호된 브랜치 제외). 대부분의 개발자에게 표준 권한\n4. **Maintain**: 저장소 설정 관리 가능. 삭제/이전 불가. 프로젝트 유지관리자에 적합\n5. **Admin**: 완전한 접근 권한. 보안 설정, 저장소 삭제 포함. 저장소 소유자에 적합\n\n**조직 권한 레벨**\n- **Owner**: 모든 조직 작업 가능, 사용자 추가/제거 포함. 최소 2명 유지 권장\n- **Member**: 조직 저장소와 팀 생성/관리 가능\n- **Moderator**: 비회원 기여자 차단/해제, 상호작용 제한 설정\n- **Billing Manager**: 결제 정보 조회/수정\n- **Security Manager**: 모든 저장소 읽기 권한 + 보안 경고 및 설정 관리\n- **Outside Collaborator**: 조직 구성원이 아니지만 특정 저장소에 접근 가능. 컨설턴트, 임시 직원에 적합\n\n**팀 권한**\n- 팀을 통해 여러 저장소에 일관된 권한 부여 가능\n- 중첩 팀(Nested Teams): 부모 팀의 권한이 자식 팀에 상속\n- 팀 멤버 역할: Member(조직 구성원과 동일), Maintainer(팀 이름 변경, 구성원 추가/제거 등 추가 권한)\n- 팀은 저장소별로 Read/Write/Admin 권한 할당 가능\n- 여러 권한 소스 중 가장 높은 권한이 적용됨\n\n**엔터프라이즈 권한 레벨**\n- **Owner**: 엔터프라이즈 전체 제어, 조직 추가/제거, 정책 집행\n- **Member**: 조직 구성원과 동일한 권한\n- **Billing Manager**: 결제 정보만 관리\n- **Guest Collaborator**: 제한된 접근 (Enterprise Managed Users 전용)\n\n**팀 동기화(Team Synchronization)**\n- IdP 그룹(Microsoft Entra ID, Okta)과 GitHub 팀을 연동\n- IdP 그룹 변경사항이 자동으로 GitHub 팀에 반영\n- 전제 조건: SAML SSO + SCIM 활성화 필요\n- 팀당 최대 5,000명, 조직당 최대 10,000명, 조직당 최대 1,500개 팀 제한\n\n**엔터프라이즈 정책**\n- 엔터프라이즈 레벨에서 모든 조직에 통합 적용되는 정책\n- SAML SSO 적용, 저장소 관리 정책, 팀 정책 등 포함\n- 최소 권한 원칙(Principle of Least Privilege) 권장"
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "d6-fc001",
+          "question": "Code Scanning이란 무엇인가?",
+          "answer": "GitHub 저장소의 코드에서 보안 취약점과 코딩 오류를 탐지하는 정적 분석 기능. CodeQL을 사용하며, 공개 저장소는 무료, 비공개 저장소는 GitHub Advanced Security(GHAS)가 필요하다."
+        },
+        {
+          "id": "d6-fc002",
+          "question": "CodeQL이란 무엇이며 어떻게 동작하는가?",
+          "answer": "GitHub가 개발한 시맨틱 코드 분석 엔진. 코드를 데이터처럼 취급하여 쿼리 가능한 CodeQL 데이터베이스로 변환한 후 쿼리를 실행하여 취약점을 탐지한다. C/C++, C#, Go, Java/Kotlin, JavaScript/TypeScript, Python, Ruby, Swift를 지원한다."
+        },
+        {
+          "id": "d6-fc003",
+          "question": "SARIF(Static Analysis Results Interchange Format)란 무엇인가?",
+          "answer": "코드 스캐닝 결과를 표준화된 형식으로 표현하는 파일 형식(버전 2.1.0). 서드파티 코드 스캔 도구의 결과를 GitHub에 업로드하는 데 사용한다. 업로드 방법으로는 GitHub Actions, Code Scanning API, CodeQL CLI가 있다."
+        },
+        {
+          "id": "d6-fc004",
+          "question": "서드파티 코드 스캔 도구를 GitHub에 통합하는 방법은?",
+          "answer": "Checkmarx, SonarQube, Snyk 같은 도구는 SARIF 형식으로 결과를 생성하고, GitHub Actions의 `upload-sarif` 액션, Code Scanning API, 또는 CodeQL CLI를 통해 GitHub에 업로드한다. SARIF 업로드 제한은 5,000개 결과, 10MB(gzip 압축)다."
+        },
+        {
+          "id": "d6-fc005",
+          "question": "GHAS(GitHub Advanced Security)란 무엇이며 무엇을 포함하는가?",
+          "answer": "GitHub Advanced Security는 비공개 저장소에서 고급 보안 기능을 사용하기 위한 라이선스 패키지. Code Scanning(CodeQL 기반), Secret Scanning(비밀 탐지), Dependency Review(의존성 검토)를 포함한다."
+        },
+        {
+          "id": "d6-fc006",
+          "question": "Secret Scanning이란 무엇이며 어떻게 동작하는가?",
+          "answer": "저장소에 실수로 커밋된 API 키, 비밀번호, 토큰 등 자격증명을 탐지하는 기능. 공개 저장소에서는 기본 활성화되며, 비밀 탐지 시 해당 서비스 제공자(파트너)에게 알림을 보내 무효화 여부를 결정하게 한다."
+        },
+        {
+          "id": "d6-fc007",
+          "question": "Push Protection이란 무엇인가?",
+          "answer": "비밀(secrets)이 포함된 커밋이 저장소에 푸시되는 것을 사전에 차단하는 기능. 공개 저장소에서 기본 활성화되어 있다. Secret Scanning의 일부로, 비밀이 코드베이스에 들어오기 전에 막는 예방적 보안 메커니즘이다."
+        },
+        {
+          "id": "d6-fc008",
+          "question": "Secret Scanning 파트너 프로그램이란 무엇인가?",
+          "answer": "GitHub이 탐지된 비밀(토큰, API 키 등)을 해당 토큰을 발급한 서비스 제공자(파트너)에게 알리는 프로그램. 파트너는 자격증명을 검증하고 무효화, 새 비밀 발급, 또는 직접 연락 등의 조치를 취한다."
+        },
+        {
+          "id": "d6-fc009",
+          "question": "Dependabot Alerts란 무엇인가?",
+          "answer": "저장소가 사용하는 의존성에 알려진 보안 취약점이 발견됐을 때 알림을 보내는 기능. GitHub Security Advisories를 참조하여 의존성 그래프와 교차 검사한다. 취약한 의존성이나 악성 코드가 감지되면 프로젝트 관리자에게 경고한다."
+        },
+        {
+          "id": "d6-fc010",
+          "question": "Dependabot Security Updates란 무엇인가?",
+          "answer": "보안 취약점이 발견된 의존성을 패치된 버전으로 업그레이드하는 PR을 자동으로 생성하는 기능. 관리자가 PR을 검토하고 병합하면 취약점이 해결된다. Dependabot Alerts와 함께 작동한다."
+        },
+        {
+          "id": "d6-fc011",
+          "question": "Dependabot Version Updates란 무엇인가?",
+          "answer": "보안 문제와 관계없이 의존성을 최신 버전으로 유지하기 위해 자동으로 PR을 생성하는 기능. `dependabot.yml` 파일로 업데이트 주기, 대상 패키지 등을 설정할 수 있다. Security Updates와 달리 일반적인 버전 유지를 목적으로 한다."
+        },
+        {
+          "id": "d6-fc012",
+          "question": "Security Overview(보안 개요)란 무엇인가?",
+          "answer": "조직 또는 엔터프라이즈 전체의 보안 상태를 한눈에 볼 수 있는 대시보드. 조직 소유자와 보안 관리자가 모든 저장소의 코드 스캐닝 경고, 비밀 스캐닝 경고, Dependabot 경고를 통합 모니터링할 수 있다."
+        },
+        {
+          "id": "d6-fc013",
+          "question": "SAML SSO는 어떻게 동작하는가?",
+          "answer": "IdP(Identity Provider)와 GitHub를 연동하여 중앙화된 접근 제어를 구현. 사용자가 GitHub 자원에 접근 시 IdP로 리다이렉트되어 인증 후 GitHub로 돌아온다. SAML 2.0 표준을 지원하는 모든 IdP(AD FS, Microsoft Entra ID, Okta, OneLogin, PingOne)와 호환된다."
+        },
+        {
+          "id": "d6-fc014",
+          "question": "GitHub에서 지원하는 2FA 방법들은?",
+          "answer": "① TOTP 앱(권장): 시간 기반 일회용 비밀번호 생성, 오프라인 작동 ② 보안 키(가장 안전): YubiKey 등 물리적 장치, FIDO2/WebAuthn 지원, 피싱 방지 ③ 패스키: 비밀번호 없는 인증, 피싱 방지 ④ SMS(권장하지 않음): 가장 덜 안전한 방식"
+        },
+        {
+          "id": "d6-fc015",
+          "question": "Classic Personal Access Token(PAT)의 특징은?",
+          "answer": "GitHub API 또는 명령줄 인터페이스를 위한 비밀번호 대체 인증 수단. 넓은 범위의 권한(scope) 설정이 가능하고, 만료 설정이 선택적이며 만료 없이 설정 가능. 조직 전체 또는 사용자 계정 수준에서 접근 권한을 가진다."
+        },
+        {
+          "id": "d6-fc016",
+          "question": "Fine-grained Personal Access Token의 특징과 Classic PAT과의 차이는?",
+          "answer": "특정 저장소에만 접근을 제한할 수 있고, 만료 기한 설정이 필수다. 조직이 Fine-grained PAT에 대한 승인 정책을 설정할 수 있어 더 세밀한 통제가 가능하다. Classic PAT보다 추적성과 보안이 향상된 차세대 토큰 방식이다."
+        },
+        {
+          "id": "d6-fc017",
+          "question": "SSH 키 인증은 어떻게 동작하는가?",
+          "answer": "공개/개인 키 쌍을 생성하여 공개 키를 GitHub 계정에 등록하고, 개인 키를 로컬에 보관. ssh-agent에 키를 추가하여 매번 자격증명 입력 없이 인증 가능. Deploy Keys는 단일 저장소에만 접근하는 특수한 SSH 키(기본 읽기 전용)다."
+        },
+        {
+          "id": "d6-fc018",
+          "question": "GitHub Apps와 OAuth Apps의 차이는?",
+          "answer": "**GitHub Apps**: 설치(installation) 기반 인증, 저장소별 세분화된 권한, CI/CD 및 자동화에 적합, 독립적으로 동작. **OAuth Apps**: 사용자 기반 인증, OAuth 2.0 흐름 사용, 사용자를 대신하여 접근, 외부 애플리케이션 연동에 사용."
+        },
+        {
+          "id": "d6-fc019",
+          "question": "조직에서 Owner와 Member 역할의 차이는?",
+          "answer": "**Owner**: 모든 조직 작업 수행 가능. 사용자 초대/제거, 팀 구성, 저장소 권한 설정, 보안 설정, 결제 관리 등. 최소 2명 유지 권장. **Member**: 조직 저장소와 팀을 생성하고 관리할 수 있지만 조직 설정이나 사용자 관리는 불가."
+        },
+        {
+          "id": "d6-fc020",
+          "question": "저장소 권한 레벨 5단계를 설명하라.",
+          "answer": "① **Read**: 조회 및 이슈 댓글, 코드 기여 불가 ② **Triage**: 이슈/PR 관리(레이블, 할당), 코드 푸시 불가 ③ **Write**: 코드 푸시, 이슈/PR 관리 ④ **Maintain**: 저장소 설정 관리, 삭제/이전 불가 ⑤ **Admin**: 모든 권한, 보안 설정 및 저장소 삭제 포함"
+        },
+        {
+          "id": "d6-fc021",
+          "question": "Outside Collaborator(외부 협력자)란 무엇인가?",
+          "answer": "조직의 정식 구성원은 아니지만 특정 저장소에 명시적 접근 권한을 부여받은 사람. 컨설턴트, 프리랜서, 임시 직원 등에 적합. 조직 전체 권한이 아닌 특정 저장소에만 접근 가능하며, 저장소 권한 레벨(Read~Admin)을 할당받는다."
+        },
+        {
+          "id": "d6-fc022",
+          "question": "팀 권한(Team Permissions)은 어떻게 동작하는가?",
+          "answer": "팀을 통해 여러 저장소에 일관된 권한을 부여할 수 있다. 각 저장소별로 Read, Write, Admin 권한을 팀에 할당 가능. 중첩 팀(Nested Teams)에서 부모 팀의 권한이 자식 팀에 상속된다. 여러 소스의 권한이 중첩될 경우 가장 높은 권한이 적용된다."
+        },
+        {
+          "id": "d6-fc023",
+          "question": "팀 동기화(Team Synchronization)란 무엇이며 어떻게 설정하는가?",
+          "answer": "IdP 그룹(Microsoft Entra ID, Okta)과 GitHub 팀을 연동하여 IdP 그룹 변경사항이 자동으로 GitHub 팀에 반영되는 기능. 설정 조건: SAML SSO + SCIM 활성화 필요. 신규 직원 온보딩, 역할 변경, 퇴직자 접근 제거 등을 자동화. 팀당 최대 5,000명, 조직당 최대 10,000명, 1,500개 팀 제한."
+        },
+        {
+          "id": "d6-fc024",
+          "question": "엔터프라이즈 정책(Enterprise Policy)이란 무엇인가?",
+          "answer": "엔터프라이즈 수준에서 모든 소속 조직에 강제 적용되는 규칙과 설정. 엔터프라이즈 Owner가 SAML SSO 적용, 저장소 관리 정책, 팀 정책, 보안 설정 등을 설정하면 하위 모든 조직에 일괄 적용된다. 정책 일관성을 보장하고 개별 조직의 임의 설정을 제한한다."
+        }
+      ],
+      "questions": [
+        {
+          "id": "d6-q001",
+          "type": "multiple-choice",
+          "question": "GitHub Code Scanning을 설정하는 방법이 아닌 것은?",
+          "options": [
+            "Default Setup을 사용하여 GitHub Actions로 빠르게 활성화한다",
+            "Advanced Setup을 사용하여 커스터마이징 가능한 워크플로우 파일을 생성한다",
+            "CodeQL CLI를 외부 CI 시스템에서 직접 실행하고 결과를 업로드한다",
+            "GitHub Marketplace에서 Code Scanning 앱을 구매하여 설치한다"
+          ],
+          "answer": 3,
+          "explanation": "Code Scanning은 Default Setup, Advanced Setup, CodeQL CLI 직접 실행의 세 가지 방법으로 설정할 수 있다. GitHub Marketplace에서 구매하는 방식은 존재하지 않는다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d6-q002",
+          "type": "multiple-choice",
+          "question": "CodeQL이 지원하지 않는 프로그래밍 언어는?",
+          "options": [
+            "Swift",
+            "Ruby",
+            "Rust",
+            "Go"
+          ],
+          "answer": 2,
+          "explanation": "CodeQL은 C/C++, C#, Go, Java/Kotlin, JavaScript/TypeScript, Python, Ruby, Swift를 지원한다. Rust는 지원하지 않는다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q003",
+          "type": "multiple-choice",
+          "question": "서드파티 코드 스캔 도구의 결과를 GitHub에 업로드할 때 사용하는 파일 형식은?",
+          "options": [
+            "JSON",
+            "SARIF",
+            "XML",
+            "CSV"
+          ],
+          "answer": 1,
+          "explanation": "SARIF(Static Analysis Results Interchange Format)는 코드 스캔 결과를 GitHub에 업로드하는 데 사용되는 표준 파일 형식이다. SARIF 버전 2.1.0을 사용해야 한다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d6-q004",
+          "type": "multiple-choice",
+          "question": "Code Scanning의 기본 트리거 이벤트는 무엇인가?",
+          "options": [
+            "새 브랜치 생성 시",
+            "푸시(push) 시",
+            "브랜치 삭제 시",
+            "이슈 생성 시"
+          ],
+          "answer": 1,
+          "explanation": "기본 CodeQL 분석 워크플로우는 `on:push` 이벤트를 사용하여 기본 브랜치 및 보호된 브랜치에 변경사항이 푸시될 때마다 코드 스캔을 트리거한다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d6-q005",
+          "type": "multiple-choice",
+          "question": "Secret Scanning의 Push Protection 기능은 기본적으로 어떤 저장소에서 활성화되어 있는가?",
+          "options": [
+            "비공개 저장소",
+            "공개 저장소",
+            "내부(Internal) 저장소",
+            "GHAS가 활성화된 모든 저장소"
+          ],
+          "answer": 1,
+          "explanation": "Push Protection은 공개 저장소에서 기본으로 활성화되어 있다. 비밀이 포함된 푸시를 사전에 차단하여 자격증명이 공개 저장소에 노출되는 것을 방지한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q006",
+          "type": "multiple-choice",
+          "question": "Dependabot이 보안 취약점을 발견했을 때 자동으로 취하는 조치는?",
+          "options": [
+            "취약한 의존성을 자동으로 삭제한다",
+            "취약한 패키지를 최신 버전으로 업데이트하는 PR을 자동 생성한다",
+            "저장소를 자동으로 비공개로 전환한다",
+            "엔터프라이즈 관리자에게 이메일을 발송한다"
+          ],
+          "answer": 1,
+          "explanation": "Dependabot Security Updates는 취약한 의존성을 권장 버전으로 업데이트하는 PR을 자동으로 생성한다. 관리자는 이 PR을 검토하고 병합하여 취약점을 해결한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q007",
+          "type": "multiple-choice",
+          "question": "GitHub Advanced Security(GHAS)에 포함되지 않는 기능은?",
+          "options": [
+            "Code Scanning",
+            "Secret Scanning",
+            "Dependency Review",
+            "GitHub Actions 무제한 실행"
+          ],
+          "answer": 3,
+          "explanation": "GHAS(GitHub Advanced Security)는 Code Scanning, Secret Scanning, Dependency Review를 포함하는 보안 라이선스 패키지다. GitHub Actions 무제한 실행은 GHAS와 별개의 기능이다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q008",
+          "type": "multiple-choice",
+          "question": "SAML SSO를 사용하기 위해 필요한 조건은?",
+          "options": [
+            "GitHub Free 플랜이면 모든 저장소에서 사용 가능하다",
+            "SAML 2.0 표준을 구현한 IdP가 필요하다",
+            "GitHub Enterprise Server만 지원하고 GitHub.com은 미지원이다",
+            "최소 100명 이상의 조직 구성원이 필요하다"
+          ],
+          "answer": 1,
+          "explanation": "SAML SSO는 SAML 2.0 표준을 구현한 Identity Provider(IdP)가 필요하다. GitHub는 AD FS, Microsoft Entra ID, Okta, OneLogin, PingOne 등을 공식 지원하며, SAML 2.0을 지원하는 모든 IdP와 호환된다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q009",
+          "type": "multiple-choice",
+          "question": "Fine-grained Personal Access Token(PAT)이 Classic PAT과 다른 점은?",
+          "options": [
+            "Fine-grained PAT은 만료 설정이 불가능하다",
+            "Fine-grained PAT은 특정 저장소에만 접근을 제한할 수 있으며 만료 기한 설정이 필수다",
+            "Fine-grained PAT은 조직 전체에 더 넓은 권한을 부여한다",
+            "Fine-grained PAT은 SSH를 통해서만 사용 가능하다"
+          ],
+          "answer": 1,
+          "explanation": "Fine-grained PAT는 특정 저장소에만 접근을 제한하고, 만료 기한 설정이 필수다. 조직이 Fine-grained PAT에 대한 승인 정책을 설정할 수 있어 Classic PAT보다 더 세밀한 보안 제어가 가능하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q010",
+          "type": "multiple-choice",
+          "question": "저장소 권한 레벨 중 이슈와 PR에 레이블을 추가하고 담당자를 지정할 수 있지만 코드를 직접 푸시할 수 없는 권한은?",
+          "options": [
+            "Read",
+            "Triage",
+            "Write",
+            "Maintain"
+          ],
+          "answer": 1,
+          "explanation": "Triage 권한은 이슈와 PR을 관리(레이블, 할당, 댓글)할 수 있지만 저장소에 코드를 직접 푸시하는 것은 불가능하다. 프로젝트 매니저처럼 코드 없이 이슈를 관리하는 역할에 적합하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q011",
+          "type": "multiple-choice",
+          "question": "조직에서 Outside Collaborator(외부 협력자)에 대한 설명으로 올바른 것은?",
+          "options": [
+            "조직의 모든 저장소에 자동으로 접근 권한을 갖는다",
+            "조직 구성원이 아니지만 특정 저장소에 명시적 접근 권한을 부여받는다",
+            "조직 Owner 권한을 가질 수 있다",
+            "조직 결제 정보를 조회할 수 있다"
+          ],
+          "answer": 1,
+          "explanation": "Outside Collaborator는 조직의 정식 구성원이 아니지만 특정 저장소에 명시적 접근 권한(Read~Admin)을 부여받은 사람이다. 컨설턴트, 프리랜서, 임시 직원 등에게 적합하며 조직 전체 권한은 없다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q012",
+          "type": "multiple-choice",
+          "question": "팀 동기화(Team Synchronization)를 활성화하기 위해 필요한 것은?",
+          "options": [
+            "GitHub Free 플랜과 GitHub Mobile 앱",
+            "SAML SSO와 SCIM 모두 활성화",
+            "엔터프라이즈 Owner 권한과 코드 스캐닝 활성화",
+            "Dependabot Alerts 활성화"
+          ],
+          "answer": 1,
+          "explanation": "팀 동기화를 사용하려면 SAML SSO와 SCIM이 모두 활성화되어 있어야 한다. SAML SSO만으로는 자동 프로비저닝/디프로비저닝이 불가능하며, SCIM과 함께 사용해야 IdP 그룹 변경사항이 GitHub 팀에 자동 반영된다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d6-q013",
+          "type": "multiple-choice",
+          "question": "엔터프라이즈 레벨에서 SAML SSO를 적용(enforce)할 때 비준수 사용자는 어떻게 처리되는가?",
+          "options": [
+            "즉시 엔터프라이즈에서 제거된다",
+            "다음에 리소스에 접근할 때 인증을 요청받는다",
+            "자동으로 계정이 삭제된다",
+            "30일 유예기간 후 제거된다"
+          ],
+          "answer": 1,
+          "explanation": "엔터프라이즈 레벨에서 SAML SSO를 적용할 경우, 비준수 엔터프라이즈 구성원은 즉시 제거되지 않고 다음에 리소스에 접근할 때 인증을 요청받는다. 조직 레벨에서는 인증 실패 시 즉시 조직에서 제거된다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d6-q014",
+          "type": "true-false",
+          "question": "CodeQL은 컴파일된 언어(compiled languages)는 분석할 수 없고 인터프리터 언어(interpreted languages)만 지원한다.",
+          "answer": false,
+          "explanation": "CodeQL은 컴파일된 언어와 인터프리터 언어 모두를 지원한다. C/C++, C#, Go, Java/Kotlin(컴파일 언어)과 JavaScript/TypeScript, Python, Ruby(인터프리터 언어)를 모두 분석할 수 있다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q015",
+          "type": "true-false",
+          "question": "SARIF 파일 업로드 시 최대 5,000개의 결과를 업로드할 수 있으며, 이 제한을 초과하는 결과는 무시된다.",
+          "answer": true,
+          "explanation": "SARIF 업로드는 업로드당 최대 5,000개의 결과를 지원한다. 이 제한을 초과하는 결과는 무시되므로, 너무 많은 결과가 생성되면 중요한 규칙에 집중하도록 도구 설정을 조정해야 한다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q016",
+          "type": "true-false",
+          "question": "SMS 기반 2FA는 GitHub에서 권장하는 2단계 인증 방법이다.",
+          "answer": false,
+          "explanation": "SMS 기반 2FA는 GitHub에서 지원하지만 권장하지 않는 방법이다. 가장 덜 안전한 방식으로, TOTP 앱이 불가능한 경우에만 사용을 고려해야 한다. GitHub는 TOTP 앱, 보안 키(WebAuthn), 패스키를 권장한다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d6-q017",
+          "type": "true-false",
+          "question": "SAML SSO만 활성화되면 사용자가 조직을 떠날 때 자동으로 GitHub 접근 권한이 제거된다.",
+          "answer": false,
+          "explanation": "SAML SSO만으로는 자동 디프로비저닝이 불가능하다. 자동화된 사용자 프로비저닝과 디프로비저닝을 위해서는 SCIM(System for Cross-domain Identity Management)을 SAML SSO와 함께 사용해야 한다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d6-q018",
+          "type": "true-false",
+          "question": "중첩 팀(Nested Teams)에서 부모 팀의 저장소 권한은 자식 팀에 자동으로 상속된다.",
+          "answer": true,
+          "explanation": "GitHub의 중첩 팀 구조에서 자식 팀의 구성원은 부모 팀의 권한 설정을 상속받는다. 이를 통해 회사나 그룹의 계층 구조를 반영한 권한 관리가 가능하다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d6-q019",
+          "type": "short-answer",
+          "question": "서드파티 코드 스캐닝 도구(예: Checkmarx, SonarQube)의 결과를 GitHub에 업로드하는 세 가지 방법을 모두 답하라.",
+          "answer": "GitHub Actions(upload-sarif 액션), Code Scanning API, CodeQL CLI",
+          "acceptedAnswers": [
+            "GitHub Actions, Code Scanning API, CodeQL CLI",
+            "업로드-사리프 액션, 코드 스캐닝 API, CodeQL CLI",
+            "GitHub Actions(upload-sarif), 코드 스캐닝 API, CodeQL CLI"
+          ],
+          "explanation": "SARIF 파일을 GitHub에 업로드하는 방법은 세 가지다: ① GitHub Actions의 `upload-sarif` 액션 사용 ② Code Scanning REST API 사용 ③ CodeQL CLI를 통한 업로드. 각 방법은 SARIF 파일이 생성되는 환경에 따라 적합한 방식을 선택한다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d6-q020",
+          "type": "short-answer",
+          "question": "GitHub에서 조직 수준의 보안 관리자(Security Manager) 역할이 갖는 핵심 권한 두 가지를 설명하라.",
+          "answer": "조직의 모든 저장소에 대한 읽기 권한과 조직 전체의 보안 경고 및 설정 관리 권한",
+          "acceptedAnswers": [
+            "모든 저장소 읽기 권한, 보안 경고 및 설정 관리",
+            "전체 저장소 읽기 접근, 보안 알림 관리",
+            "read access to all repositories, manage security alerts and settings"
+          ],
+          "explanation": "Security Manager 역할을 가진 조직 구성원은 ① 조직의 모든 저장소에 대한 읽기 권한(read permissions)과 ② 조직 전체의 보안 경고(Dependabot, Secret Scanning, Code Scanning 경고)와 보안 설정을 관리하는 권한을 갖는다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d6-q021",
+          "type": "short-answer",
+          "question": "SCIM(System for Cross-domain Identity Management)을 SAML SSO와 함께 사용했을 때 제공되는 핵심 기능은 무엇인가?",
+          "answer": "사용자 프로비저닝과 디프로비저닝 자동화",
+          "acceptedAnswers": [
+            "자동 사용자 프로비저닝/디프로비저닝",
+            "IdP 기반 자동 계정 생성 및 제거",
+            "user provisioning and deprovisioning automation",
+            "자동화된 온보딩과 오프보딩"
+          ],
+          "explanation": "SCIM은 SAML SSO와 함께 사용하면 새 직원이 IdP에 추가될 때 GitHub 접근 권한을 자동으로 부여하고, 퇴직자가 IdP에서 제거될 때 GitHub 접근을 자동으로 철회하는 프로비저닝/디프로비저닝 자동화를 제공한다. SAML SSO만으로는 이 자동화가 불가능하다.",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Benefits of the GitHub Community",
+      "weight": 0.1,
+      "summary": [
+        {
+          "title": "InnerSource 프로그램 관리",
+          "content": "InnerSource는 오픈 소스 패턴을 조직 내부 프로젝트에 적용하는 실천 방법입니다. 오픈 소스와 동일한 협업 방식을 사용하지만, 접근 대상이 공개가 아닌 조직 내부 구성원으로 제한됩니다. InnerSource의 핵심 역할로는 세 가지가 있습니다: **Trusted Committer(TC)**는 기여를 검토하고 병합하며 기술 방향을 설정하고 기여자를 멘토링합니다. **Contributor**는 InnerSource 프로젝트에 코드를 제출하는 역할로, 외부 게스트 커미터처럼 동작합니다. **Product Owner**는 요구사항을 정의하고 백로그를 우선순위화하며 가치 전달을 보장합니다. InnerSource 프로그램 설정 시 리포지토리 가시성(공개/내부/비공개)과 권한 수준(읽기/트리아지/쓰기/유지관리/관리자)을 적절히 구성해야 합니다. **InnerSource Portal**은 조직 내 사용 가능한 InnerSource 프로젝트를 나열하는 검색 메커니즘입니다. 프로그램 성공 측정 시 개인이 아닌 팀 단위로, 절대값이 아닌 목표 대비로, 산출물이 아닌 프로세스를 측정해야 합니다."
+        },
+        {
+          "title": "GitHub 커뮤니티와 생태계",
+          "content": "GitHub는 다양한 커뮤니티 도구와 생태계를 제공합니다. **GitHub Marketplace**에서는 Actions와 앱을 검색하고 설치할 수 있습니다. **GitHub Sponsors**를 통해 오픈 소스 개발자 및 조직을 재정적으로 지원할 수 있습니다. **GitHub Stars 프로그램**은 탁월한 커뮤니티 기여자를 인정하는 프로그램입니다. **GitHub Education**은 학생을 위한 Student Developer Pack, 교사를 위한 Teacher Toolbox, Campus Program을 제공합니다. 커뮤니티 건강 파일(Community health files)로는 CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md가 있으며, 이 파일들은 리포지토리의 루트, `.github`, 또는 `docs` 디렉터리에 위치할 수 있습니다. **GitHub Discussions**는 리포지토리 내 커뮤니티 포럼으로 Q&A, 아이디어, 투표 등을 지원합니다. **Good First Issue** 레이블은 새 기여자가 시작하기 좋은 작업을 찾도록 돕고, **Help Wanted** 레이블은 메인테이너가 외부 기여를 원한다는 신호입니다. 오픈 소스 라이선스 유형에는 MIT, Apache 2.0, GPL, BSD 등이 있으며, 커뮤니티 프로필 점수는 README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT 파일의 존재 여부를 확인합니다."
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "d7-fc001",
+          "front": "InnerSource란 무엇인가?",
+          "back": "오픈 소스 패턴을 조직 내 비공개 리포지토리에 적용하는 실천 방법입니다. 오픈 소스와 동일한 협업 방식을 사용하지만, 접근 대상이 조직 내부 구성원으로 제한됩니다."
+        },
+        {
+          "id": "d7-fc002",
+          "front": "InnerSource vs 오픈 소스: 차이점은?",
+          "back": "동일한 협업 방식과 패턴을 사용하지만, 오픈 소스는 누구나 접근 가능한 반면 InnerSource는 조직 내부 구성원만 접근할 수 있습니다. 사실상 '회사 방화벽 뒤의 오픈 소스'입니다."
+        },
+        {
+          "id": "d7-fc003",
+          "front": "Trusted Committer(TC)의 역할은?",
+          "back": "InnerSource의 핵심 역할로, 기여를 검토하고 병합하며, 기술 방향을 설정하고, 기여자를 멘토링합니다. 프로젝트의 품질과 방향에 대한 책임을 집니다."
+        },
+        {
+          "id": "d7-fc004",
+          "front": "InnerSource에서 Contributor의 역할은?",
+          "back": "InnerSource 프로젝트에 코드를 제출하는 역할입니다. 오픈 소스의 외부 게스트 커미터처럼 동작하며, 프로젝트 팀 외부에서 기여합니다."
+        },
+        {
+          "id": "d7-fc005",
+          "front": "InnerSource에서 Product Owner의 역할은?",
+          "back": "요구사항을 정의하고, 백로그를 우선순위화하며, 가치 전달을 보장합니다. 프로젝트가 비즈니스 목표와 부합하도록 관리합니다."
+        },
+        {
+          "id": "d7-fc006",
+          "front": "InnerSource Portal이란?",
+          "back": "조직 내에서 사용 가능한 InnerSource 프로젝트를 나열하는 검색 메커니즘입니다. 팀이 기여할 수 있는 프로젝트를 쉽게 발견할 수 있도록 돕습니다."
+        },
+        {
+          "id": "d7-fc007",
+          "front": "InnerSource의 주요 이점 세 가지는?",
+          "back": "1. 내부 가시성 향상(다른 팀의 솔루션 참조 가능) 2. 마찰 감소(소비 팀이 직접 변경 제안 가능) 3. 관행 표준화(공통 컨벤션 채택)"
+        },
+        {
+          "id": "d7-fc008",
+          "front": "InnerSource 기여 모델은 오픈 소스와 어떻게 유사한가?",
+          "back": "포크(fork) → 풀 리퀘스트(PR) → 검토(review)의 동일한 워크플로우를 따릅니다. 기여자는 프로젝트를 포크하고, 변경 사항을 PR로 제출하며, Trusted Committer가 검토 후 병합합니다."
+        },
+        {
+          "id": "d7-fc009",
+          "front": "커뮤니티 건강 파일(Community health files)의 종류는?",
+          "back": "CONTRIBUTING.md(기여 가이드), CODE_OF_CONDUCT.md(행동 강령), SECURITY.md(보안 정책), SUPPORT.md(지원 방법). 리포지토리 루트, `.github`, 또는 `docs` 디렉터리에 위치합니다."
+        },
+        {
+          "id": "d7-fc010",
+          "front": "GitHub Marketplace란?",
+          "back": "GitHub Actions와 앱을 검색하고 설치할 수 있는 플랫폼입니다. 워크플로우 자동화, CI/CD, 코드 품질 등 다양한 도구를 제공합니다."
+        },
+        {
+          "id": "d7-fc011",
+          "front": "GitHub Sponsors란?",
+          "back": "오픈 소스 개발자와 조직을 재정적으로 지원할 수 있는 GitHub의 프로그램입니다. 기여자들이 지속적으로 오픈 소스 작업을 할 수 있도록 경제적 지원을 가능하게 합니다."
+        },
+        {
+          "id": "d7-fc012",
+          "front": "GitHub Stars 프로그램이란?",
+          "back": "탁월한 GitHub 커뮤니티 기여자를 인정하는 프로그램입니다. 기술 콘텐츠 제작, 커뮤니티 구축, 오픈 소스 기여 등에서 뛰어난 성과를 보인 개발자를 선정합니다."
+        },
+        {
+          "id": "d7-fc013",
+          "front": "GitHub Education 프로그램의 구성 요소는?",
+          "back": "학생을 위한 Student Developer Pack(무료 개발 도구 제공), 교사를 위한 Teacher Toolbox(교육 도구 제공), 학교를 위한 Campus Program으로 구성됩니다."
+        },
+        {
+          "id": "d7-fc014",
+          "front": "GitHub Student Developer Pack이란?",
+          "back": "학생들이 실제 개발 도구를 무료로 사용할 수 있도록 제공하는 패키지입니다. 클라우드 서비스, IDE, 도메인, API 크레딧 등 다양한 파트너사의 도구를 포함합니다."
+        },
+        {
+          "id": "d7-fc015",
+          "front": "주요 오픈 소스 라이선스 유형은?",
+          "back": "MIT(간단하고 허용적), Apache 2.0(특허 보호 포함, 허용적), GPL(카피레프트, 수정본도 동일 라이선스), BSD(허용적, MIT와 유사). 사용, 수정, 배포 조건이 각각 다릅니다."
+        },
+        {
+          "id": "d7-fc016",
+          "front": "README 파일이 커뮤니티 문서로서 하는 역할은?",
+          "back": "프로젝트의 첫인상을 결정하는 문서로, 프로젝트 목적과 비전 설명, 시각적 자료 제공, 사전 요구사항 및 배포 절차 설명, 기여 가이드 진입점 역할을 합니다."
+        },
+        {
+          "id": "d7-fc017",
+          "front": "GitHub의 커뮤니티 프로필 점수가 확인하는 항목은?",
+          "back": "README, LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md 파일의 존재 여부를 확인합니다. 이 파일들이 모두 있을수록 건강한 커뮤니티 프로필 점수를 받습니다."
+        },
+        {
+          "id": "d7-fc018",
+          "front": "GitHub Discussions란?",
+          "back": "리포지토리 내의 커뮤니티 포럼 기능입니다. Q&A, 아이디어 공유, 투표(polls), 공지사항 등을 지원하며, 이슈와는 다르게 열린 대화와 지식 공유에 초점을 맞춥니다."
+        },
+        {
+          "id": "d7-fc019",
+          "front": "Good First Issue 레이블의 목적은?",
+          "back": "새로운 기여자가 프로젝트에서 시작하기 좋은 작업을 찾을 수 있도록 돕는 레이블입니다. 복잡성이 낮고 기여 진입 장벽을 낮추는 작업에 붙입니다."
+        },
+        {
+          "id": "d7-fc020",
+          "front": "Help Wanted 레이블의 의미는?",
+          "back": "프로젝트 메인테이너가 해당 이슈나 작업에 외부 기여자의 도움을 원한다는 신호입니다. Good First Issue보다 난이도가 높을 수 있지만 기여 환영의 표시입니다."
+        },
+        {
+          "id": "d7-fc021",
+          "front": "GitHub Learning Lab / GitHub Skills란?",
+          "back": "GitHub를 통해 제공되는 인터랙티브 학습 과정입니다. 실제 리포지토리에서 실습하며 Git, GitHub Actions, 보안, 협업 등 다양한 주제를 배울 수 있습니다."
+        }
+      ],
+      "questions": [
+        {
+          "id": "d7-q001",
+          "type": "multiple-choice",
+          "question": "InnerSource에 대한 설명으로 가장 옳은 것은?",
+          "options": [
+            "오픈 소스 소프트웨어를 포크하여 조직 내부에서만 유지 관리하는 방식",
+            "오픈 소스 패턴을 조직 내부 프로젝트에 적용하는 실천 방법",
+            "외부 기여자가 회사 내부 리포지토리에 기여하는 방식",
+            "오픈 소스 프로젝트를 기업이 상용화하는 모델"
+          ],
+          "answer": 1,
+          "explanation": "InnerSource는 오픈 소스 패턴(포크, PR, 검토 등)을 조직 내부 프로젝트에 적용하는 실천 방법입니다. 접근은 조직 내부로 제한되지만, 오픈 소스와 동일한 협업 방식을 사용합니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d7-q002",
+          "type": "multiple-choice",
+          "question": "InnerSource 프로그램에서 Trusted Committer(TC)의 주요 책임이 아닌 것은?",
+          "options": [
+            "기여를 검토하고 병합",
+            "기술 방향 설정",
+            "기여자 멘토링",
+            "제품 백로그 우선순위 결정"
+          ],
+          "answer": 3,
+          "explanation": "제품 백로그 우선순위 결정은 Product Owner의 역할입니다. Trusted Committer는 기여 검토 및 병합, 기술 방향 설정, 기여자 멘토링을 담당합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q003",
+          "type": "multiple-choice",
+          "question": "InnerSource 프로그램에 적합한 GitHub 리포지토리 가시성 설정은?",
+          "options": [
+            "공개(Public) - 모든 사람이 볼 수 있도록",
+            "내부(Internal) - 엔터프라이즈 구성원만 볼 수 있도록",
+            "비공개(Private) - 특정 팀만 볼 수 있도록",
+            "초안(Draft) - 준비 중인 상태로 유지"
+          ],
+          "answer": 1,
+          "explanation": "InnerSource 프로그램에는 내부(Internal) 가시성이 권장됩니다. 이 설정은 GitHub Enterprise 고객에게 제공되며, 엔터프라이즈 구성원만 리포지토리에 접근할 수 있습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d7-q004",
+          "type": "multiple-choice",
+          "question": "팀에서 낮은 품질의 버그 보고서를 계속 받고 있습니다. 이를 해결하는 가장 좋은 방법은?",
+          "options": [
+            "200자 미만의 이슈를 자동으로 거부하는 GitHub Actions 워크플로우 추가",
+            "재현 단계, 시스템 속성, 로그 생성 지침을 포함한 ISSUE_TEMPLATE.md 파일 추가",
+            "CONTRIBUTING.md 파일에 버그 보고서에 포함해야 할 내용을 명확히 설명",
+            "버그 보고서에 응답하지 않고 외부 기여를 차단"
+          ],
+          "answer": 1,
+          "explanation": "ISSUE_TEMPLATE.md 파일을 추가하면 사용자가 이슈를 생성할 때 재현 단계, 시스템 속성, 로그 등 필요한 정보를 양식처럼 채울 수 있어 품질 높은 버그 보고서를 받을 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q005",
+          "type": "multiple-choice",
+          "question": "InnerSource 프로그램의 성공을 나타내는 가장 좋은 지표는?",
+          "options": [
+            "버그 보고서가 꾸준히 감소하는 추세",
+            "재현할 수 없어 빠르게 종료된 이슈가 증가하는 비율",
+            "소프트웨어 버그를 해결하는 풀 리퀘스트의 급격한 증가",
+            "특정 팀이 소유한 전체 코드 라인 수 증가"
+          ],
+          "answer": 2,
+          "explanation": "InnerSource 프로그램의 성공은 외부 참여가 프로젝트 품질을 향상시켰는지를 보여주는 지표로 측정해야 합니다. 버그를 수정하는 풀 리퀘스트의 급격한 증가는 외부 기여가 활발히 이루어지고 있음을 나타냅니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q006",
+          "type": "multiple-choice",
+          "question": "GitHub Marketplace의 주요 기능은?",
+          "options": [
+            "GitHub 주식을 거래하는 금융 플랫폼",
+            "오픈 소스 개발자를 재정적으로 지원하는 서비스",
+            "GitHub Actions와 앱을 검색하고 설치하는 플랫폼",
+            "GitHub 계정을 구매하고 판매하는 서비스"
+          ],
+          "answer": 2,
+          "explanation": "GitHub Marketplace는 워크플로우 자동화, CI/CD, 코드 품질 등을 위한 GitHub Actions와 앱을 검색하고 설치할 수 있는 플랫폼입니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d7-q007",
+          "type": "multiple-choice",
+          "question": "GitHub Sponsors 프로그램의 목적은?",
+          "options": [
+            "기업이 GitHub 기능을 후원하는 프로그램",
+            "오픈 소스 개발자와 조직을 재정적으로 지원하는 프로그램",
+            "GitHub Stars를 다른 사용자에게 기부하는 시스템",
+            "스폰서십을 통해 비공개 리포지토리를 공개하는 방법"
+          ],
+          "answer": 1,
+          "explanation": "GitHub Sponsors는 개인과 기업이 오픈 소스 개발자 및 조직을 재정적으로 지원할 수 있는 프로그램입니다. 이를 통해 기여자들이 지속적으로 오픈 소스 작업을 할 수 있습니다.",
+          "difficulty": "easy"
+        },
+        {
+          "id": "d7-q008",
+          "type": "multiple-choice",
+          "question": "CONTRIBUTING.md 파일이 존재할 때 GitHub의 동작은?",
+          "options": [
+            "리포지토리를 자동으로 공개로 전환",
+            "외부 기여자의 PR을 자동으로 거부",
+            "사용자가 이슈나 PR을 생성할 때 해당 파일 링크를 표시",
+            "매주 기여 현황을 이메일로 발송"
+          ],
+          "answer": 2,
+          "explanation": "CONTRIBUTING.md 파일이 존재하면, GitHub는 사용자가 이슈나 풀 리퀘스트를 생성할 때 해당 파일 링크를 표시하여 기여 지침을 따르도록 유도합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q009",
+          "type": "multiple-choice",
+          "question": "GitHub의 커뮤니티 프로필이 확인하는 파일이 아닌 것은?",
+          "options": [
+            "README.md",
+            "LICENSE",
+            "CONTRIBUTING.md",
+            "CHANGELOG.md"
+          ],
+          "answer": 3,
+          "explanation": "GitHub 커뮤니티 프로필은 README, LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md 파일의 존재 여부를 확인합니다. CHANGELOG.md는 커뮤니티 프로필 점수 항목에 포함되지 않습니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d7-q010",
+          "type": "multiple-choice",
+          "question": "InnerSource에서 측정 지표에 대한 올바른 접근 방식은?",
+          "options": [
+            "개인별 코드 기여량을 측정하여 성과를 평가",
+            "절대적인 수치 목표를 설정하고 달성 여부를 평가",
+            "팀 단위로, 목표 대비, 프로세스를 측정",
+            "시간당 코드 라인 수로 생산성 측정"
+          ],
+          "answer": 2,
+          "explanation": "InnerSource 측정 시 팀(개인 아님)을 측정하고, 절대값이 아닌 목표 대비로 측정하며, 산출물이 아닌 프로세스(코드 검토 소요 시간, PR 크기, 진행 중인 작업 등)를 측정해야 합니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d7-q011",
+          "type": "multiple-choice",
+          "question": "오픈 소스 라이선스 중 수정된 소프트웨어도 동일한 라이선스 하에 배포해야 하는 '카피레프트' 특성을 가진 것은?",
+          "options": [
+            "MIT 라이선스",
+            "Apache 2.0 라이선스",
+            "GPL(GNU General Public License)",
+            "BSD 라이선스"
+          ],
+          "answer": 2,
+          "explanation": "GPL(GNU General Public License)은 카피레프트 라이선스로, 수정된 소프트웨어도 동일한 GPL 라이선스로 배포해야 합니다. MIT, Apache 2.0, BSD는 허용적(permissive) 라이선스로 이러한 제약이 없습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q012",
+          "type": "true-false",
+          "question": "InnerSource 프로그램은 오픈 소스와 근본적으로 동일하지만, 접근이 조직 내부로 제한된다.",
+          "answer": true,
+          "explanation": "맞습니다. InnerSource는 오픈 소스와 동일한 패턴과 협업 방식을 사용하지만, 접근 대상이 조직 내부 구성원으로 제한됩니다. '회사 방화벽 뒤의 오픈 소스'라고 할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q013",
+          "type": "true-false",
+          "question": "GitHub의 내부(Internal) 리포지토리 가시성은 모든 GitHub 사용자(무료 플랜 포함)가 사용할 수 있다.",
+          "answer": false,
+          "explanation": "틀렸습니다. 내부(Internal) 리포지토리는 GitHub Enterprise 고객에게만 제공됩니다. 이 가시성 설정을 사용하면 엔터프라이즈 멤버만 리포지토리에 접근할 수 있습니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q014",
+          "type": "true-false",
+          "question": "CONTRIBUTING.md 파일을 리포지토리의 `docs` 디렉터리에 저장하면 GitHub가 이를 인식하지 못한다.",
+          "answer": false,
+          "explanation": "틀렸습니다. GitHub는 루트 디렉터리, `.github` 디렉터리, `docs` 디렉터리 모두에서 CONTRIBUTING.md를 인식합니다. 세 위치 모두 유효합니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q015",
+          "type": "true-false",
+          "question": "GitHub Discussions는 이슈와 달리 Q&A, 아이디어 공유, 투표 등 열린 커뮤니티 대화를 위해 설계되었다.",
+          "answer": true,
+          "explanation": "맞습니다. GitHub Discussions는 이슈가 버그 추적과 작업 관리에 초점을 맞추는 것과 달리, Q&A, 아이디어, 투표 등 열린 대화와 지식 공유를 위해 설계된 커뮤니티 포럼 기능입니다.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "d7-q016",
+          "type": "true-false",
+          "question": "InnerSource 성공 측정 시, 개인별 기여량보다 팀 단위 지표를 사용하는 것이 권장된다.",
+          "answer": true,
+          "explanation": "맞습니다. InnerSource 지침에 따르면 개인이 아닌 팀 단위로 측정해야 합니다. 개인 지표는 문화를 해칠 수 있으며, 팀 지표(고유 기여자 수, 코드를 재사용하는 프로젝트 수 등)가 더 적절합니다.",
+          "difficulty": "expert"
+        },
+        {
+          "id": "d7-q017",
+          "type": "short-answer",
+          "question": "InnerSource에서 기여를 검토하고 병합하며, 기술 방향을 설정하고 기여자를 멘토링하는 역할의 명칭은 무엇인가?",
+          "answer": "Trusted Committer",
+          "acceptedAnswers": [
+            "Trusted Committer",
+            "TC",
+            "트러스티드 커미터"
+          ],
+          "explanation": "Trusted Committer(TC)는 InnerSource의 핵심 역할로, 기여를 검토하고 병합하며, 기술 방향을 설정하고, 기여자를 멘토링하는 책임을 집니다.",
+          "difficulty": "hard"
+        },
+        {
+          "id": "d7-q018",
+          "type": "short-answer",
+          "question": "조직 내 사용 가능한 InnerSource 프로젝트를 나열하여 구성원들이 쉽게 찾을 수 있도록 하는 검색 메커니즘의 이름은?",
+          "answer": "InnerSource Portal",
+          "acceptedAnswers": [
+            "InnerSource Portal",
+            "InnerSource 포털",
+            "이너소스 포털"
+          ],
+          "explanation": "InnerSource Portal은 조직 내에서 사용 가능한 InnerSource 프로젝트를 나열하는 검색 메커니즘입니다. InnerSource 프로그램이 성장하면서 프로젝트 수가 증가할 때 구성원들이 적합한 프로젝트를 효율적으로 찾을 수 있게 도와줍니다.",
+          "difficulty": "expert"
+        }
+      ]
+    }
+  ]
+}

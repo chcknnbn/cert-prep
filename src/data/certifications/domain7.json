@@ -1,0 +1,336 @@
+{
+  "id": 7,
+  "name": "Benefits of the GitHub Community",
+  "weight": 0.10,
+  "summary": [
+    {
+      "title": "InnerSource 프로그램 관리",
+      "content": "InnerSource는 오픈 소스 패턴을 조직 내부 프로젝트에 적용하는 실천 방법입니다. 오픈 소스와 동일한 협업 방식을 사용하지만, 접근 대상이 공개가 아닌 조직 내부 구성원으로 제한됩니다. InnerSource의 핵심 역할로는 세 가지가 있습니다: **Trusted Committer(TC)**는 기여를 검토하고 병합하며 기술 방향을 설정하고 기여자를 멘토링합니다. **Contributor**는 InnerSource 프로젝트에 코드를 제출하는 역할로, 외부 게스트 커미터처럼 동작합니다. **Product Owner**는 요구사항을 정의하고 백로그를 우선순위화하며 가치 전달을 보장합니다. InnerSource 프로그램 설정 시 리포지토리 가시성(공개/내부/비공개)과 권한 수준(읽기/트리아지/쓰기/유지관리/관리자)을 적절히 구성해야 합니다. **InnerSource Portal**은 조직 내 사용 가능한 InnerSource 프로젝트를 나열하는 검색 메커니즘입니다. 프로그램 성공 측정 시 개인이 아닌 팀 단위로, 절대값이 아닌 목표 대비로, 산출물이 아닌 프로세스를 측정해야 합니다."
+    },
+    {
+      "title": "GitHub 커뮤니티와 생태계",
+      "content": "GitHub는 다양한 커뮤니티 도구와 생태계를 제공합니다. **GitHub Marketplace**에서는 Actions와 앱을 검색하고 설치할 수 있습니다. **GitHub Sponsors**를 통해 오픈 소스 개발자 및 조직을 재정적으로 지원할 수 있습니다. **GitHub Stars 프로그램**은 탁월한 커뮤니티 기여자를 인정하는 프로그램입니다. **GitHub Education**은 학생을 위한 Student Developer Pack, 교사를 위한 Teacher Toolbox, Campus Program을 제공합니다. 커뮤니티 건강 파일(Community health files)로는 CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, SUPPORT.md가 있으며, 이 파일들은 리포지토리의 루트, `.github`, 또는 `docs` 디렉터리에 위치할 수 있습니다. **GitHub Discussions**는 리포지토리 내 커뮤니티 포럼으로 Q&A, 아이디어, 투표 등을 지원합니다. **Good First Issue** 레이블은 새 기여자가 시작하기 좋은 작업을 찾도록 돕고, **Help Wanted** 레이블은 메인테이너가 외부 기여를 원한다는 신호입니다. 오픈 소스 라이선스 유형에는 MIT, Apache 2.0, GPL, BSD 등이 있으며, 커뮤니티 프로필 점수는 README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT 파일의 존재 여부를 확인합니다."
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "d7-fc001",
+      "front": "InnerSource란 무엇인가?",
+      "back": "오픈 소스 패턴을 조직 내 비공개 리포지토리에 적용하는 실천 방법입니다. 오픈 소스와 동일한 협업 방식을 사용하지만, 접근 대상이 조직 내부 구성원으로 제한됩니다."
+    },
+    {
+      "id": "d7-fc002",
+      "front": "InnerSource vs 오픈 소스: 차이점은?",
+      "back": "동일한 협업 방식과 패턴을 사용하지만, 오픈 소스는 누구나 접근 가능한 반면 InnerSource는 조직 내부 구성원만 접근할 수 있습니다. 사실상 '회사 방화벽 뒤의 오픈 소스'입니다."
+    },
+    {
+      "id": "d7-fc003",
+      "front": "Trusted Committer(TC)의 역할은?",
+      "back": "InnerSource의 핵심 역할로, 기여를 검토하고 병합하며, 기술 방향을 설정하고, 기여자를 멘토링합니다. 프로젝트의 품질과 방향에 대한 책임을 집니다."
+    },
+    {
+      "id": "d7-fc004",
+      "front": "InnerSource에서 Contributor의 역할은?",
+      "back": "InnerSource 프로젝트에 코드를 제출하는 역할입니다. 오픈 소스의 외부 게스트 커미터처럼 동작하며, 프로젝트 팀 외부에서 기여합니다."
+    },
+    {
+      "id": "d7-fc005",
+      "front": "InnerSource에서 Product Owner의 역할은?",
+      "back": "요구사항을 정의하고, 백로그를 우선순위화하며, 가치 전달을 보장합니다. 프로젝트가 비즈니스 목표와 부합하도록 관리합니다."
+    },
+    {
+      "id": "d7-fc006",
+      "front": "InnerSource Portal이란?",
+      "back": "조직 내에서 사용 가능한 InnerSource 프로젝트를 나열하는 검색 메커니즘입니다. 팀이 기여할 수 있는 프로젝트를 쉽게 발견할 수 있도록 돕습니다."
+    },
+    {
+      "id": "d7-fc007",
+      "front": "InnerSource의 주요 이점 세 가지는?",
+      "back": "1. 내부 가시성 향상(다른 팀의 솔루션 참조 가능) 2. 마찰 감소(소비 팀이 직접 변경 제안 가능) 3. 관행 표준화(공통 컨벤션 채택)"
+    },
+    {
+      "id": "d7-fc008",
+      "front": "InnerSource 기여 모델은 오픈 소스와 어떻게 유사한가?",
+      "back": "포크(fork) → 풀 리퀘스트(PR) → 검토(review)의 동일한 워크플로우를 따릅니다. 기여자는 프로젝트를 포크하고, 변경 사항을 PR로 제출하며, Trusted Committer가 검토 후 병합합니다."
+    },
+    {
+      "id": "d7-fc009",
+      "front": "커뮤니티 건강 파일(Community health files)의 종류는?",
+      "back": "CONTRIBUTING.md(기여 가이드), CODE_OF_CONDUCT.md(행동 강령), SECURITY.md(보안 정책), SUPPORT.md(지원 방법). 리포지토리 루트, `.github`, 또는 `docs` 디렉터리에 위치합니다."
+    },
+    {
+      "id": "d7-fc010",
+      "front": "GitHub Marketplace란?",
+      "back": "GitHub Actions와 앱을 검색하고 설치할 수 있는 플랫폼입니다. 워크플로우 자동화, CI/CD, 코드 품질 등 다양한 도구를 제공합니다."
+    },
+    {
+      "id": "d7-fc011",
+      "front": "GitHub Sponsors란?",
+      "back": "오픈 소스 개발자와 조직을 재정적으로 지원할 수 있는 GitHub의 프로그램입니다. 기여자들이 지속적으로 오픈 소스 작업을 할 수 있도록 경제적 지원을 가능하게 합니다."
+    },
+    {
+      "id": "d7-fc012",
+      "front": "GitHub Stars 프로그램이란?",
+      "back": "탁월한 GitHub 커뮤니티 기여자를 인정하는 프로그램입니다. 기술 콘텐츠 제작, 커뮤니티 구축, 오픈 소스 기여 등에서 뛰어난 성과를 보인 개발자를 선정합니다."
+    },
+    {
+      "id": "d7-fc013",
+      "front": "GitHub Education 프로그램의 구성 요소는?",
+      "back": "학생을 위한 Student Developer Pack(무료 개발 도구 제공), 교사를 위한 Teacher Toolbox(교육 도구 제공), 학교를 위한 Campus Program으로 구성됩니다."
+    },
+    {
+      "id": "d7-fc014",
+      "front": "GitHub Student Developer Pack이란?",
+      "back": "학생들이 실제 개발 도구를 무료로 사용할 수 있도록 제공하는 패키지입니다. 클라우드 서비스, IDE, 도메인, API 크레딧 등 다양한 파트너사의 도구를 포함합니다."
+    },
+    {
+      "id": "d7-fc015",
+      "front": "주요 오픈 소스 라이선스 유형은?",
+      "back": "MIT(간단하고 허용적), Apache 2.0(특허 보호 포함, 허용적), GPL(카피레프트, 수정본도 동일 라이선스), BSD(허용적, MIT와 유사). 사용, 수정, 배포 조건이 각각 다릅니다."
+    },
+    {
+      "id": "d7-fc016",
+      "front": "README 파일이 커뮤니티 문서로서 하는 역할은?",
+      "back": "프로젝트의 첫인상을 결정하는 문서로, 프로젝트 목적과 비전 설명, 시각적 자료 제공, 사전 요구사항 및 배포 절차 설명, 기여 가이드 진입점 역할을 합니다."
+    },
+    {
+      "id": "d7-fc017",
+      "front": "GitHub의 커뮤니티 프로필 점수가 확인하는 항목은?",
+      "back": "README, LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md 파일의 존재 여부를 확인합니다. 이 파일들이 모두 있을수록 건강한 커뮤니티 프로필 점수를 받습니다."
+    },
+    {
+      "id": "d7-fc018",
+      "front": "GitHub Discussions란?",
+      "back": "리포지토리 내의 커뮤니티 포럼 기능입니다. Q&A, 아이디어 공유, 투표(polls), 공지사항 등을 지원하며, 이슈와는 다르게 열린 대화와 지식 공유에 초점을 맞춥니다."
+    },
+    {
+      "id": "d7-fc019",
+      "front": "Good First Issue 레이블의 목적은?",
+      "back": "새로운 기여자가 프로젝트에서 시작하기 좋은 작업을 찾을 수 있도록 돕는 레이블입니다. 복잡성이 낮고 기여 진입 장벽을 낮추는 작업에 붙입니다."
+    },
+    {
+      "id": "d7-fc020",
+      "front": "Help Wanted 레이블의 의미는?",
+      "back": "프로젝트 메인테이너가 해당 이슈나 작업에 외부 기여자의 도움을 원한다는 신호입니다. Good First Issue보다 난이도가 높을 수 있지만 기여 환영의 표시입니다."
+    },
+    {
+      "id": "d7-fc021",
+      "front": "GitHub Learning Lab / GitHub Skills란?",
+      "back": "GitHub를 통해 제공되는 인터랙티브 학습 과정입니다. 실제 리포지토리에서 실습하며 Git, GitHub Actions, 보안, 협업 등 다양한 주제를 배울 수 있습니다."
+    }
+  ],
+  "questions": [
+    {
+      "id": "d7-q001",
+      "type": "multiple-choice",
+      "question": "InnerSource에 대한 설명으로 가장 옳은 것은?",
+      "options": [
+        "오픈 소스 소프트웨어를 포크하여 조직 내부에서만 유지 관리하는 방식",
+        "오픈 소스 패턴을 조직 내부 프로젝트에 적용하는 실천 방법",
+        "외부 기여자가 회사 내부 리포지토리에 기여하는 방식",
+        "오픈 소스 프로젝트를 기업이 상용화하는 모델"
+      ],
+      "answer": 1,
+      "explanation": "InnerSource는 오픈 소스 패턴(포크, PR, 검토 등)을 조직 내부 프로젝트에 적용하는 실천 방법입니다. 접근은 조직 내부로 제한되지만, 오픈 소스와 동일한 협업 방식을 사용합니다.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "d7-q002",
+      "type": "multiple-choice",
+      "question": "InnerSource 프로그램에서 Trusted Committer(TC)의 주요 책임이 아닌 것은?",
+      "options": [
+        "기여를 검토하고 병합",
+        "기술 방향 설정",
+        "기여자 멘토링",
+        "제품 백로그 우선순위 결정"
+      ],
+      "answer": 3,
+      "explanation": "제품 백로그 우선순위 결정은 Product Owner의 역할입니다. Trusted Committer는 기여 검토 및 병합, 기술 방향 설정, 기여자 멘토링을 담당합니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q003",
+      "type": "multiple-choice",
+      "question": "InnerSource 프로그램에 적합한 GitHub 리포지토리 가시성 설정은?",
+      "options": [
+        "공개(Public) - 모든 사람이 볼 수 있도록",
+        "내부(Internal) - 엔터프라이즈 구성원만 볼 수 있도록",
+        "비공개(Private) - 특정 팀만 볼 수 있도록",
+        "초안(Draft) - 준비 중인 상태로 유지"
+      ],
+      "answer": 1,
+      "explanation": "InnerSource 프로그램에는 내부(Internal) 가시성이 권장됩니다. 이 설정은 GitHub Enterprise 고객에게 제공되며, 엔터프라이즈 구성원만 리포지토리에 접근할 수 있습니다.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "d7-q004",
+      "type": "multiple-choice",
+      "question": "팀에서 낮은 품질의 버그 보고서를 계속 받고 있습니다. 이를 해결하는 가장 좋은 방법은?",
+      "options": [
+        "200자 미만의 이슈를 자동으로 거부하는 GitHub Actions 워크플로우 추가",
+        "재현 단계, 시스템 속성, 로그 생성 지침을 포함한 ISSUE_TEMPLATE.md 파일 추가",
+        "CONTRIBUTING.md 파일에 버그 보고서에 포함해야 할 내용을 명확히 설명",
+        "버그 보고서에 응답하지 않고 외부 기여를 차단"
+      ],
+      "answer": 1,
+      "explanation": "ISSUE_TEMPLATE.md 파일을 추가하면 사용자가 이슈를 생성할 때 재현 단계, 시스템 속성, 로그 등 필요한 정보를 양식처럼 채울 수 있어 품질 높은 버그 보고서를 받을 수 있습니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q005",
+      "type": "multiple-choice",
+      "question": "InnerSource 프로그램의 성공을 나타내는 가장 좋은 지표는?",
+      "options": [
+        "버그 보고서가 꾸준히 감소하는 추세",
+        "재현할 수 없어 빠르게 종료된 이슈가 증가하는 비율",
+        "소프트웨어 버그를 해결하는 풀 리퀘스트의 급격한 증가",
+        "특정 팀이 소유한 전체 코드 라인 수 증가"
+      ],
+      "answer": 2,
+      "explanation": "InnerSource 프로그램의 성공은 외부 참여가 프로젝트 품질을 향상시켰는지를 보여주는 지표로 측정해야 합니다. 버그를 수정하는 풀 리퀘스트의 급격한 증가는 외부 기여가 활발히 이루어지고 있음을 나타냅니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q006",
+      "type": "multiple-choice",
+      "question": "GitHub Marketplace의 주요 기능은?",
+      "options": [
+        "GitHub 주식을 거래하는 금융 플랫폼",
+        "오픈 소스 개발자를 재정적으로 지원하는 서비스",
+        "GitHub Actions와 앱을 검색하고 설치하는 플랫폼",
+        "GitHub 계정을 구매하고 판매하는 서비스"
+      ],
+      "answer": 2,
+      "explanation": "GitHub Marketplace는 워크플로우 자동화, CI/CD, 코드 품질 등을 위한 GitHub Actions와 앱을 검색하고 설치할 수 있는 플랫폼입니다.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "d7-q007",
+      "type": "multiple-choice",
+      "question": "GitHub Sponsors 프로그램의 목적은?",
+      "options": [
+        "기업이 GitHub 기능을 후원하는 프로그램",
+        "오픈 소스 개발자와 조직을 재정적으로 지원하는 프로그램",
+        "GitHub Stars를 다른 사용자에게 기부하는 시스템",
+        "스폰서십을 통해 비공개 리포지토리를 공개하는 방법"
+      ],
+      "answer": 1,
+      "explanation": "GitHub Sponsors는 개인과 기업이 오픈 소스 개발자 및 조직을 재정적으로 지원할 수 있는 프로그램입니다. 이를 통해 기여자들이 지속적으로 오픈 소스 작업을 할 수 있습니다.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "d7-q008",
+      "type": "multiple-choice",
+      "question": "CONTRIBUTING.md 파일이 존재할 때 GitHub의 동작은?",
+      "options": [
+        "리포지토리를 자동으로 공개로 전환",
+        "외부 기여자의 PR을 자동으로 거부",
+        "사용자가 이슈나 PR을 생성할 때 해당 파일 링크를 표시",
+        "매주 기여 현황을 이메일로 발송"
+      ],
+      "answer": 2,
+      "explanation": "CONTRIBUTING.md 파일이 존재하면, GitHub는 사용자가 이슈나 풀 리퀘스트를 생성할 때 해당 파일 링크를 표시하여 기여 지침을 따르도록 유도합니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q009",
+      "type": "multiple-choice",
+      "question": "GitHub의 커뮤니티 프로필이 확인하는 파일이 아닌 것은?",
+      "options": [
+        "README.md",
+        "LICENSE",
+        "CONTRIBUTING.md",
+        "CHANGELOG.md"
+      ],
+      "answer": 3,
+      "explanation": "GitHub 커뮤니티 프로필은 README, LICENSE, CONTRIBUTING.md, CODE_OF_CONDUCT.md 파일의 존재 여부를 확인합니다. CHANGELOG.md는 커뮤니티 프로필 점수 항목에 포함되지 않습니다.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "d7-q010",
+      "type": "multiple-choice",
+      "question": "InnerSource에서 측정 지표에 대한 올바른 접근 방식은?",
+      "options": [
+        "개인별 코드 기여량을 측정하여 성과를 평가",
+        "절대적인 수치 목표를 설정하고 달성 여부를 평가",
+        "팀 단위로, 목표 대비, 프로세스를 측정",
+        "시간당 코드 라인 수로 생산성 측정"
+      ],
+      "answer": 2,
+      "explanation": "InnerSource 측정 시 팀(개인 아님)을 측정하고, 절대값이 아닌 목표 대비로 측정하며, 산출물이 아닌 프로세스(코드 검토 소요 시간, PR 크기, 진행 중인 작업 등)를 측정해야 합니다.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "d7-q011",
+      "type": "multiple-choice",
+      "question": "오픈 소스 라이선스 중 수정된 소프트웨어도 동일한 라이선스 하에 배포해야 하는 '카피레프트' 특성을 가진 것은?",
+      "options": [
+        "MIT 라이선스",
+        "Apache 2.0 라이선스",
+        "GPL(GNU General Public License)",
+        "BSD 라이선스"
+      ],
+      "answer": 2,
+      "explanation": "GPL(GNU General Public License)은 카피레프트 라이선스로, 수정된 소프트웨어도 동일한 GPL 라이선스로 배포해야 합니다. MIT, Apache 2.0, BSD는 허용적(permissive) 라이선스로 이러한 제약이 없습니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q012",
+      "type": "true-false",
+      "question": "InnerSource 프로그램은 오픈 소스와 근본적으로 동일하지만, 접근이 조직 내부로 제한된다.",
+      "answer": true,
+      "explanation": "맞습니다. InnerSource는 오픈 소스와 동일한 패턴과 협업 방식을 사용하지만, 접근 대상이 조직 내부 구성원으로 제한됩니다. '회사 방화벽 뒤의 오픈 소스'라고 할 수 있습니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q013",
+      "type": "true-false",
+      "question": "GitHub의 내부(Internal) 리포지토리 가시성은 모든 GitHub 사용자(무료 플랜 포함)가 사용할 수 있다.",
+      "answer": false,
+      "explanation": "틀렸습니다. 내부(Internal) 리포지토리는 GitHub Enterprise 고객에게만 제공됩니다. 이 가시성 설정을 사용하면 엔터프라이즈 멤버만 리포지토리에 접근할 수 있습니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q014",
+      "type": "true-false",
+      "question": "CONTRIBUTING.md 파일을 리포지토리의 `docs` 디렉터리에 저장하면 GitHub가 이를 인식하지 못한다.",
+      "answer": false,
+      "explanation": "틀렸습니다. GitHub는 루트 디렉터리, `.github` 디렉터리, `docs` 디렉터리 모두에서 CONTRIBUTING.md를 인식합니다. 세 위치 모두 유효합니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q015",
+      "type": "true-false",
+      "question": "GitHub Discussions는 이슈와 달리 Q&A, 아이디어 공유, 투표 등 열린 커뮤니티 대화를 위해 설계되었다.",
+      "answer": true,
+      "explanation": "맞습니다. GitHub Discussions는 이슈가 버그 추적과 작업 관리에 초점을 맞추는 것과 달리, Q&A, 아이디어, 투표 등 열린 대화와 지식 공유를 위해 설계된 커뮤니티 포럼 기능입니다.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d7-q016",
+      "type": "true-false",
+      "question": "InnerSource 성공 측정 시, 개인별 기여량보다 팀 단위 지표를 사용하는 것이 권장된다.",
+      "answer": true,
+      "explanation": "맞습니다. InnerSource 지침에 따르면 개인이 아닌 팀 단위로 측정해야 합니다. 개인 지표는 문화를 해칠 수 있으며, 팀 지표(고유 기여자 수, 코드를 재사용하는 프로젝트 수 등)가 더 적절합니다.",
+      "difficulty": "expert"
+    },
+    {
+      "id": "d7-q017",
+      "type": "short-answer",
+      "question": "InnerSource에서 기여를 검토하고 병합하며, 기술 방향을 설정하고 기여자를 멘토링하는 역할의 명칭은 무엇인가?",
+      "answer": "Trusted Committer",
+      "acceptedAnswers": ["Trusted Committer", "TC", "트러스티드 커미터"],
+      "explanation": "Trusted Committer(TC)는 InnerSource의 핵심 역할로, 기여를 검토하고 병합하며, 기술 방향을 설정하고, 기여자를 멘토링하는 책임을 집니다.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "d7-q018",
+      "type": "short-answer",
+      "question": "조직 내 사용 가능한 InnerSource 프로젝트를 나열하여 구성원들이 쉽게 찾을 수 있도록 하는 검색 메커니즘의 이름은?",
+      "answer": "InnerSource Portal",
+      "acceptedAnswers": ["InnerSource Portal", "InnerSource 포털", "이너소스 포털"],
+      "explanation": "InnerSource Portal은 조직 내에서 사용 가능한 InnerSource 프로젝트를 나열하는 검색 메커니즘입니다. InnerSource 프로그램이 성장하면서 프로젝트 수가 증가할 때 구성원들이 적합한 프로젝트를 효율적으로 찾을 수 있게 도와줍니다.",
+      "difficulty": "expert"
+    }
+  ]
+}
