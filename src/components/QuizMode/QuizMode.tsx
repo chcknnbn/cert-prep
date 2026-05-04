@@ -113,13 +113,14 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
 
     if (user && supabase) {
       const domainId = extractDomainId(q.id)
-      await supabase.from('quiz_attempts').insert({
+      const { error } = await supabase.from('quiz_attempts').insert({
         user_id: user.id,
         cert_id: certId,
         domain_id: domainId,
         question_id: q.id,
         is_correct: correct,
       })
+      if (error) console.error('[quiz_attempts] insert failed:', error.message)
     }
   }
 
@@ -127,7 +128,11 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     setPendingAnswer(null)
     if (currentIndex + 1 >= questions.length) {
       setQuizState('summary')
-      await updateStreak()
+      try {
+        await updateStreak()
+      } catch (err) {
+        console.error('[updateStreak] failed:', err)
+      }
     } else {
       setCurrentIndex((i) => i + 1)
     }
