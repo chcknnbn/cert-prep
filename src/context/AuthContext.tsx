@@ -137,13 +137,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   async function updateStreak() {
     if (!supabase || !user) return
 
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const todayStr = today.toISOString().split('T')[0]
+    const todayStr = new Date().toLocaleDateString('en-CA')
 
-    const yesterday = new Date(today)
+    const yesterday = new Date()
     yesterday.setDate(yesterday.getDate() - 1)
-    const yesterdayStr = yesterday.toISOString().split('T')[0]
+    const yesterdayStr = yesterday.toLocaleDateString('en-CA')
 
     const lastDate = profile?.last_study_date ?? null
     const currentStreak = profile?.streak_count ?? 0
@@ -152,10 +150,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const newStreak = lastDate === yesterdayStr ? currentStreak + 1 : 1
 
-    await supabase
+    const { error } = await supabase
       .from('profiles')
       .update({ streak_count: newStreak, last_study_date: todayStr })
       .eq('id', user.id)
+
+    if (error) throw new Error(`streak 업데이트 실패: ${error.message}`)
 
     await refreshProfile()
   }
