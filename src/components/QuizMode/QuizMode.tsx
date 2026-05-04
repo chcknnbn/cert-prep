@@ -59,7 +59,7 @@ const TYPE_COLORS: Record<Question['type'], string> = {
   'short-answer': '#34d399',
 }
 
-export default function QuizMode({ domains, domainFilter, certId }: Props) {
+export default function QuizMode({ domains, domainFilter, certId: _certId }: Props) {
   const [quizState, setQuizState] = useState<QuizState>('setup')
   const [questionCount, setQuestionCount] = useState<QuestionCount>(10)
   const [questions, setQuestions] = useState<Question[]>([])
