@@ -119,7 +119,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
   if (quizState === 'setup') {
     return (
       <div className="max-w-lg mx-auto">
-        <div className="border border-space-600 rounded-2xl bg-space-800 p-8">
+        <div className="border border-space-600 rounded-2xl bg-space-800 p-5 sm:p-8">
           <div className="mono text-amber-500 text-xs tracking-widest mb-3">MISSION BRIEFING</div>
           <h2 className="display text-2xl font-bold text-space-50 mb-2">모의고사 시작</h2>
           <p className="text-space-300 text-sm mb-8">
@@ -280,7 +280,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
   const progress = ((currentIndex + (isSubmitted ? 1 : 0)) / questions.length) * 100
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto w-full">
       {/* Top HUD */}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -307,7 +307,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
       {/* Question card */}
       <div className="border border-space-600 rounded-2xl bg-space-800 overflow-hidden">
         {/* Question header */}
-        <div className="px-6 py-4 border-b border-space-700 flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-space-700 flex items-center justify-between">
           <span
             className="mono text-[10px] font-bold tracking-widest px-2.5 py-1 rounded border"
             style={{
@@ -329,8 +329,8 @@ export default function QuizMode({ domains, domainFilter }: Props) {
         </div>
 
         {/* Question text */}
-        <div className="px-6 py-5">
-          <p className="display text-lg font-semibold text-space-50 leading-relaxed mb-6">
+        <div className="px-4 sm:px-6 py-4 sm:py-5">
+          <p className="display text-base sm:text-lg font-semibold text-space-50 leading-relaxed mb-6">
             {currentQ.question}
           </p>
 
@@ -366,7 +366,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
         {/* Explanation */}
         {isSubmitted && (
           <div
-            className="mx-6 mb-5 p-4 rounded-xl border"
+            className="mx-4 sm:mx-6 mb-4 sm:mb-5 p-3 sm:p-4 rounded-xl border"
             style={{
               borderColor: correct ? '#10b98130' : '#ef444430',
               background: correct ? 'rgba(16,185,129,0.04)' : 'rgba(239,68,68,0.04)',
@@ -380,7 +380,7 @@ export default function QuizMode({ domains, domainFilter }: Props) {
         )}
 
         {/* Action buttons */}
-        <div className="px-6 pb-6">
+        <div className="px-4 sm:px-6 pb-4 sm:pb-6">
           {!isSubmitted ? (
             <button
               onClick={handleSubmit}

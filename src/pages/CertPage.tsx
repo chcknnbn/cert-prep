@@ -66,44 +66,44 @@ export default function CertPage() {
     <div className="min-h-screen bg-space-900 grid-bg">
       {/* Top nav */}
       <header className="sticky top-0 z-50 bg-space-900/95 backdrop-blur border-b border-space-600">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           {/* Breadcrumb + title row */}
-          <div className="flex items-center justify-between py-3 border-b border-space-700">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between py-2.5 sm:py-3 border-b border-space-700">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <button
                 onClick={() => navigate('/')}
-                className="mono text-space-400 text-xs hover:text-amber-400 transition-colors"
+                className="mono text-space-400 text-xs hover:text-amber-400 transition-colors flex-shrink-0"
               >
                 ← BACK
               </button>
               <span className="text-space-700">|</span>
-              <div>
+              <div className="min-w-0 truncate">
                 <span className="mono text-amber-500 text-xs tracking-widest mr-2">MISSION</span>
-                <span className="display font-bold text-space-100 text-sm">{cert.name}</span>
+                <span className="display font-bold text-space-100 text-xs sm:text-sm">{cert.name}</span>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <ThemeToggle />
-              <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="mono text-space-400 text-xs">IN PROGRESS</span>
               </div>
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className="flex gap-0">
+          {/* Tabs — scrollable on mobile */}
+          <div className="flex gap-0 overflow-x-auto scrollbar-hide">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-5 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-3 text-xs sm:text-sm font-medium transition-all duration-200 border-b-2 whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'border-amber-500 text-amber-400'
                     : 'border-transparent text-space-400 hover:text-space-200'
                 }`}
               >
-                <span className="mono text-base">{tab.icon}</span>
+                <span className="mono text-sm sm:text-base">{tab.icon}</span>
                 <span className="display font-semibold">{tab.label}</span>
               </button>
             ))}
@@ -111,11 +111,11 @@ export default function CertPage() {
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-6 py-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
         {/* Domain filter */}
-        <div className="mb-6 p-4 border border-space-600 rounded-xl bg-space-800">
-          <div className="flex items-start gap-6 flex-wrap">
-            <div className="flex-shrink-0">
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 border border-space-600 rounded-xl bg-space-800">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+            <div className="flex-shrink-0 w-full sm:w-auto">
               <div className="mono text-space-400 text-[10px] tracking-widest mb-2">도메인 필터</div>
               <div className="flex gap-2">
                 {(
@@ -160,7 +160,7 @@ export default function CertPage() {
 
             {/* Domain weight bars */}
             {domainFilter !== 'custom' && (
-              <div className="flex-1 min-w-48">
+              <div className="flex-1 min-w-0 w-full sm:min-w-48">
                 <div className="flex gap-1 h-2 items-end">
                   {cert.domains.map((d) => (
                     <div

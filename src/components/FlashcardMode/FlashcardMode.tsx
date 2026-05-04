@@ -74,7 +74,7 @@ export default function FlashcardMode({ domains }: Props) {
   const unknownCount = unknown.size
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto w-full">
       {/* Stats bar */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex gap-4">

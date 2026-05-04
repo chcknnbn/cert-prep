@@ -193,7 +193,13 @@
   /* Flashcard 3D flip */
   .flashcard-wrapper {
     perspective: 1200px;
-    height: 320px;
+    height: 260px;
+  }
+
+  @media (min-width: 480px) {
+    .flashcard-wrapper {
+      height: 320px;
+    }
   }
 
   .flashcard-inner {
@@ -218,7 +224,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2.5rem;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 480px) {
+    .flashcard-face {
+      padding: 2.5rem;
+    }
   }
 
   .flashcard-back {
@@ -264,6 +276,14 @@
 }
 
 @layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   .animate-fade-up {
     animation: fadeUp 0.5s ease-out forwards;
   }
