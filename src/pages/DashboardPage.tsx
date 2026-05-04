@@ -24,6 +24,7 @@ interface Bookmark {
   created_at: string
 }
 
+// `as Certification` required: TypeScript infers JSON string literals as `string`, not literal types
 const ALL_CERTS: Certification[] = [githubFoundations as Certification]
 
 function buildDomainNameMap(): Map<number, string> {
@@ -89,6 +90,8 @@ export default function DashboardPage() {
       if (bookmarksRes.data) {
         setBookmarks(bookmarksRes.data as Bookmark[])
       }
+      setStatsLoading(false)
+    }).catch(() => {
       setStatsLoading(false)
     })
   }, [user])
