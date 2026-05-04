@@ -77,6 +77,7 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
   const [forcedCorrect, setForcedCorrect] = useState<Record<string, boolean>>({})
   const [shareUrl, setShareUrl] = useState<string | null>(null)
   const [shareLoading, setShareLoading] = useState(false)
+  const [shareError, setShareError] = useState<string | null>(null)
 
   const { user, updateStreak } = useAuth()
 
@@ -90,6 +91,14 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
       }).length
   }, [submitted, answers, questions, forcedCorrect])
 
+  const domainStats = useMemo(() => {
+    return domains.map((d) => {
+      const dqs = questions.filter((q) => extractDomainId(q.id) === d.id)
+      const correct = dqs.filter((q) => isAnswerCorrect(q, answers[q.id])).length
+      return { domain: d, total: dqs.length, correct }
+    }).filter((s) => s.total > 0)
+  }, [domains, questions, answers])
+
   function startQuiz() {
     const selected = selectQuestions(domains, questionCount, domainFilter)
     setQuestions(selected)
@@ -98,6 +107,8 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     setSubmitted({})
     setPendingAnswer(null)
     setForcedCorrect({})
+    setShareUrl(null)
+    setShareError(null)
     setQuizState('running')
   }
 
@@ -149,17 +160,16 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     setPendingAnswer(null)
     setForcedCorrect({})
     setShareUrl(null)
+    setShareError(null)
   }
 
   async function handleShare() {
     if (!user || !supabase) return
     setShareLoading(true)
+    setShareError(null)
 
     const domainBreakdown: Record<string, { correct: number; total: number }> = {}
-    for (const { domain, total: dt, correct } of domains.map((d) => {
-      const dqs = questions.filter((q) => q.id.startsWith(`d${d.id}-`))
-      return { domain: d, total: dqs.length, correct: dqs.filter((q) => isAnswerCorrect(q, answers[q.id])).length }
-    }).filter((s) => s.total > 0)) {
+    for (const { domain, total: dt, correct } of domainStats) {
       domainBreakdown[`D${domain.id} ${domain.name}`] = { correct, total: dt }
     }
 
@@ -173,7 +183,9 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
       share_token: shareToken,
     })
 
-    if (!error) {
+    if (error) {
+      setShareError('링크 생성에 실패했습니다. 다시 시도해주세요.')
+    } else {
       setShareUrl(`${window.location.origin}/share/${shareToken}`)
     }
     setShareLoading(false)
@@ -254,12 +266,6 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     const pct = Math.round((score / total) * 100)
     const passed = pct >= 75
 
-    const domainStats = domains.map((d) => {
-      const dqs = questions.filter((q) => q.id.startsWith(`d${d.id}-`))
-      const correct = dqs.filter((q) => isAnswerCorrect(q, answers[q.id])).length
-      return { domain: d, total: dqs.length, correct }
-    }).filter((s) => s.total > 0)
-
     return (
       <div className="max-w-2xl mx-auto">
         <div className="border border-space-600 rounded-2xl bg-space-800 overflow-hidden">
@@ -326,7 +332,7 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
               >
                 <span className="mono text-emerald-400 text-xs flex-1 truncate">{shareUrl}</span>
                 <button
-                  onClick={() => navigator.clipboard.writeText(shareUrl)}
+                  onClick={() => navigator.clipboard.writeText(shareUrl).catch(() => console.error('[clipboard] writeText failed'))}
                   className="mono text-[11px] text-emerald-400 hover:text-emerald-300 transition-colors flex-shrink-0"
                 >
                   복사
@@ -341,6 +347,9 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
                 {shareLoading ? '링크 생성 중...' : '결과 공유하기'}
               </button>
             ) : null}
+            {shareError && (
+              <p className="mono text-[11px] text-red-400 text-center">{shareError}</p>
+            )}
             <div className="flex gap-3">
               <button
                 onClick={startQuiz}
