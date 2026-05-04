@@ -1,5 +1,7 @@
 import { useState, useMemo } from 'react'
 import type { Domain, Question, DomainFilter } from '../../types'
+import { useAuth } from '../../context/AuthContext'
+import { supabase } from '../../lib/supabase'
 import MultipleChoice from './MultipleChoice'
 import TrueFalse from './TrueFalse'
 import ShortAnswer from './ShortAnswer'
@@ -37,6 +39,11 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
+function extractDomainId(questionId: string): number | null {
+  const match = questionId.match(/^d(\d+)-/)
+  return match ? parseInt(match[1], 10) : null
+}
+
 function isAnswerCorrect(q: Question, answer: UserAnswer | undefined): boolean {
   if (answer === undefined) return false
   if (q.type === 'multiple-choice') return answer === q.answer
@@ -59,7 +66,7 @@ const TYPE_COLORS: Record<Question['type'], string> = {
   'short-answer': '#34d399',
 }
 
-export default function QuizMode({ domains, domainFilter, certId: _certId }: Props) {
+export default function QuizMode({ domains, domainFilter, certId }: Props) {
   const [quizState, setQuizState] = useState<QuizState>('setup')
   const [questionCount, setQuestionCount] = useState<QuestionCount>(10)
   const [questions, setQuestions] = useState<Question[]>([])
@@ -68,6 +75,8 @@ export default function QuizMode({ domains, domainFilter, certId: _certId }: Pro
   const [submitted, setSubmitted] = useState<Record<string, boolean>>({})
   const [pendingAnswer, setPendingAnswer] = useState<UserAnswer | null>(null)
   const [forcedCorrect, setForcedCorrect] = useState<Record<string, boolean>>({})
+
+  const { user, updateStreak } = useAuth()
 
   const score = useMemo(() => {
     return Object.entries(submitted)
@@ -90,21 +99,35 @@ export default function QuizMode({ domains, domainFilter, certId: _certId }: Pro
     setQuizState('running')
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const q = questions[currentIndex]
     if (!q) return
 
     const answer = pendingAnswer ?? answers[q.id]
     if (answer === null || answer === undefined) return
 
+    const correct = isAnswerCorrect(q, answer)
+
     setAnswers((prev) => ({ ...prev, [q.id]: answer }))
     setSubmitted((prev) => ({ ...prev, [q.id]: true }))
+
+    if (user && supabase) {
+      const domainId = extractDomainId(q.id)
+      await supabase.from('quiz_attempts').insert({
+        user_id: user.id,
+        cert_id: certId,
+        domain_id: domainId,
+        question_id: q.id,
+        is_correct: correct,
+      })
+    }
   }
 
-  function handleNext() {
+  async function handleNext() {
     setPendingAnswer(null)
     if (currentIndex + 1 >= questions.length) {
       setQuizState('summary')
+      await updateStreak()
     } else {
       setCurrentIndex((i) => i + 1)
     }
