@@ -5,18 +5,22 @@ import githubFoundations from '../data/certifications/github-foundations.json'
 import StudyMode from '../components/StudyMode/StudyMode'
 import QuizMode from '../components/QuizMode/QuizMode'
 import FlashcardMode from '../components/FlashcardMode/FlashcardMode'
+import ExamTips from '../components/Tips/ExamTips'
 import ThemeToggle from '../components/ThemeToggle'
+import UserMenu from '../components/User/UserMenu'
+import AuthModal from '../components/Auth/AuthModal'
 
 const certMap: Record<string, Certification> = {
   'github-foundations': githubFoundations as Certification,
 }
 
-type Tab = 'study' | 'quiz' | 'flashcard'
+type Tab = 'study' | 'quiz' | 'flashcard' | 'tips'
 
 const TABS: { id: Tab; label: string; icon: string }[] = [
   { id: 'study', label: '개념 정리', icon: '◎' },
   { id: 'quiz', label: '모의고사', icon: '◈' },
   { id: 'flashcard', label: '플래시카드', icon: '◇' },
+  { id: 'tips', label: '시험 꿀팁', icon: '★' },
 ]
 
 export default function CertPage() {
@@ -29,6 +33,7 @@ export default function CertPage() {
   const [selectedDomains, setSelectedDomains] = useState<Set<number>>(
     new Set(cert?.domains.map((d) => d.id) ?? [])
   )
+  const [authModalOpen, setAuthModalOpen] = useState(false)
 
   if (!cert) {
     return (
@@ -62,6 +67,8 @@ export default function CertPage() {
     })
   }
 
+  const domainList = cert.domains.map((d) => ({ id: d.id, name: d.name }))
+
   return (
     <div className="min-h-screen bg-space-900 grid-bg">
       {/* Top nav */}
@@ -88,6 +95,7 @@ export default function CertPage() {
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="mono text-space-400 text-xs">IN PROGRESS</span>
               </div>
+              <UserMenu />
             </div>
           </div>
 
@@ -112,84 +120,95 @@ export default function CertPage() {
       </header>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
-        {/* Domain filter */}
-        <div className="mb-4 sm:mb-6 p-3 sm:p-4 border border-space-600 rounded-xl bg-space-800">
-          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-            <div className="flex-shrink-0 w-full sm:w-auto">
-              <div className="mono text-space-400 text-[10px] tracking-widest mb-2">도메인 필터</div>
-              <div className="flex gap-2">
-                {(
-                  [
-                    { id: 'all', label: '전체 균등' },
-                    { id: 'weighted', label: '배점 순' },
-                    { id: 'custom', label: '직접 선택' },
-                  ] as const
-                ).map((f) => (
-                  <button
-                    key={f.id}
-                    onClick={() => setDomainFilter(f.id)}
-                    className={`mono text-[11px] px-3 py-1.5 rounded border transition-all duration-200 ${
-                      domainFilter === f.id
-                        ? 'border-amber-500 bg-amber-500/10 text-amber-400'
-                        : 'border-space-600 text-space-400 hover:border-space-500 hover:text-space-200'
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {domainFilter === 'custom' && (
-              <div className="flex flex-wrap gap-2">
-                {cert.domains.map((d) => (
-                  <button
-                    key={d.id}
-                    onClick={() => toggleDomain(d.id)}
-                    className={`mono text-[10px] px-2.5 py-1 rounded border transition-all duration-200 ${
-                      selectedDomains.has(d.id)
-                        ? 'border-amber-500/60 bg-amber-500/10 text-amber-400'
-                        : 'border-space-600 text-space-500 hover:border-space-500'
-                    }`}
-                  >
-                    D{d.id} · {Math.round(d.weight * 100)}%
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Domain weight bars */}
-            {domainFilter !== 'custom' && (
-              <div className="flex-1 min-w-0 w-full sm:min-w-48">
-                <div className="flex gap-1 h-2 items-end">
-                  {cert.domains.map((d) => (
-                    <div
-                      key={d.id}
-                      className="flex-1 rounded-sm transition-all duration-500"
-                      style={{
-                        height: `${Math.round(d.weight * 100) * 3}px`,
-                        background:
-                          domainFilter === 'weighted'
-                            ? `hsl(${38 - d.weight * 100 * 0.5}, 90%, 60%)`
-                            : 'rgb(var(--space-500))',
-                      }}
-                      title={`D${d.id}: ${d.name} (${Math.round(d.weight * 100)}%)`}
-                    />
+        {/* Domain filter — only shown for study/quiz/flashcard */}
+        {activeTab !== 'tips' && (
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 border border-space-600 rounded-xl bg-space-800">
+            <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+              <div className="flex-shrink-0 w-full sm:w-auto">
+                <div className="mono text-space-400 text-[10px] tracking-widest mb-2">도메인 필터</div>
+                <div className="flex gap-2">
+                  {(
+                    [
+                      { id: 'all', label: '전체 균등' },
+                      { id: 'weighted', label: '배점 순' },
+                      { id: 'custom', label: '직접 선택' },
+                    ] as const
+                  ).map((f) => (
+                    <button
+                      key={f.id}
+                      onClick={() => setDomainFilter(f.id)}
+                      className={`mono text-[11px] px-3 py-1.5 rounded border transition-all duration-200 ${
+                        domainFilter === f.id
+                          ? 'border-amber-500 bg-amber-500/10 text-amber-400'
+                          : 'border-space-600 text-space-400 hover:border-space-500 hover:text-space-200'
+                      }`}
+                    >
+                      {f.label}
+                    </button>
                   ))}
                 </div>
-                <div className="mono text-[9px] text-space-500 mt-1">
-                  {domainFilter === 'weighted' ? '배점 높은 도메인 우선' : '7개 도메인 균등 출제'}
-                </div>
               </div>
-            )}
+
+              {domainFilter === 'custom' && (
+                <div className="flex flex-wrap gap-2">
+                  {cert.domains.map((d) => (
+                    <button
+                      key={d.id}
+                      onClick={() => toggleDomain(d.id)}
+                      className={`mono text-[10px] px-2.5 py-1 rounded border transition-all duration-200 ${
+                        selectedDomains.has(d.id)
+                          ? 'border-amber-500/60 bg-amber-500/10 text-amber-400'
+                          : 'border-space-600 text-space-500 hover:border-space-500'
+                      }`}
+                    >
+                      D{d.id} · {Math.round(d.weight * 100)}%
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Domain weight bars */}
+              {domainFilter !== 'custom' && (
+                <div className="flex-1 min-w-0 w-full sm:min-w-48">
+                  <div className="flex gap-1 h-2 items-end">
+                    {cert.domains.map((d) => (
+                      <div
+                        key={d.id}
+                        className="flex-1 rounded-sm transition-all duration-500"
+                        style={{
+                          height: `${Math.round(d.weight * 100) * 3}px`,
+                          background:
+                            domainFilter === 'weighted'
+                              ? `hsl(${38 - d.weight * 100 * 0.5}, 90%, 60%)`
+                              : 'rgb(var(--space-500))',
+                        }}
+                        title={`D${d.id}: ${d.name} (${Math.round(d.weight * 100)}%)`}
+                      />
+                    ))}
+                  </div>
+                  <div className="mono text-[9px] text-space-500 mt-1">
+                    {domainFilter === 'weighted' ? '배점 높은 도메인 우선' : '7개 도메인 균등 출제'}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Mode content */}
         {activeTab === 'study' && <StudyMode domains={filteredDomains} />}
-        {activeTab === 'quiz' && <QuizMode domains={filteredDomains} domainFilter={domainFilter} />}
+        {activeTab === 'quiz' && <QuizMode domains={filteredDomains} domainFilter={domainFilter} certId={cert.id} />}
         {activeTab === 'flashcard' && <FlashcardMode domains={filteredDomains} />}
+        {activeTab === 'tips' && (
+          <ExamTips
+            certId={cert.id}
+            domains={domainList}
+            onRequireAuth={() => setAuthModalOpen(true)}
+          />
+        )}
       </div>
+
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>
   )
 }

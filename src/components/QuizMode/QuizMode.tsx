@@ -7,6 +7,7 @@ import ShortAnswer from './ShortAnswer'
 interface Props {
   domains: Domain[]
   domainFilter: DomainFilter
+  certId: string
 }
 
 type QuizState = 'setup' | 'running' | 'summary'
@@ -58,7 +59,10 @@ const TYPE_COLORS: Record<Question['type'], string> = {
   'short-answer': '#34d399',
 }
 
-export default function QuizMode({ domains, domainFilter }: Props) {
+export default function QuizMode({ domains, domainFilter, certId }: Props) {
+  // certId is used in Task 3 & 4 for Supabase quiz_attempts logging
+  void certId
+
   const [quizState, setQuizState] = useState<QuizState>('setup')
   const [questionCount, setQuestionCount] = useState<QuestionCount>(10)
   const [questions, setQuestions] = useState<Question[]>([])
