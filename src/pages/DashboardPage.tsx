@@ -68,6 +68,7 @@ export default function DashboardPage() {
       if (attemptsRes.data) {
         const map = new Map<number, { correct: number; total: number; name: string }>()
         for (const row of attemptsRes.data) {
+          if (row.domain_id === null) continue
           const existing = map.get(row.domain_id) ?? {
             correct: 0,
             total: 0,
