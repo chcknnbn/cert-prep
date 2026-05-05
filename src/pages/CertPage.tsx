@@ -170,7 +170,7 @@ export default function CertPage() {
               {/* Domain weight bars */}
               {domainFilter !== 'custom' && (
                 <div className="flex-1 min-w-0 w-full sm:min-w-48">
-                  <div className="flex gap-1 h-2 items-end">
+                  <div className="flex gap-1 h-20 items-end">
                     {cert.domains.map((d) => (
                       <div
                         key={d.id}

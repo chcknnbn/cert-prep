@@ -5,12 +5,13 @@ interface Props {
   question: ShortAnswerQuestion
   submitted: boolean
   onAnswer: (value: string) => void
+  onSubmit?: () => void
   userAnswer: string | null
   onForceCorrect?: () => void
   isForced?: boolean
 }
 
-export default function ShortAnswer({ question, submitted, onAnswer, userAnswer, onForceCorrect, isForced = false }: Props) {
+export default function ShortAnswer({ question, submitted, onAnswer, onSubmit, userAnswer, onForceCorrect, isForced = false }: Props) {
   const [input, setInput] = useState(userAnswer ?? '')
 
   const isCorrect = submitted &&
@@ -46,7 +47,12 @@ export default function ShortAnswer({ question, submitted, onAnswer, userAnswer,
                 : '0 0 12px rgba(239,68,68,0.15)'
               : 'none',
           }}
-          onKeyDown={(e) => e.key === 'Enter' && !submitted && input && onAnswer(input)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !submitted && input) {
+              onAnswer(input)
+              onSubmit?.()
+            }
+          }}
         />
         {!submitted && input && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2 mono text-[10px] text-space-500">

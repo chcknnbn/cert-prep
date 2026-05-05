@@ -39,7 +39,7 @@ export default function Home() {
       />
 
       {/* Header */}
-      <header className="relative z-10 border-b border-space-600 px-4 sm:px-8 py-4 sm:py-5">
+      <header className="sticky top-0 z-50 bg-space-900/95 backdrop-blur border-b border-space-600 px-4 sm:px-8 py-4 sm:py-5">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="mono text-amber-500 text-xs tracking-widest opacity-60">●</div>

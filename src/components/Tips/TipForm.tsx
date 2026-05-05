@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useAuth } from '../../context/AuthContext'
 import { supabase } from '../../lib/supabase'
 
@@ -39,7 +40,7 @@ export default function TipForm({ certId, domains, onClose, onSuccess }: Props) 
     onClose()
   }
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
@@ -161,6 +162,7 @@ export default function TipForm({ certId, domains, onClose, onSuccess }: Props) 
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

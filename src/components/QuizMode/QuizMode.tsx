@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import MultipleChoice from './MultipleChoice'
 import TrueFalse from './TrueFalse'
 import ShortAnswer from './ShortAnswer'
+import BookmarkButton from '../User/BookmarkButton'
 
 interface Props {
   domains: Domain[]
@@ -117,7 +118,7 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     if (!q) return
 
     const answer = pendingAnswer ?? answers[q.id]
-    if (answer === null || answer === undefined) return
+    if (answer === null || answer === undefined || answer === '') return
 
     const correct = isAnswerCorrect(q, answer)
 
@@ -415,14 +416,17 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
           >
             {TYPE_LABELS[currentQ.type]}
           </span>
-          {isSubmitted && (
-            <div
-              className="mono text-xs font-bold tracking-widest"
-              style={{ color: correct ? '#10b981' : '#ef4444' }}
-            >
-              {correct ? '✓ 정답' : '✗ 오답'}
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <BookmarkButton certId={certId} contentType="question" contentId={currentQ.id} />
+            {isSubmitted && (
+              <div
+                className="mono text-xs font-bold tracking-widest"
+                style={{ color: correct ? '#10b981' : '#ef4444' }}
+              >
+                {correct ? '✓ 정답' : '✗ 오답'}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Question text */}
@@ -452,10 +456,12 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
 
           {currentQ.type === 'short-answer' && (
             <ShortAnswer
+              key={currentQ.id}
               question={currentQ}
               submitted={isSubmitted}
               userAnswer={answers[currentQ.id] !== undefined ? String(answers[currentQ.id]) : null}
               onAnswer={(v) => setPendingAnswer(v)}
+              onSubmit={handleSubmit}
               onForceCorrect={() => setForcedCorrect((prev) => ({ ...prev, [currentQ.id]: true }))}
               isForced={forcedCorrect[currentQ.id] ?? false}
             />
@@ -483,7 +489,7 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
           {!isSubmitted ? (
             <button
               onClick={handleSubmit}
-              disabled={pendingAnswer === null}
+              disabled={pendingAnswer === null || pendingAnswer === ''}
               className="w-full py-3.5 rounded-xl display font-bold text-sm tracking-wide transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
               style={{
                 background: pendingAnswer !== null ? '#f59e0b' : 'rgb(var(--space-600))',

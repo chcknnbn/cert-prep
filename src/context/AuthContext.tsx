@@ -90,18 +90,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function signInWithGitHub() {
     if (!supabase) return
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: { redirectTo: window.location.origin },
     })
+    if (error) throw error
   }
 
   async function signInWithGoogle() {
     if (!supabase) return
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: window.location.origin },
     })
+    if (error) throw error
   }
 
   async function signInWithEmail(email: string, password: string) {
