@@ -20,6 +20,8 @@ interface Props {
   domains: Array<{ id: number; name: string }>
   onDomainClick?: (domainId: number) => void
   onRequireAuth?: () => void
+  onDelete?: (tipId: string) => void
+  isAdmin?: boolean
 }
 
 function DifficultyStars({ value }: { value: number }) {
@@ -48,11 +50,22 @@ function timeAgo(dateStr: string): string {
   return `${Math.floor(days / 30)}달 전`
 }
 
-export default function TipCard({ tip, domains, onDomainClick, onRequireAuth }: Props) {
+export default function TipCard({ tip, domains, onDomainClick, onRequireAuth, onDelete, isAdmin = false }: Props) {
   const { user } = useAuth()
   const [liked, setLiked] = useState(tip.is_liked ?? false)
   const [likeCount, setLikeCount] = useState(tip.like_count ?? 0)
   const [likeLoading, setLikeLoading] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+
+  const canDelete = isAdmin || user?.id === tip.user_id
+
+  async function handleDelete() {
+    if (!supabase || !canDelete) return
+    setDeleteLoading(true)
+    const { error } = await supabase.from('exam_tips').delete().eq('id', tip.id)
+    setDeleteLoading(false)
+    if (!error) onDelete?.(tip.id)
+  }
 
   const domain = domains.find((d) => d.id === tip.domain_id)
 
@@ -84,8 +97,21 @@ export default function TipCard({ tip, domains, onDomainClick, onRequireAuth }: 
           <span className="mono text-xs text-space-300">
             {tip.author_name ?? 'anonymous'}
           </span>
+          {isAdmin && <span className="mono text-[9px] px-1.5 py-0.5 rounded border border-amber-500/30 text-amber-500 bg-amber-500/05">ADMIN</span>}
         </div>
-        <DifficultyStars value={tip.difficulty} />
+        <div className="flex items-center gap-2">
+          <DifficultyStars value={tip.difficulty} />
+          {canDelete && (
+            <button
+              onClick={handleDelete}
+              disabled={deleteLoading}
+              title="삭제"
+              className="mono text-[11px] text-space-500 hover:text-red-400 transition-colors disabled:opacity-40"
+            >
+              {deleteLoading ? '…' : '✕'}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Content */}

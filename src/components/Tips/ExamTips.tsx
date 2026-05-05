@@ -14,7 +14,7 @@ interface Props {
 type SortOrder = 'latest' | 'likes'
 
 export default function ExamTips({ certId, domains, onRequireAuth }: Props) {
-  const { user, isConfigured } = useAuth()
+  const { user, isConfigured, isAdmin } = useAuth()
   const [tips, setTips] = useState<Tip[]>([])
   const [loading, setLoading] = useState(true)
   const [filterDomain, setFilterDomain] = useState<number | 'all'>('all')
@@ -168,6 +168,8 @@ export default function ExamTips({ certId, domains, onRequireAuth }: Props) {
               tip={tip}
               domains={domains}
               onRequireAuth={onRequireAuth}
+              isAdmin={isAdmin}
+              onDelete={(id) => setTips((prev) => prev.filter((t) => t.id !== id))}
             />
           ))}
         </div>

@@ -9,6 +9,7 @@ interface Profile {
   exam_date: string | null
   streak_count: number
   last_study_date: string | null
+  is_admin: boolean
 }
 
 interface AuthContextValue {
@@ -16,6 +17,7 @@ interface AuthContextValue {
   profile: Profile | null
   loading: boolean
   isConfigured: boolean
+  isAdmin: boolean
   signInWithGitHub: () => Promise<void>
   signInWithGoogle: () => Promise<void>
   signInWithEmail: (email: string, password: string) => Promise<void>
@@ -31,6 +33,7 @@ const AuthContext = createContext<AuthContextValue>({
   profile: null,
   loading: false,
   isConfigured: false,
+  isAdmin: false,
   signInWithGitHub: async () => {},
   signInWithGoogle: async () => {},
   signInWithEmail: async () => {},
@@ -169,6 +172,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         profile,
         loading,
         isConfigured: isSupabaseConfigured,
+        isAdmin: profile?.is_admin ?? false,
         signInWithGitHub,
         signInWithGoogle,
         signInWithEmail,
