@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import type { Certification } from '../types'
 import githubFoundations from '../data/certifications/github-foundations.json'
 import ThemeToggle from '../components/ThemeToggle'
-import UserMenu from '../components/User/UserMenu'
 
 const certifications: Certification[] = [githubFoundations as Certification]
 
@@ -49,7 +48,6 @@ export default function Home() {
           <div className="flex items-center gap-2 sm:gap-3">
             <ThemeToggle />
             <div className="hidden sm:block mono text-space-400 text-xs tracking-widest">SYSTEM READY</div>
-            <UserMenu />
           </div>
         </div>
       </header>

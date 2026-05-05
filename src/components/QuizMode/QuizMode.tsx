@@ -1,11 +1,8 @@
 import { useState, useMemo } from 'react'
 import type { Domain, Question, DomainFilter } from '../../types'
-import { useAuth } from '../../context/AuthContext'
-import { supabase } from '../../lib/supabase'
 import MultipleChoice from './MultipleChoice'
 import TrueFalse from './TrueFalse'
 import ShortAnswer from './ShortAnswer'
-import BookmarkButton from '../User/BookmarkButton'
 
 interface Props {
   domains: Domain[]
@@ -54,7 +51,6 @@ function isAnswerCorrect(q: Question, answer: UserAnswer | undefined): boolean {
   )
 }
 
-
 const TYPE_LABELS: Record<Question['type'], string> = {
   'multiple-choice': 'MULTIPLE CHOICE',
   'true-false': 'TRUE / FALSE',
@@ -67,7 +63,7 @@ const TYPE_COLORS: Record<Question['type'], string> = {
   'short-answer': '#34d399',
 }
 
-export default function QuizMode({ domains, domainFilter, certId }: Props) {
+export default function QuizMode({ domains, domainFilter, certId: _certId }: Props) {
   const [quizState, setQuizState] = useState<QuizState>('setup')
   const [questionCount, setQuestionCount] = useState<QuestionCount>(10)
   const [questions, setQuestions] = useState<Question[]>([])
@@ -76,11 +72,6 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
   const [submitted, setSubmitted] = useState<Record<string, boolean>>({})
   const [pendingAnswer, setPendingAnswer] = useState<UserAnswer | null>(null)
   const [forcedCorrect, setForcedCorrect] = useState<Record<string, boolean>>({})
-  const [shareUrl, setShareUrl] = useState<string | null>(null)
-  const [shareLoading, setShareLoading] = useState(false)
-  const [shareError, setShareError] = useState<string | null>(null)
-
-  const { user, updateStreak } = useAuth()
 
   const score = useMemo(() => {
     return Object.entries(submitted)
@@ -108,45 +99,24 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     setSubmitted({})
     setPendingAnswer(null)
     setForcedCorrect({})
-    setShareUrl(null)
-    setShareError(null)
     setQuizState('running')
   }
 
-  async function handleSubmit() {
+  function handleSubmit() {
     const q = questions[currentIndex]
     if (!q) return
 
     const answer = pendingAnswer ?? answers[q.id]
     if (answer === null || answer === undefined || answer === '') return
 
-    const correct = isAnswerCorrect(q, answer)
-
     setAnswers((prev) => ({ ...prev, [q.id]: answer }))
     setSubmitted((prev) => ({ ...prev, [q.id]: true }))
-
-    if (user && supabase) {
-      const domainId = extractDomainId(q.id)
-      const { error } = await supabase.from('quiz_attempts').insert({
-        user_id: user.id,
-        cert_id: certId,
-        domain_id: domainId,
-        question_id: q.id,
-        is_correct: correct,
-      })
-      if (error) console.error('[quiz_attempts] insert failed:', error.message)
-    }
   }
 
-  async function handleNext() {
+  function handleNext() {
     setPendingAnswer(null)
     if (currentIndex + 1 >= questions.length) {
       setQuizState('summary')
-      try {
-        await updateStreak()
-      } catch (err) {
-        console.error('[updateStreak] failed:', err)
-      }
     } else {
       setCurrentIndex((i) => i + 1)
     }
@@ -160,36 +130,6 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
     setSubmitted({})
     setPendingAnswer(null)
     setForcedCorrect({})
-    setShareUrl(null)
-    setShareError(null)
-  }
-
-  async function handleShare() {
-    if (!user || !supabase) return
-    setShareLoading(true)
-    setShareError(null)
-
-    const domainBreakdown: Record<string, { correct: number; total: number }> = {}
-    for (const { domain, total: dt, correct } of domainStats) {
-      domainBreakdown[`D${domain.id} ${domain.name}`] = { correct, total: dt }
-    }
-
-    const shareToken = crypto.randomUUID()
-    const { error } = await supabase.from('shared_scores').insert({
-      user_id: user.id,
-      cert_id: certId,
-      score,
-      total: questions.length,
-      domain_breakdown: domainBreakdown,
-      share_token: shareToken,
-    })
-
-    if (error) {
-      setShareError('링크 생성에 실패했습니다. 다시 시도해주세요.')
-    } else {
-      setShareUrl(`${window.location.origin}/share/${shareToken}`)
-    }
-    setShareLoading(false)
   }
 
   // ── SETUP ──
@@ -325,32 +265,7 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
           </div>
 
           {/* Actions */}
-          <div className="px-8 pb-6 space-y-3">
-            {shareUrl ? (
-              <div
-                className="flex items-center gap-2 px-3 py-2.5 rounded-xl border"
-                style={{ borderColor: 'rgba(16,185,129,0.3)', background: 'rgba(16,185,129,0.05)' }}
-              >
-                <span className="mono text-emerald-400 text-xs flex-1 truncate">{shareUrl}</span>
-                <button
-                  onClick={() => navigator.clipboard.writeText(shareUrl).catch(() => console.error('[clipboard] writeText failed'))}
-                  className="mono text-[11px] text-emerald-400 hover:text-emerald-300 transition-colors flex-shrink-0"
-                >
-                  복사
-                </button>
-              </div>
-            ) : user ? (
-              <button
-                onClick={handleShare}
-                disabled={shareLoading}
-                className="w-full py-2.5 rounded-xl border border-space-600 text-space-300 hover:text-white hover:border-space-500 display font-semibold text-sm transition-all duration-200 disabled:opacity-40"
-              >
-                {shareLoading ? '링크 생성 중...' : '결과 공유하기'}
-              </button>
-            ) : null}
-            {shareError && (
-              <p className="mono text-[11px] text-red-400 text-center">{shareError}</p>
-            )}
+          <div className="px-8 pb-6">
             <div className="flex gap-3">
               <button
                 onClick={startQuiz}
@@ -416,17 +331,14 @@ export default function QuizMode({ domains, domainFilter, certId }: Props) {
           >
             {TYPE_LABELS[currentQ.type]}
           </span>
-          <div className="flex items-center gap-2">
-            <BookmarkButton certId={certId} contentType="question" contentId={currentQ.id} />
-            {isSubmitted && (
-              <div
-                className="mono text-xs font-bold tracking-widest"
-                style={{ color: correct ? '#10b981' : '#ef4444' }}
-              >
-                {correct ? '✓ 정답' : '✗ 오답'}
-              </div>
-            )}
-          </div>
+          {isSubmitted && (
+            <div
+              className="mono text-xs font-bold tracking-widest"
+              style={{ color: correct ? '#10b981' : '#ef4444' }}
+            >
+              {correct ? '✓ 정답' : '✗ 오답'}
+            </div>
+          )}
         </div>
 
         {/* Question text */}
